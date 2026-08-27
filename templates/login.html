@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Visual Risk System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* A subtle warm background to match the vibe of your reference image */
+        body {
+            background: linear-gradient(135deg, #fffaf0 0%, #fdf5e6 100%);
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center">
+    <div class="container">
+        <div class="row align-items-center justify-content-center g-5">
+            
+            <!-- LEFT PANEL: Branding & Features -->
+            <div class="col-lg-6 col-md-12">
+                <div class="pe-lg-5">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="bg-primary text-white rounded p-2 me-2 fw-bold">VR</div>
+                        <h5 class="mb-0 text-secondary fw-bold">Visual Risk System</h5>
+                    </div>
+                    
+                    <h1 class="display-5 fw-bold mb-3 text-dark">
+                        Build better habits.<br>
+                        <span class="text-primary">Reach your goals.</span>
+                    </h1>
+                    <p class="text-muted mb-5">Track your finance, study, habits and daily activities in one intelligent workspace.</p>
+                    
+                    <!-- Feature List -->
+                    <div class="d-flex flex-column gap-3">
+                        <div class="card border-0 shadow-sm p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-warning bg-opacity-25 text-warning rounded-circle p-2 me-3">📊</div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Track Everything</h6>
+                                    <small class="text-muted">Finance, study, habits and daily activities</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 shadow-sm p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-danger bg-opacity-25 text-danger rounded-circle p-2 me-3">🧠</div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Smart Insights</h6>
+                                    <small class="text-muted">Get insights that help you grow every day</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 shadow-sm p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-success bg-opacity-25 text-success rounded-circle p-2 me-3">🏆</div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">Achieve Goals</h6>
+                                    <small class="text-muted">Set goals, visualize risk, and stay consistent</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: Login / Register Forms -->
+            <div class="col-lg-5 col-md-8">
+                <div class="card border-0 shadow-lg p-5 rounded-4 bg-white">
+                    
+                    <!-- Display Flash Messages (Errors/Success) -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} py-2 text-center small">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <!-- SIGN IN FORM -->
+                    <div id="loginFormContainer">
+                        <div class="text-center mb-4">
+                            <div class="fs-1 mb-2">🔒</div>
+                            <h3 class="fw-bold">Welcome back</h3>
+                            <p class="text-muted small">Sign in to continue to your dashboard</p>
+                        </div>
+
+                        <form action="/login" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold small">Email</label>
+                                <input type="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="you@example.com" required>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold small">Password</label>
+                                <input type="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold mb-3">Sign In →</button>
+                        </form>
+                        
+                        <div class="text-center">
+                            <small class="text-muted">Don't have an account? <a href="#" onclick="toggleForms()" class="text-decoration-none fw-semibold text-primary">Create one</a></small>
+                        </div>
+                    </div>
+
+                    <!-- CREATE ACCOUNT FORM (Hidden by default) -->
+                    <div id="registerFormContainer" class="d-none">
+                        <div class="text-center mb-4">
+                            <div class="fs-1 mb-2">✨</div>
+                            <h3 class="fw-bold">Create Account</h3>
+                            <p class="text-muted small">Start tracking your goals today</p>
+                        </div>
+
+                        <form action="/register" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold small">Email</label>
+                                <input type="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="you@example.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold small">Password</label>
+                                <input type="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Create a password" required>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold small">Re-enter Password</label>
+                                <input type="password" name="confirm_password" class="form-control form-control-lg bg-light fs-6" placeholder="Confirm your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-lg w-100 fw-bold mb-3">Save Account</button>
+                        </form>
+                        
+                        <div class="text-center">
+                            <small class="text-muted">Already have an account? <a href="#" onclick="toggleForms()" class="text-decoration-none fw-semibold text-primary">Sign in</a></small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script to toggle between Login and Register -->
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('loginFormContainer');
+            const registerForm = document.getElementById('registerFormContainer');
+            
+            if (loginForm.classList.contains('d-none')) {
+                loginForm.classList.remove('d-none');
+                registerForm.classList.add('d-none');
+            } else {
+                loginForm.classList.add('d-none');
+                registerForm.classList.remove('d-none');
+            }
+        }
+    </script>
+</body>
+</html>

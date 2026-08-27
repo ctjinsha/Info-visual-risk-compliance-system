@@ -1,0 +1,18 @@
+# Environments
+venv/
+env/
+
+# Environment variables (SECURITY)
+.env
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Database
+*.db
+*.sqlite3
+
+# Uploaded images
+static/uploads/*
+!static/uploads/.gitkeep
