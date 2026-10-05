@@ -3,156 +3,533 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Visual Risk System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login &amp; Register — OptimaTrack Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
-        /* A subtle warm background to match the vibe of your reference image */
+        :root {
+            --bg-base:   #0f2922;
+            --bg-card:   #1a3e35;
+            --bg-card2:  #245147;
+            --accent:    #a390e4;
+            --accent2:   #f4978e;
+            --success:   #94d2bd;
+            --danger:    #f28482;
+            --warning:   #f6bd60;
+            --text-main: #f4f7f5;
+            --text-muted:#b2c5bc;
+            --text-dim:  #7e998e;
+            --border:    rgba(216, 226, 220, 0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            background: linear-gradient(135deg, #fffaf0 0%, #fdf5e6 100%);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-base);
+            color: var(--text-main);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient background glow */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.16;
+            pointer-events: none;
+            animation: floatGlow 9s ease-in-out infinite alternate;
+        }
+        body::before {
+            width: 550px; height: 550px;
+            background: var(--accent);
+            top: -160px; left: -160px;
+        }
+        body::after {
+            width: 450px; height: 450px;
+            background: var(--accent2);
+            bottom: -120px; right: -120px;
+            animation-delay: -4.5s;
+        }
+
+        @keyframes floatGlow {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(35px, 35px) scale(1.08); }
+        }
+
+        /* ── PAGE CONTAINER ── */
+        .page-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.05fr;
+            gap: 3.5rem;
+            max-width: 1020px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            align-items: center;
+        }
+
+        /* ── LEFT BRAND PANEL ── */
+        .brand-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 2rem;
+            text-decoration: none;
+        }
+
+        .logo-box {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(163, 144, 228, 0.2), rgba(244, 151, 142, 0.15));
+            border: 1px solid rgba(216, 226, 220, 0.25);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(163, 144, 228, 0.25);
+            flex-shrink: 0;
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.35rem;
+            letter-spacing: -0.4px;
+            color: #fff;
+        }
+
+        .brand-panel h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .brand-panel h1 .hl {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-panel p.hero-desc {
+            color: var(--text-muted);
+            font-size: 0.96rem;
+            line-height: 1.65;
+            margin-bottom: 2.2rem;
+        }
+
+        /* Feature Cards */
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+        .feature-item:hover {
+            border-color: rgba(163, 144, 228, 0.4);
+            transform: translateX(3px);
+            background: var(--bg-card2);
+        }
+
+        .feature-icon {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+        .icon-emerald { background: rgba(148, 210, 189, 0.16); color: #94d2bd; border: 1px solid rgba(148, 210, 189, 0.3); }
+        .icon-lavender{ background: rgba(163, 144, 228, 0.16); color: #a390e4; border: 1px solid rgba(163, 144, 228, 0.3); }
+        .icon-coral   { background: rgba(244, 151, 142, 0.16); color: #f4978e; border: 1px solid rgba(244, 151, 142, 0.3); }
+
+        .feature-text strong {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .feature-text small {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* ── RIGHT FORM PANEL ── */
+        .form-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 2.5rem;
+            box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(16px);
+        }
+
+        /* Flash messages */
+        .flash-msg {
+            padding: 11px 16px;
+            border-radius: 10px;
+            font-size: 0.84rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            border: 1px solid;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .flash-error   { background: rgba(244,151,142,0.15); border-color: rgba(244,151,142,0.3); color: #fca5a5; }
+        .flash-success { background: rgba(148,210,189,0.15); border-color: rgba(148,210,189,0.3); color: #94d2bd; }
+
+        /* Tabs */
+        .form-tabs {
+            display: flex;
+            background: var(--bg-card2);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 1.8rem;
+            gap: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #112d26;
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(163, 144, 228, 0.3);
+        }
+
+        /* Form sections */
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+
+        .form-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(163, 144, 228, 0.15);
+            border: 1px solid rgba(163, 144, 228, 0.3);
+            color: var(--accent);
+            font-size: 1.35rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 1.75rem;
+        }
+
+        .form-title h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+        .form-title p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .form-group { margin-bottom: 1.15rem; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            margin-bottom: 6px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            color: var(--text-main);
+            padding: 12px 14px 12px 40px;
+            font-size: 0.88rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input::placeholder { color: var(--text-dim); }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(163,144,228,0.22);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 11px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #112d26;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            margin-top: 1rem;
+            transition: opacity 0.2s, transform 0.15s;
+            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-submit:hover { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(163, 144, 228, 0.35); }
+        .btn-submit:active { transform: none; }
+
+
+        /* Responsive */
+        @media (max-width: 860px) {
+            .page-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+            .brand-panel  { text-align: center; }
+            .brand-logo   { justify-content: center; }
         }
     </style>
 </head>
-<body class="d-flex align-items-center">
-    <div class="container">
-        <div class="row align-items-center justify-content-center g-5">
+<body>
+
+    <div class="page-wrapper">
+        
+        <!-- ── BRAND LEFT PANEL ── -->
+        <div class="brand-panel">
+            <div class="brand-logo">
+                <div class="logo-box">
+                    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="13" stroke="url(#otLoginGrad1)" stroke-width="2.6" stroke-dasharray="58 18" stroke-linecap="round"/>
+                        <path d="M10 16L14.5 20.5L22 11.5" stroke="url(#otLoginGrad2)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="22" cy="11.5" r="2.6" fill="#f4978e"/>
+                        <defs>
+                            <linearGradient id="otLoginGrad1" x1="3" y1="3" x2="29" y2="29" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#a390e4"/>
+                                <stop offset="0.5" stop-color="#f4978e"/>
+                                <stop offset="1" stop-color="#94d2bd"/>
+                            </linearGradient>
+                            <linearGradient id="otLoginGrad2" x1="10" y1="11.5" x2="22" y2="20.5" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#ffffff"/>
+                                <stop offset="1" stop-color="#f4978e"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="brand-name">OptimaTrack</span>
+            </div>
+
+            <h1>Track everything.<br><span class="hl">Master your risk.</span></h1>
             
-            <!-- LEFT PANEL: Branding & Features -->
-            <div class="col-lg-6 col-md-12">
-                <div class="pe-lg-5">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="bg-primary text-white rounded p-2 me-2 fw-bold">VR</div>
-                        <h5 class="mb-0 text-secondary fw-bold">Visual Risk System</h5>
+            <p class="hero-desc">
+                One intelligent workspace for your finances, study, habits, and daily goals.
+            </p>
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon icon-emerald">
+                        <i class="bi bi-wallet2"></i>
                     </div>
-                    
-                    <h1 class="display-5 fw-bold mb-3 text-dark">
-                        Build better habits.<br>
-                        <span class="text-primary">Reach your goals.</span>
-                    </h1>
-                    <p class="text-muted mb-5">Track your finance, study, habits and daily activities in one intelligent workspace.</p>
-                    
-                    <!-- Feature List -->
-                    <div class="d-flex flex-column gap-3">
-                        <div class="card border-0 shadow-sm p-3">
-                            <div class="d-flex align-items-center">
-                                <div class="bg-warning bg-opacity-25 text-warning rounded-circle p-2 me-3">📊</div>
-                                <div>
-                                    <h6 class="mb-0 fw-bold">Track Everything</h6>
-                                    <small class="text-muted">Finance, study, habits and daily activities</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow-sm p-3">
-                            <div class="d-flex align-items-center">
-                                <div class="bg-danger bg-opacity-25 text-danger rounded-circle p-2 me-3">🧠</div>
-                                <div>
-                                    <h6 class="mb-0 fw-bold">Smart Insights</h6>
-                                    <small class="text-muted">Get insights that help you grow every day</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow-sm p-3">
-                            <div class="d-flex align-items-center">
-                                <div class="bg-success bg-opacity-25 text-success rounded-circle p-2 me-3">🏆</div>
-                                <div>
-                                    <h6 class="mb-0 fw-bold">Achieve Goals</h6>
-                                    <small class="text-muted">Set goals, visualize risk, and stay consistent</small>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="feature-text">
+                        <strong>Finance &amp; Savings</strong>
+                        <small>Track income, expenses, and savings goals in real time</small>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon icon-lavender">
+                        <i class="bi bi-journal-bookmark-fill"></i>
+                    </div>
+                    <div class="feature-text">
+                        <strong>Study &amp; Academics</strong>
+                        <small>Log focus hours, course progress, and target milestones</small>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon icon-coral">
+                        <i class="bi bi-fire"></i>
+                    </div>
+                    <div class="feature-text">
+                        <strong>Habits &amp; Fitness</strong>
+                        <small>Build daily streaks, track workouts, and monitor risk score</small>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- RIGHT PANEL: Login / Register Forms -->
-            <div class="col-lg-5 col-md-8">
-                <div class="card border-0 shadow-lg p-5 rounded-4 bg-white">
-                    
-                    <!-- Display Flash Messages (Errors/Success) -->
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                            {% for category, message in messages %}
-                                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} py-2 text-center small">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
-
-                    <!-- SIGN IN FORM -->
-                    <div id="loginFormContainer">
-                        <div class="text-center mb-4">
-                            <div class="fs-1 mb-2">🔒</div>
-                            <h3 class="fw-bold">Welcome back</h3>
-                            <p class="text-muted small">Sign in to continue to your dashboard</p>
+        <!-- ── FORM PANEL RIGHT ── -->
+        <div class="form-panel">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-msg flash-{{ 'error' if category == 'error' else 'success' }}">
+                            <i class="bi bi-{{ 'exclamation-triangle-fill' if category == 'error' else 'check-circle-fill' }}"></i>
+                            <span>{{ message }}</span>
                         </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
-                        <form action="/login" method="POST">
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold small">Email</label>
-                                <input type="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="you@example.com" required>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label fw-semibold small">Password</label>
-                                <input type="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Enter your password" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold mb-3">Sign In →</button>
-                        </form>
-                        
-                        <div class="text-center">
-                            <small class="text-muted">Don't have an account? <a href="#" onclick="toggleForms()" class="text-decoration-none fw-semibold text-primary">Create one</a></small>
-                        </div>
-                    </div>
-
-                    <!-- CREATE ACCOUNT FORM (Hidden by default) -->
-                    <div id="registerFormContainer" class="d-none">
-                        <div class="text-center mb-4">
-                            <div class="fs-1 mb-2">✨</div>
-                            <h3 class="fw-bold">Create Account</h3>
-                            <p class="text-muted small">Start tracking your goals today</p>
-                        </div>
-
-                        <form action="/register" method="POST">
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold small">Email</label>
-                                <input type="email" name="email" class="form-control form-control-lg bg-light fs-6" placeholder="you@example.com" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold small">Password</label>
-                                <input type="password" name="password" class="form-control form-control-lg bg-light fs-6" placeholder="Create a password" required>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label fw-semibold small">Re-enter Password</label>
-                                <input type="password" name="confirm_password" class="form-control form-control-lg bg-light fs-6" placeholder="Confirm your password" required>
-                            </div>
-                            <button type="submit" class="btn btn-success btn-lg w-100 fw-bold mb-3">Save Account</button>
-                        </form>
-                        
-                        <div class="text-center">
-                            <small class="text-muted">Already have an account? <a href="#" onclick="toggleForms()" class="text-decoration-none fw-semibold text-primary">Sign in</a></small>
-                        </div>
-                    </div>
-
-                </div>
+            <!-- Tabs -->
+            <div class="form-tabs">
+                <button class="tab-btn {% if active_tab != 'register' %}active{% endif %}" id="tab-login" onclick="showTab('login')">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+                </button>
+                <button class="tab-btn {% if active_tab == 'register' %}active{% endif %}" id="tab-register" onclick="showTab('register')">
+                    <i class="bi bi-person-plus me-1"></i> Create Account
+                </button>
             </div>
 
+            <!-- SIGN IN FORM -->
+            <div class="form-section {% if active_tab != 'register' %}active{% endif %}" id="section-login">
+                <div class="form-icon">
+                    <i class="bi bi-shield-lock-fill"></i>
+                </div>
+                <div class="form-title">
+                    <h3>Welcome to Workspace</h3>
+                    <p>Enter your credentials to access your telemetry dashboard</p>
+                </div>
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <div class="input-wrap">
+                            <i class="bi bi-envelope"></i>
+                            <input class="form-input" type="email" name="email" placeholder="you@optimatrack.com" value="{{ email or '' }}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="input-wrap">
+                            <i class="bi bi-lock"></i>
+                            <input class="form-input" type="password" name="password" placeholder="Enter your secret password" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <span>Sign In to Workspace</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- REGISTER FORM -->
+            <div class="form-section {% if active_tab == 'register' %}active{% endif %}" id="section-register">
+                <div class="form-icon" style="background: rgba(244, 151, 142, 0.15); border-color: rgba(244, 151, 142, 0.3); color: var(--accent2);">
+                    <i class="bi bi-person-plus-fill"></i>
+                </div>
+                <div class="form-title">
+                    <h3>Create Workspace Account</h3>
+                    <p>Begin tracking your multidimensional performance today</p>
+                </div>
+                <form action="/register" method="POST">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <div class="input-wrap">
+                            <i class="bi bi-envelope"></i>
+                            <input class="form-input" type="email" name="email" placeholder="you@optimatrack.com" value="{{ email or '' }}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Create Password</label>
+                        <div class="input-wrap">
+                            <i class="bi bi-lock"></i>
+                            <input class="form-input" type="password" name="password" placeholder="Min 6 characters" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <div class="input-wrap">
+                            <i class="bi bi-shield-check"></i>
+                            <input class="form-input" type="password" name="confirm_password" placeholder="Re-enter your password" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <span>Initialize Workspace Account</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- Script to toggle between Login and Register -->
     <script>
-        function toggleForms() {
-            const loginForm = document.getElementById('loginFormContainer');
-            const registerForm = document.getElementById('registerFormContainer');
-            
-            if (loginForm.classList.contains('d-none')) {
-                loginForm.classList.remove('d-none');
-                registerForm.classList.add('d-none');
-            } else {
-                loginForm.classList.add('d-none');
-                registerForm.classList.remove('d-none');
-            }
+        function showTab(tab) {
+            document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            const sec = document.getElementById('section-' + tab);
+            const btn = document.getElementById('tab-' + tab);
+            if (sec) sec.classList.add('active');
+            if (btn) btn.classList.add('active');
         }
+
+        // Auto-switch to register tab if there was a register-related flash message
+        const flashMsgs = document.querySelectorAll('.flash-msg');
+        flashMsgs.forEach(msg => {
+            if (msg.textContent.includes('match') || msg.textContent.includes('Passwords')) {
+                showTab('register');
+            }
+        });
     </script>
 </body>
 </html>

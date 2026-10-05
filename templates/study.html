@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Tracking, Metrics &amp; Trends — OptimaTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg-body: #0f2922;
+            --bg-sidebar: #13342c;
+            --bg-card: #1a3e35;
+            --bg-card-hover: #224b41;
+            --bg-card-sub: #245147;
+            --bg-input: #153830;
+            --border: rgba(216, 226, 220, 0.12);
+            --border-subtle: rgba(216, 226, 220, 0.06);
+            --primary: #a390e4;
+            --accent-cyan: #94d2bd;
+            --accent-pink: #f4978e;
+            --accent-sage: #94d2bd;
+            --accent-amber: #f6bd60;
+            --accent-blue: #60a5fa;
+            --success: #94d2bd;
+            --warning: #f6bd60;
+            --danger: #f28482;
+            --text-main: #f4f7f5;
+            --text-muted: #b2c5bc;
+            --text-dim: #7e998e;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+            --font-display: 'Outfit', sans-serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        .ambient-glow {
+            position: fixed; top: 0; left: 250px; right: 0; height: 400px;
+            background: radial-gradient(circle at 50% -20%, rgba(163, 144, 228, 0.15), transparent 70%),
+                        radial-gradient(circle at 85% 10%, rgba(244, 151, 142, 0.12), transparent 60%),
+                        radial-gradient(circle at 20% 20%, rgba(148, 210, 189, 0.08), transparent 50%);
+            pointer-events: none; z-index: 0;
+        }
+
+        aside.sidebar {
+            width: 250px; background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex; flex-direction: column;
+            position: fixed; top: 0; bottom: 0; left: 0;
+            z-index: 100; padding: 1.25rem 0.85rem;
+            user-select: none;
+        }
+
+        .brand-header {
+            display: flex; align-items: center; gap: 12px;
+            padding: 0.5rem 0.6rem 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 1.2rem; text-decoration: none;
+        }
+        .brand-logo-icon {
+            width: 40px; height: 40px; border-radius: 12px;
+            background: linear-gradient(135deg, rgba(163, 144, 228, 0.18), rgba(244, 151, 142, 0.12));
+            border: 1px solid rgba(216, 226, 220, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(163, 144, 228, 0.25);
+            flex-shrink: 0;
+        }
+        .brand-text h2 {
+            font-family: var(--font-display);
+            font-size: 1.15rem; font-weight: 800; color: #fff; letter-spacing: -0.3px;
+        }
+        .brand-text span {
+            font-size: 0.68rem; color: var(--primary);
+            letter-spacing: 0.8px; text-transform: uppercase; font-weight: 700;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.68rem; font-weight: 700; color: var(--text-dim);
+            letter-spacing: 1px; text-transform: uppercase;
+            padding: 0.5rem 0.75rem; margin-bottom: 0.25rem;
+        }
+        .sidebar-nav {
+            list-style: none; display: flex; flex-direction: column; gap: 4px;
+            flex: 1; overflow-y: auto;
+        }
+        .nav-item-btn {
+            display: flex; align-items: center; gap: 12px;
+            padding: 0.65rem 0.85rem; border-radius: var(--radius-md);
+            color: var(--text-muted); font-size: 0.86rem; font-weight: 500;
+            background: transparent; border: none; cursor: pointer;
+            width: 100%; text-align: left; transition: all 0.2s; text-decoration: none;
+        }
+        .nav-item-btn i { font-size: 1.05rem; color: var(--text-dim); }
+        .nav-item-btn:hover { color: var(--text-main); background: rgba(216, 226, 220, 0.05); }
+        .nav-item-btn:hover i { color: var(--primary); }
+        .nav-item-btn.active {
+            color: #fff; background: linear-gradient(90deg, rgba(163, 144, 228, 0.22), rgba(244, 151, 142, 0.06));
+            border-left: 3px solid var(--primary); font-weight: 600;
+        }
+        .nav-item-btn.active i { color: var(--primary); }
+
+        .sidebar-footer { padding-top: 1rem; border-top: 1px solid var(--border-subtle); }
+        .user-mini-card {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px; border-radius: var(--radius-md); background: rgba(0,0,0,0.15);
+        }
+        .user-mini-avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent-pink));
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.85rem; color: #fff;
+        }
+
+        main.main-content {
+            margin-left: 250px; flex: 1;
+            padding: 2rem 2.5rem 4rem; position: relative; z-index: 1; max-width: 1400px;
+        }
+
+        .page-header {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;
+        }
+        .page-title h1 {
+            font-family: var(--font-display);
+            font-size: 1.85rem; font-weight: 800; color: #fff;
+            letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px;
+        }
+        .page-title p { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
+
+        .alert {
+            padding: 0.85rem 1.25rem; border-radius: var(--radius-md);
+            margin-bottom: 1.5rem; font-size: 0.9rem; display: flex; align-items: center; gap: 10px;
+        }
+        .alert-success { background: rgba(148, 210, 189, 0.15); border: 1px solid rgba(148, 210, 189, 0.3); color: #94d2bd; }
+
+        /* ── SUMMARY STAT CARDS ── */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem; margin-bottom: 1.75rem;
+        }
+        .stat-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); padding: 1.35rem 1.5rem;
+            box-shadow: var(--shadow-card); transition: transform 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-2px); border-color: rgba(163, 144, 228, 0.3); }
+
+        .stat-card-header {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;
+        }
+        .stat-card-title {
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.8px; color: var(--text-dim);
+        }
+        .stat-card-icon {
+            width: 36px; height: 36px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+        }
+        .icon-purple { background: rgba(163, 144, 228, 0.15); color: var(--primary); }
+        .icon-green { background: rgba(148, 210, 189, 0.15); color: var(--success); }
+        .icon-coral { background: rgba(244, 151, 142, 0.15); color: var(--accent-pink); }
+        .icon-amber { background: rgba(246, 189, 96, 0.15); color: var(--accent-amber); }
+
+        .stat-value {
+            font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: #fff;
+            letter-spacing: -0.5px;
+        }
+        .stat-subtitle {
+            font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        /* ── UPPER CHARTS ── */
+        .charts-row {
+            display: grid; grid-template-columns: 1.3fr 1fr;
+            gap: 1.25rem; margin-bottom: 1.75rem;
+        }
+        @media (max-width: 1024px) { .charts-row { grid-template-columns: 1fr; } }
+
+        .glass-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-card);
+        }
+        .card-header-clean {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem;
+        }
+        .card-header-clean h3 {
+            font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: #fff;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .card-badge {
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            padding: 3px 8px; border-radius: 20px; background: rgba(163, 144, 228, 0.15); color: var(--primary);
+        }
+
+        .chart-container-bar { height: 230px; position: relative; }
+        .chart-container-donut { height: 230px; position: relative; display: flex; align-items: center; justify-content: center; }
+
+        /* ── TWO COLUMN: FORM & TREND ── */
+        .study-grid {
+            display: grid; grid-template-columns: 1.05fr 1.25fr;
+            gap: 1.25rem; margin-bottom: 1.75rem;
+        }
+        @media (max-width: 1024px) { .study-grid { grid-template-columns: 1fr; } }
+
+        .form-group { margin-bottom: 1.1rem; }
+        .form-label {
+            display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;
+        }
+        .form-control {
+            width: 100%; padding: 0.75rem 1rem; background: var(--bg-input);
+            border: 1px solid var(--border); border-radius: var(--radius-md);
+            color: #fff; font-size: 0.88rem; font-family: inherit; outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(163, 144, 228, 0.2);
+        }
+        .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 0.85rem 1.25rem; border-radius: var(--radius-md);
+            background: linear-gradient(135deg, #a390e4, #8670d8);
+            color: #fff; font-size: 0.9rem; font-weight: 700;
+            border: none; cursor: pointer; transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(163, 144, 228, 0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(163, 144, 228, 0.5);
+        }
+
+        .chart-container-trend { height: 260px; position: relative; width: 100%; }
+
+        /* ── TABLE ── */
+        .table-responsive { overflow-x: auto; width: 100%; }
+        .custom-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem; }
+        .custom-table th {
+            padding: 0.85rem 1rem; background: rgba(0, 0, 0, 0.2);
+            color: var(--text-dim); font-weight: 600; text-transform: uppercase;
+            font-size: 0.72rem; letter-spacing: 0.8px; border-bottom: 1px solid var(--border);
+        }
+        .custom-table td { padding: 1rem; border-bottom: 1px solid var(--border-subtle); color: var(--text-main); }
+        .custom-table tr:hover td { background: rgba(216, 226, 220, 0.03); }
+
+        .badge-method {
+            padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+        .badge-practice { background: rgba(148, 210, 189, 0.18); color: #94d2bd; border: 1px solid rgba(148, 210, 189, 0.3); }
+        .badge-revision { background: rgba(163, 144, 228, 0.18); color: #a390e4; border: 1px solid rgba(163, 144, 228, 0.3); }
+        .badge-theory { background: rgba(246, 189, 96, 0.18); color: #f6bd60; border: 1px solid rgba(246, 189, 96, 0.3); }
+        .badge-problem { background: rgba(244, 151, 142, 0.18); color: #f4978e; border: 1px solid rgba(244, 151, 142, 0.3); }
+
+        /* ── SIMULATION STUDIO STYLES ── */
+        .simulation-container {
+            background: linear-gradient(135deg, rgba(26, 62, 53, 0.92), rgba(36, 81, 71, 0.95));
+            border: 1px solid rgba(163, 144, 228, 0.3);
+            border-radius: var(--radius-xl);
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.45);
+            position: relative;
+            overflow: hidden;
+        }
+        .simulation-container::before {
+            content: '';
+            position: absolute; top: -50px; right: -50px; width: 220px; height: 220px;
+            background: radial-gradient(circle, rgba(163, 144, 228, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+        .sim-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px;
+            border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;
+        }
+        .sim-title h2 {
+            font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: #fff;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .sim-title p { color: var(--text-muted); font-size: 0.85rem; margin-top: 3px; }
+        .sim-grid {
+            display: grid; grid-template-columns: 1.15fr 1fr;
+            gap: 1.5rem; margin-bottom: 1.5rem;
+        }
+        @media (max-width: 1024px) { .sim-grid { grid-template-columns: 1fr; } }
+
+        .slider-box {
+            background: rgba(15, 41, 34, 0.55);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+        }
+        .sim-slider-row {
+            margin-bottom: 1.15rem;
+        }
+        .sim-slider-header {
+            display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600;
+            color: var(--text-muted); margin-bottom: 6px;
+        }
+        .sim-slider-val {
+            font-family: var(--font-mono); font-weight: 700; color: #a390e4;
+        }
+        .sim-range {
+            width: 100%; height: 6px; border-radius: 4px;
+            background: rgba(216, 226, 220, 0.15);
+            outline: none; -webkit-appearance: none; cursor: pointer;
+        }
+        .sim-range::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+            background: #a390e4; cursor: pointer;
+            box-shadow: 0 0 10px rgba(163, 144, 228, 0.6);
+            border: 2px solid #fff;
+        }
+        .preset-btns {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem;
+        }
+        .btn-preset {
+            background: rgba(216, 226, 220, 0.08); border: 1px solid var(--border);
+            color: var(--text-main); font-size: 0.78rem; font-weight: 600;
+            padding: 6px 12px; border-radius: 20px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-preset:hover, .btn-preset.active {
+            background: rgba(163, 144, 228, 0.25); border-color: var(--primary);
+            color: #fff; transform: translateY(-1px);
+        }
+
+        .sim-kpi-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.25rem;
+        }
+        .sim-kpi-card {
+            background: rgba(15, 41, 34, 0.65);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.15rem;
+        }
+        .sim-kpi-label {
+            font-size: 0.72rem; text-transform: uppercase; font-weight: 700;
+            letter-spacing: 0.8px; color: var(--text-dim); display: block;
+        }
+        .sim-kpi-value {
+            font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: #fff; margin-top: 3px;
+        }
+        .sim-kpi-sub {
+            font-size: 0.74rem; color: var(--success); margin-top: 3px;
+            display: flex; align-items: center; gap: 4px;
+        }
+
+        .sim-verdict-banner {
+            background: rgba(163, 144, 228, 0.12);
+            border: 1px solid rgba(163, 144, 228, 0.3);
+            border-radius: var(--radius-md);
+            padding: 0.85rem 1.15rem;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            display: flex; align-items: flex-start; gap: 10px;
+        }
+        .chart-container-sim { height: 260px; position: relative; width: 100%; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <!-- ── LEFT SIDEBAR ── -->
+    <aside class="sidebar">
+        <a href="/" class="brand-header">
+            <div class="brand-logo-icon">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="13" stroke="url(#otGradS)" stroke-width="2.6" stroke-dasharray="58 18" stroke-linecap="round"/>
+                    <path d="M10 16L14.5 20.5L22 11.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="otGradS" x1="3" y1="3" x2="29" y2="29" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#a390e4"/>
+                            <stop offset="0.5" stop-color="#f4978e"/>
+                            <stop offset="1" stop-color="#94d2bd"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <h2>OptimaTrack</h2>
+                <span>Risk Intelligence</span>
+            </div>
+        </a>
+
+        <div class="sidebar-section-title">Navigation</div>
+
+        <ul class="sidebar-nav">
+            <li>
+                <a href="/" class="nav-item-btn">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/chat" class="nav-item-btn" style="color: var(--accent-cyan);">
+                    <i class="bi bi-chat-dots-fill"></i>
+                    <span>AI Knowledge &amp; Chat</span>
+                </a>
+            </li>
+            <li>
+                <a href="/milestone3" class="nav-item-btn" style="color: var(--primary);">
+                    <i class="bi bi-stars"></i>
+                    <span>AI Intelligence Studio</span>
+                </a>
+            </li>
+            <li>
+                <a href="/finance" class="nav-item-btn">
+                    <i class="bi bi-wallet2"></i>
+                    <span>Finance</span>
+                </a>
+            </li>
+            <li>
+                <a href="/study" class="nav-item-btn active">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span>Study</span>
+                </a>
+            </li>
+            <li>
+                <a href="/habit" class="nav-item-btn">
+                    <i class="bi bi-check2-circle"></i>
+                    <span>Habits</span>
+                </a>
+            </li>
+            <li>
+                <a href="/history" class="nav-item-btn">
+                    <i class="bi bi-clock-history"></i>
+                    <span>Activity History</span>
+                </a>
+            </li>
+            <li>
+                <a href="/profile" class="nav-item-btn">
+                    <i class="bi bi-person-bounding-box"></i>
+                    <span>My Profile</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="user-mini-card">
+                <div class="user-mini-avatar">{{ user.name[0] if user.name else 'U' }}</div>
+                <div style="overflow: hidden; flex: 1;">
+                    <div style="font-weight: 700; font-size: 0.85rem; color: #fff; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{ user.name }}</div>
+                    <div style="font-size: 0.72rem; color: var(--text-dim); white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{ user.occupation }}</div>
+                </div>
+                <a href="/logout" title="Logout" style="color: var(--text-muted); text-decoration: none; padding: 4px;">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="main-content">
+        
+        <div class="page-header">
+            <div class="page-title">
+                <h1><i class="bi bi-journal-bookmark-fill" style="color: var(--primary);"></i> Study Tracking, Metrics &amp; Trends</h1>
+                <p>Curriculum progress analytics, methodology distribution, and 7-day study velocity tracking.</p>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- 1. STUDY SUMMARY STAT CARDS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">Total Study Hours</span>
+                    <div class="stat-card-icon icon-purple">
+                        <i class="bi bi-hourglass-split"></i>
+                    </div>
+                </div>
+                <div class="stat-value">{{ total_hours }} <span style="font-size: 1.1rem; color: var(--text-dim); font-weight: 600;">hrs</span></div>
+                <div class="stat-subtitle">
+                    <i class="bi bi-check2-circle"></i> Cumulative deep study time
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">Total Study Records</span>
+                    <div class="stat-card-icon icon-green">
+                        <i class="bi bi-collection"></i>
+                    </div>
+                </div>
+                <div class="stat-value">{{ total_records }}</div>
+                <div class="stat-subtitle" style="color: var(--success);">
+                    <i class="bi bi-journal-check"></i> Recorded learning sessions
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">Most Studied Subject</span>
+                    <div class="stat-card-icon icon-coral">
+                        <i class="bi bi-trophy"></i>
+                    </div>
+                </div>
+                <div class="stat-value" style="font-size: 1.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ most_studied_subject }}</div>
+                <div class="stat-subtitle">
+                    <i class="bi bi-stars"></i> Primary focus domain
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">Average Daily Hours</span>
+                    <div class="stat-card-icon icon-amber">
+                        <i class="bi bi-speedometer"></i>
+                    </div>
+                </div>
+                <div class="stat-value">{{ avg_daily_hours }} <span style="font-size: 1.1rem; color: var(--text-dim); font-weight: 600;">hrs/day</span></div>
+                <div class="stat-subtitle">
+                    <i class="bi bi-lightning"></i> Daily learning pace
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. TWO UPPER CHARTS (Chart.js) -->
+        <div class="charts-row">
+            <!-- Chart 1: Subject Breakdown -->
+            <div class="glass-card">
+                <div class="card-header-clean">
+                    <h3><i class="bi bi-bar-chart-fill" style="color: var(--primary);"></i> Subject Breakdown</h3>
+                    <span class="card-badge">Hours</span>
+                </div>
+                <div class="chart-container-bar">
+                    <canvas id="subjectBreakdownChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 2: Study Method Distribution -->
+            <div class="glass-card">
+                <div class="card-header-clean">
+                    <h3><i class="bi bi-pie-chart-fill" style="color: var(--accent-sage);"></i> Study Method Distribution</h3>
+                    <span class="card-badge">Practice vs Revision</span>
+                </div>
+                <div class="chart-container-donut">
+                    <canvas id="studyMethodChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. AI ACADEMIC & STUDY WHAT-IF SIMULATION STUDIO -->
+        <div class="simulation-container">
+            <div class="sim-header">
+                <div class="sim-title">
+                    <h2><i class="bi bi-sliders" style="color: var(--primary);"></i> AI Academic &amp; Study What-If Simulation Studio</h2>
+                    <p>Simulate curriculum velocity, exam readiness trajectories, and study schedule optimizations in real-time.</p>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <span class="card-badge" style="background: rgba(163, 144, 228, 0.2); color: #fff; padding: 6px 12px; font-size: 0.78rem;">
+                        <i class="bi bi-cpu"></i> ML Model: study_model.pkl
+                    </span>
+                </div>
+            </div>
+
+            <div class="sim-grid">
+                <!-- Controls Column -->
+                <div class="slider-box">
+                    <div style="font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                        <i class="bi bi-toggles" style="color: var(--accent-sage);"></i> Simulation Variable Levers
+                    </div>
+
+                    <!-- Slider 1: Daily Study Hours Delta -->
+                    <div class="sim-slider-row">
+                        <div class="sim-slider-header">
+                            <span>Daily Study Hours Adjustment</span>
+                            <span class="sim-slider-val" id="lblSimHoursDelta">+1.0 hr/day</span>
+                        </div>
+                        <input type="range" class="sim-range" id="rngSimHoursDelta" min="-2" max="5" value="1.0" step="0.5" oninput="triggerStudySimulation()">
+                    </div>
+
+                    <!-- Slider 2: Focus Score Delta -->
+                    <div class="sim-slider-row">
+                        <div class="sim-slider-header">
+                            <span>Focus &amp; Concentration Delta</span>
+                            <span class="sim-slider-val" id="lblSimFocusDelta">+5 pts</span>
+                        </div>
+                        <input type="range" class="sim-range" id="rngSimFocusDelta" min="-25" max="20" value="5" step="5" oninput="triggerStudySimulation()">
+                    </div>
+
+                    <!-- Slider 3: Days per Week -->
+                    <div class="sim-slider-row">
+                        <div class="sim-slider-header">
+                            <span>Active Study Days / Week</span>
+                            <span class="sim-slider-val" id="lblSimDaysWeek">5 days</span>
+                        </div>
+                        <input type="range" class="sim-range" id="rngSimDaysWeek" min="1" max="7" value="5" step="1" oninput="triggerStudySimulation()">
+                    </div>
+
+                    <!-- Selector: Primary Methodology -->
+                    <div class="sim-slider-row">
+                        <div class="sim-slider-header">
+                            <span>Primary Method Bias</span>
+                        </div>
+                        <select id="selSimMethod" class="form-control" style="padding: 0.5rem 0.8rem; font-size: 0.82rem;" onchange="triggerStudySimulation()">
+                            <option value="Practice" selected>Practice (High Retention — +15% Boost)</option>
+                            <option value="Problem Solving">Problem Solving (+12% Boost)</option>
+                            <option value="Revision">Revision (+5% Boost)</option>
+                            <option value="Theory">Theory (Foundational Focus)</option>
+                        </select>
+                    </div>
+
+                    <!-- Target Syllabus Milestone Hours -->
+                    <div class="sim-slider-row" style="margin-bottom: 0.5rem;">
+                        <div class="sim-slider-header">
+                            <span>Target Curriculum Milestone (Total Hours)</span>
+                            <span class="sim-slider-val" id="lblSimTargetHours">60 hrs</span>
+                        </div>
+                        <input type="range" class="sim-range" id="rngSimTargetHours" min="20" max="150" value="60" step="10" oninput="triggerStudySimulation()">
+                    </div>
+
+                    <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-dim); margin-top: 1rem; text-transform: uppercase;">Quick Strategy Presets:</div>
+                    <div class="preset-btns">
+                        <button type="button" class="btn-preset active" onclick="applyStudyPreset('sprint')"><i class="bi bi-lightning-fill"></i> Exam Sprint (+2.5h, 6d)</button>
+                        <button type="button" class="btn-preset" onclick="applyStudyPreset('mastery')"><i class="bi bi-gem"></i> Steady Mastery (+1.0h, 5d)</button>
+                        <button type="button" class="btn-preset" onclick="applyStudyPreset('problem')"><i class="bi bi-puzzle"></i> Problem Solver</button>
+                        <button type="button" class="btn-preset" onclick="applyStudyPreset('reset')"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+                    </div>
+                </div>
+
+                <!-- Simulation Output KPIs -->
+                <div>
+                    <div class="sim-kpi-grid">
+                        <div class="sim-kpi-card">
+                            <span class="sim-kpi-label">Projected Exam Readiness</span>
+                            <div class="sim-kpi-value" id="simReadinessVal" style="color: #60a5fa;">92.4%</div>
+                            <div class="sim-kpi-sub" id="simReadinessDelta">
+                                <i class="bi bi-arrow-up-right"></i> +6.8% vs baseline
+                            </div>
+                        </div>
+
+                        <div class="sim-kpi-card">
+                            <span class="sim-kpi-label">12-Week Cumulative Hours</span>
+                            <div class="sim-kpi-value" id="sim12wHoursVal" style="color: var(--primary);">210.0 <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-dim);">hrs</span></div>
+                            <div class="sim-kpi-sub" id="simWeeklyHoursDelta" style="color: var(--primary);">
+                                <i class="bi bi-plus-circle"></i> +60.0 hrs extra
+                            </div>
+                        </div>
+
+                        <div class="sim-kpi-card">
+                            <span class="sim-kpi-label">Target Completion Timeline</span>
+                            <div class="sim-kpi-value" id="simDaysSavedVal" style="color: var(--success); font-size: 1.35rem;">16 Days Faster</div>
+                            <div class="sim-kpi-sub" id="simDaysToTargetSub">
+                                <i class="bi bi-calendar-check"></i> In 18 days vs 34 days
+                            </div>
+                        </div>
+
+                        <div class="sim-kpi-card">
+                            <span class="sim-kpi-label">Cognitive Fatigue / Load</span>
+                            <div class="sim-kpi-value" id="simFatigueVal" style="font-size: 1.15rem; color: var(--success);">Optimal Zone</div>
+                            <div class="sim-kpi-sub" id="simFatigueSub" style="color: var(--text-dim);">
+                                <i class="bi bi-shield-check"></i> Sustainable pace
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Intelligence Verdict -->
+                    <div class="sim-verdict-banner">
+                        <i class="bi bi-stars" style="font-size: 1.2rem; color: var(--primary); flex-shrink: 0; margin-top: 2px;"></i>
+                        <div>
+                            <div style="font-weight: 700; color: #fff; font-size: 0.85rem; margin-bottom: 2px;">AI Strategy Insight</div>
+                            <span id="simVerdictText" style="color: var(--text-muted); font-size: 0.83rem;">
+                                Simulating 3.5 hrs/day (5 days/week) with Practice approach elevates Exam Readiness to 92.4% (+6.8 pts) and accelerates syllabus mastery by 16 days.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dual Comparative Visual Suite: Trajectory + Radar Performance Matrix -->
+            <div style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 1.25rem;">
+                <!-- Chart 1: 12-Week Comparative Curve -->
+                <div style="background: rgba(15, 41, 34, 0.45); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 8px;">
+                        <div>
+                            <h4 style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: #fff;">
+                                <i class="bi bi-graph-up-arrow" style="color: var(--accent-sage);"></i> 12-Week Trajectory: Baseline vs. Simulated Scenario
+                            </h4>
+                            <span style="font-size: 0.75rem; color: var(--text-dim);">Multi-week dynamic projection comparative curve</span>
+                        </div>
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" class="btn-preset active" id="btnStudyViewHours" style="padding: 3px 8px; font-size: 0.72rem;" onclick="setStudyViewMode('hours')">
+                                <i class="bi bi-clock"></i> Hours Curve
+                            </button>
+                            <button type="button" class="btn-preset" id="btnStudyViewReadiness" style="padding: 3px 8px; font-size: 0.72rem;" onclick="setStudyViewMode('readiness')">
+                                <i class="bi bi-bullseye"></i> Readiness %
+                            </button>
+                        </div>
+                    </div>
+                    <div style="height: 250px; position: relative;">
+                        <canvas id="simulationStudyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Academic Benchmark Radar Matrix -->
+                <div style="background: rgba(15, 41, 34, 0.45); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                        <div>
+                            <h4 style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: #fff;">
+                                <i class="bi bi-diagram-3" style="color: var(--primary);"></i> Academic Performance Radar
+                            </h4>
+                            <span style="font-size: 0.75rem; color: var(--text-dim);">Baseline vs. Simulated multidimensional efficiency</span>
+                        </div>
+                        <span class="card-badge" style="background: rgba(163, 144, 228, 0.15); color: var(--primary); font-size: 0.72rem;">5 Dimensions</span>
+                    </div>
+                    <div style="height: 250px; position: relative;">
+                        <canvas id="simulationStudyRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. INPUT FORM & 7-DAY STUDY TREND -->
+        <div class="study-grid">
+            <!-- Form: Add Study Activity -->
+            <div class="glass-card">
+                <div class="card-header-clean">
+                    <h3><i class="bi bi-plus-circle" style="color: var(--accent-pink);"></i> Add Study Activity</h3>
+                    <span class="card-badge">Log Session</span>
+                </div>
+                <form action="/study" method="POST">
+                    <div class="form-group">
+                        <label class="form-label">Subject</label>
+                        <input type="text" name="subject" class="form-control" placeholder="e.g. Java, Python Programming, Distributed Systems" required>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label class="form-label">Study Hours</label>
+                            <input type="number" step="0.5" name="hours_spent" class="form-control" value="2.5" min="0.5" max="18" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Study Method</label>
+                            <select name="study_method" class="form-control">
+                                <option value="Practice" selected>Practice</option>
+                                <option value="Revision">Revision</option>
+                                <option value="Theory">Theory</option>
+                                <option value="Problem Solving">Problem Solving</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label class="form-label">Study Date</label>
+                            <input type="date" name="date_str" id="studyDateInput" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Focus Score (1 - 100)</label>
+                            <input type="number" name="focus_score" class="form-control" value="88" min="20" max="100">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description / Topic</label>
+                        <input type="text" name="topic" class="form-control" placeholder="e.g. Concurrency & Mutex Locks, MIT 6.824 Lab">
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="margin-top: 5px;">
+                        <i class="bi bi-save2"></i> Log Study Record
+                    </button>
+                </form>
+            </div>
+
+            <!-- Trend Chart: Last 7 Days Study Trend -->
+            <div class="glass-card">
+                <div class="card-header-clean">
+                    <div>
+                        <h3><i class="bi bi-graph-up" style="color: var(--accent-sage);"></i> Last 7 Days Study Trend</h3>
+                        <span style="font-size: 0.78rem; color: var(--text-dim);">Daily study velocity (hours logged)</span>
+                    </div>
+                    <span class="card-badge" style="background: rgba(148, 210, 189, 0.15); color: var(--accent-sage);">Smooth Area</span>
+                </div>
+                <div class="chart-container-trend">
+                    <canvas id="studyTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. STUDY ACTIVITIES TABLE -->
+        <div class="glass-card">
+            <div class="card-header-clean">
+                <h3><i class="bi bi-journal-text" style="color: var(--primary);"></i> Academic Study Ledger</h3>
+                <span class="card-badge">{{ studies|length }} records</span>
+            </div>
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Topic / Description</th>
+                            <th>Study Method</th>
+                            <th>Hours</th>
+                            <th>Focus Score</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in studies %}
+                        <tr>
+                            <td>
+                                <div style="font-weight: 700; color: #fff;">{{ s.subject }}</div>
+                            </td>
+                            <td>
+                                <span style="font-size: 0.84rem; color: var(--text-muted);">{{ s.topic or 'Core Module' }}</span>
+                            </td>
+                            <td>
+                                {% if s.study_method == 'Practice' %}
+                                    <span class="badge-method badge-practice"><i class="bi bi-code-slash"></i> Practice</span>
+                                {% elif s.study_method == 'Revision' %}
+                                    <span class="badge-method badge-revision"><i class="bi bi-arrow-repeat"></i> Revision</span>
+                                {% elif s.study_method == 'Theory' %}
+                                    <span class="badge-method badge-theory"><i class="bi bi-book"></i> Theory</span>
+                                {% else %}
+                                    <span class="badge-method badge-problem"><i class="bi bi-puzzle"></i> Problem Solving</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span style="font-family: var(--font-mono); font-size: 0.88rem; color: var(--primary); font-weight: 700;">{{ s.hours_spent }} hrs</span>
+                            </td>
+                            <td>
+                                <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--success);">{{ s.focus_score or 85 }}%</span>
+                            </td>
+                            <td>
+                                <span style="font-size: 0.8rem; color: var(--text-dim); font-family: var(--font-mono);">
+                                    {{ s.date_str or (s.timestamp.strftime('%Y-%m-%d') if s.timestamp else '—') }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.getElementById('studyDateInput').value = new Date().toISOString().split('T')[0];
+
+        // ── 1. SUBJECT BREAKDOWN BAR CHART ──
+        const ctxSubject = document.getElementById('subjectBreakdownChart').getContext('2d');
+        const subjectLabels = {{ subject_labels|tojson }};
+        const subjectValues = {{ subject_values|tojson }};
+        new Chart(ctxSubject, {
+            type: 'bar',
+            data: {
+                labels: subjectLabels.length ? subjectLabels : ["Java", "Python", "Cloud"],
+                datasets: [{
+                    label: 'Study Hours',
+                    data: subjectValues.length ? subjectValues : [12.5, 9.0, 6.5],
+                    backgroundColor: [
+                        'rgba(163, 144, 228, 0.7)',
+                        'rgba(148, 210, 189, 0.7)',
+                        'rgba(244, 151, 142, 0.7)',
+                        'rgba(246, 189, 96, 0.7)',
+                        'rgba(96, 165, 250, 0.7)'
+                    ],
+                    borderColor: '#a390e4',
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false }, ticks: { color: '#7e998e', font: { size: 11 } } },
+                    y: { grid: { color: 'rgba(216, 226, 220, 0.06)' }, ticks: { color: '#7e998e', font: { size: 11 } } }
+                }
+            }
+        });
+
+        // ── 2. STUDY METHOD DISTRIBUTION DONUT CHART ──
+        const ctxMethod = document.getElementById('studyMethodChart').getContext('2d');
+        const methodLabels = {{ method_labels|tojson }};
+        const methodValues = {{ method_values|tojson }};
+        new Chart(ctxMethod, {
+            type: 'doughnut',
+            data: {
+                labels: methodLabels,
+                datasets: [{
+                    data: methodValues.every(x => x === 0) ? [14, 8, 5, 4] : methodValues,
+                    backgroundColor: ['#94d2bd', '#a390e4', '#f6bd60', '#f4978e'],
+                    borderColor: '#1a3e35',
+                    borderWidth: 3,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#b2c5bc', font: { family: 'Inter', size: 11 }, padding: 12 }
+                    }
+                },
+                cutout: '68%'
+            }
+        });
+
+        // ── 3. LAST 7 DAYS STUDY TREND SMOOTH AREA LINE CHART ──
+        const ctxTrend = document.getElementById('studyTrendChart').getContext('2d');
+        const trendLabels = {{ trend_labels|tojson }};
+        const trendValues = {{ trend_values|tojson }};
+
+        const gradientGreen = ctxTrend.createLinearGradient(0, 0, 0, 260);
+        gradientGreen.addColorStop(0, 'rgba(148, 210, 189, 0.45)');
+        gradientGreen.addColorStop(1, 'rgba(148, 210, 189, 0.0)');
+
+        new Chart(ctxTrend, {
+            type: 'line',
+            data: {
+                labels: trendLabels,
+                datasets: [{
+                    label: 'Study Hours',
+                    data: trendValues,
+                    borderColor: '#94d2bd',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#94d2bd',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    fill: true,
+                    backgroundColor: gradientGreen,
+                    tension: 0.38
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 41, 34, 0.95)',
+                        titleColor: '#fff',
+                        bodyColor: '#94d2bd',
+                        borderColor: 'rgba(148, 210, 189, 0.3)',
+                        borderWidth: 1,
+                        padding: 10,
+                        callbacks: {
+                            label: function(ctx) { return ctx.parsed.y + ' hours studied'; }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(216, 226, 220, 0.05)' },
+                        ticks: { color: '#94d2bd', font: { family: 'JetBrains Mono', size: 11 } }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(216, 226, 220, 0.07)' },
+                        ticks: { color: '#7e998e', font: { family: 'JetBrains Mono', size: 11 } }
+                    }
+                }
+            }
+        });
+
+        // ── 4. AI STUDY WHAT-IF SIMULATION SCRIPT ──
+        let studySimChartInstance = null;
+        let studyRadarChartInstance = null;
+        let currentStudySimData = null;
+        let currentStudyViewMode = 'hours';
+        const initialStudySimData = {{ initial_study_sim|tojson }};
+
+        function setStudyViewMode(mode) {
+            currentStudyViewMode = mode;
+            document.getElementById('btnStudyViewHours').classList.toggle('active', mode === 'hours');
+            document.getElementById('btnStudyViewReadiness').classList.toggle('active', mode === 'readiness');
+            if (currentStudySimData) {
+                updateStudyTrajectoryChart(currentStudySimData);
+            }
+        }
+
+        function updateStudyTrajectoryChart(simData) {
+            if (!studySimChartInstance) return;
+            const labels = simData.progression_curve.map(p => p.week);
+            if (currentStudyViewMode === 'hours') {
+                studySimChartInstance.data.labels = labels;
+                studySimChartInstance.data.datasets[0].label = 'Simulated Cumulative Study (hrs)';
+                studySimChartInstance.data.datasets[0].data = simData.progression_curve.map(p => p.scenario_hours);
+                studySimChartInstance.data.datasets[0].borderColor = '#94d2bd';
+                studySimChartInstance.data.datasets[1].label = 'Baseline Trajectory (hrs)';
+                studySimChartInstance.data.datasets[1].data = simData.progression_curve.map(p => p.baseline_hours);
+                studySimChartInstance.options.scales.y.title = { display: true, text: 'Hours', color: '#7e998e' };
+            } else {
+                studySimChartInstance.data.labels = labels;
+                studySimChartInstance.data.datasets[0].label = 'Simulated Exam Readiness (%)';
+                studySimChartInstance.data.datasets[0].data = simData.progression_curve.map(p => p.scenario_readiness);
+                studySimChartInstance.data.datasets[0].borderColor = '#a390e4';
+                studySimChartInstance.data.datasets[1].label = 'Baseline Exam Readiness (%)';
+                studySimChartInstance.data.datasets[1].data = simData.progression_curve.map(p => p.baseline_readiness);
+                studySimChartInstance.options.scales.y.title = { display: true, text: 'Readiness %', color: '#7e998e' };
+            }
+            studySimChartInstance.update();
+        }
+
+        function initStudySimulationCharts(simData) {
+            currentStudySimData = simData;
+
+            // Chart 1: Trajectory Line Chart
+            const ctxSim = document.getElementById('simulationStudyChart').getContext('2d');
+            const labels = simData.progression_curve.map(p => p.week);
+            const baselineHours = simData.progression_curve.map(p => p.baseline_hours);
+            const scenarioHours = simData.progression_curve.map(p => p.scenario_hours);
+
+            const gradientSim = ctxSim.createLinearGradient(0, 0, 0, 240);
+            gradientSim.addColorStop(0, 'rgba(148, 210, 189, 0.4)');
+            gradientSim.addColorStop(1, 'rgba(148, 210, 189, 0.0)');
+
+            if (studySimChartInstance) studySimChartInstance.destroy();
+
+            studySimChartInstance = new Chart(ctxSim, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Simulated Cumulative Study (hrs)',
+                            data: scenarioHours,
+                            borderColor: '#94d2bd',
+                            borderWidth: 3,
+                            backgroundColor: gradientSim,
+                            fill: true,
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: '#94d2bd',
+                            pointRadius: 4,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Baseline Trajectory (hrs)',
+                            data: baselineHours,
+                            borderColor: 'rgba(216, 226, 220, 0.4)',
+                            borderDash: [5, 5],
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            fill: false,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: '#b2c5bc', font: { family: 'Inter', size: 10 } }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 41, 34, 0.95)',
+                            titleColor: '#fff',
+                            borderColor: 'rgba(148, 210, 189, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(216, 226, 220, 0.05)' },
+                            ticks: { color: '#b2c5bc', font: { family: 'JetBrains Mono', size: 9 } }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(216, 226, 220, 0.07)' },
+                            ticks: { color: '#7e998e', font: { family: 'JetBrains Mono', size: 9 } }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Academic Performance Radar Chart
+            const ctxRadar = document.getElementById('simulationStudyRadarChart').getContext('2d');
+            if (studyRadarChartInstance) studyRadarChartInstance.destroy();
+
+            const out = simData.academic_outcomes;
+            const baseValues = [
+                Math.min(100, out.baseline_readiness || 85),
+                Math.min(100, ((out.baseline_weekly_hours || 15) / 35) * 100),
+                80, // Baseline focus score index
+                75, // Method efficiency baseline
+                70  // Syllabus velocity baseline
+            ];
+            const scenValues = [
+                Math.min(100, out.scenario_readiness || 92),
+                Math.min(100, ((out.scenario_weekly_hours || 22) / 35) * 100),
+                Math.min(100, 80 + (simData.inputs?.focus_score_delta || 5)),
+                Math.min(100, 75 + (simData.inputs?.hours_delta > 0 ? 15 : 0)),
+                Math.min(100, 70 + (out.days_saved ? Math.min(25, out.days_saved * 2) : 10))
+            ];
+
+            studyRadarChartInstance = new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Exam Readiness', 'Weekly Study Load', 'Focus & Focus Index', 'Method Efficiency', 'Syllabus Velocity'],
+                    datasets: [
+                        {
+                            label: 'Simulated Strategy',
+                            data: scenValues,
+                            borderColor: '#a390e4',
+                            backgroundColor: 'rgba(163, 144, 228, 0.25)',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#a390e4',
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'Baseline Profile',
+                            data: baseValues,
+                            borderColor: 'rgba(216, 226, 220, 0.4)',
+                            backgroundColor: 'rgba(216, 226, 220, 0.08)',
+                            borderWidth: 1.5,
+                            borderDash: [4, 4],
+                            pointRadius: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#b2c5bc', font: { family: 'Inter', size: 10 } }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(216, 226, 220, 0.1)' },
+                            grid: { color: 'rgba(216, 226, 220, 0.08)' },
+                            pointLabels: { color: '#94d2bd', font: { size: 9, family: 'Inter' } },
+                            ticks: { display: false, min: 0, max: 100 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderStudySimResults(sim) {
+            currentStudySimData = sim;
+            const out = sim.academic_outcomes;
+            document.getElementById('simReadinessVal').innerText = out.scenario_readiness + '%';
+            document.getElementById('simReadinessDelta').innerHTML = `<i class="bi bi-arrow-up-right"></i> ${out.readiness_delta >= 0 ? '+' : ''}${out.readiness_delta}% vs baseline`;
+            document.getElementById('sim12wHoursVal').innerHTML = `${out.cumulative_12w_hours} <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-dim);">hrs</span>`;
+            document.getElementById('simWeeklyHoursDelta').innerHTML = `<i class="bi bi-plus-circle"></i> ${out.weekly_hours_delta >= 0 ? '+' : ''}${out.weekly_hours_delta} hrs/wk delta`;
+            document.getElementById('simDaysSavedVal').innerText = `${out.days_saved} Days Faster`;
+            document.getElementById('simDaysToTargetSub').innerHTML = `<i class="bi bi-calendar-check"></i> ${out.days_to_complete_target} days to complete goal`;
+            document.getElementById('simFatigueVal').innerText = out.fatigue_status;
+            document.getElementById('simFatigueVal').style.color = out.fatigue_color;
+            document.getElementById('simVerdictText').innerText = sim.verdict;
+
+            // Update Trajectory Chart
+            updateStudyTrajectoryChart(sim);
+
+            // Update Radar Chart
+            if (studyRadarChartInstance) {
+                const baseValues = [
+                    Math.min(100, out.baseline_readiness || 85),
+                    Math.min(100, ((out.baseline_weekly_hours || 15) / 35) * 100),
+                    80,
+                    75,
+                    70
+                ];
+                const scenValues = [
+                    Math.min(100, out.scenario_readiness || 92),
+                    Math.min(100, ((out.scenario_weekly_hours || 22) / 35) * 100),
+                    Math.min(100, 80 + (sim.inputs?.focus_score_delta || 5)),
+                    Math.min(100, 75 + (sim.inputs?.hours_delta > 0 ? 15 : 0)),
+                    Math.min(100, 70 + (out.days_saved ? Math.min(25, out.days_saved * 2) : 10))
+                ];
+                studyRadarChartInstance.data.datasets[0].data = scenValues;
+                studyRadarChartInstance.data.datasets[1].data = baseValues;
+                studyRadarChartInstance.update();
+            }
+        }
+
+        async function triggerStudySimulation() {
+            const hoursDelta = parseFloat(document.getElementById('rngSimHoursDelta').value);
+            const focusDelta = parseFloat(document.getElementById('rngSimFocusDelta').value);
+            const daysWeek = parseInt(document.getElementById('rngSimDaysWeek').value);
+            const method = document.getElementById('selSimMethod').value;
+            const targetHours = parseFloat(document.getElementById('rngSimTargetHours').value);
+
+            // Update labels
+            document.getElementById('lblSimHoursDelta').innerText = (hoursDelta >= 0 ? '+' : '') + hoursDelta.toFixed(1) + ' hr/day';
+            document.getElementById('lblSimFocusDelta').innerText = (focusDelta >= 0 ? '+' : '') + focusDelta + ' pts';
+            document.getElementById('lblSimDaysWeek').innerText = daysWeek + ' days/wk';
+            document.getElementById('lblSimTargetHours').innerText = targetHours + ' hrs';
+
+            try {
+                const res = await fetch('/api/v1/simulation/study', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        hours_delta: hoursDelta,
+                        focus_score_delta: focusDelta,
+                        days_per_week: daysWeek,
+                        method: method,
+                        target_curriculum_hours: targetHours,
+                        horizon_weeks: 12
+                    })
+                });
+                const data = await res.json();
+                if (data.success && data.simulation) {
+                    renderStudySimResults(data.simulation);
+                }
+            } catch (err) {
+                console.error("Study simulation error:", err);
+            }
+        }
+
+        function applyStudyPreset(type) {
+            document.querySelectorAll('.preset-btns .btn-preset').forEach(b => b.classList.remove('active'));
+            if (event && event.target) event.target.closest('.btn-preset')?.classList.add('active');
+
+            if (type === 'sprint') {
+                document.getElementById('rngSimHoursDelta').value = 2.5;
+                document.getElementById('rngSimFocusDelta').value = 10;
+                document.getElementById('rngSimDaysWeek').value = 6;
+                document.getElementById('selSimMethod').value = 'Practice';
+            } else if (type === 'mastery') {
+                document.getElementById('rngSimHoursDelta').value = 1.0;
+                document.getElementById('rngSimFocusDelta').value = 5;
+                document.getElementById('rngSimDaysWeek').value = 5;
+                document.getElementById('selSimMethod').value = 'Revision';
+            } else if (type === 'problem') {
+                document.getElementById('rngSimHoursDelta').value = 1.5;
+                document.getElementById('rngSimFocusDelta').value = 5;
+                document.getElementById('rngSimDaysWeek').value = 5;
+                document.getElementById('selSimMethod').value = 'Problem Solving';
+            } else {
+                document.getElementById('rngSimHoursDelta').value = 0.0;
+                document.getElementById('rngSimFocusDelta').value = 0;
+                document.getElementById('rngSimDaysWeek').value = 5;
+                document.getElementById('selSimMethod').value = 'Practice';
+            }
+            triggerStudySimulation();
+        }
+
+        // Initialize study simulation on page load
+        if (initialStudySimData) {
+            initStudySimulationCharts(initialStudySimData);
+            renderStudySimResults(initialStudySimData);
+        }
+    </script>
+</body>
+</html>

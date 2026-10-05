@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Intelligence & 7-Day Productivity Predictor — OptimaTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg-body: #0f2922;
+            --bg-sidebar: #13342c;
+            --bg-card: #1a3e35;
+            --bg-card-hover: #224b41;
+            --bg-card-sub: #245147;
+            --bg-input: #153830;
+            --border: rgba(216, 226, 220, 0.12);
+            --border-subtle: rgba(216, 226, 220, 0.06);
+            --primary: #a390e4;
+            --primary-glow: rgba(163, 144, 228, 0.3);
+            --accent-cyan: #94d2bd;
+            --accent-pink: #f4978e;
+            --accent-coral: #f4978e;
+            --accent-sage: #94d2bd;
+            --accent-blue: #60a5fa;
+            --success: #94d2bd;
+            --warning: #f6bd60;
+            --danger: #f28482;
+            --text-main: #f4f7f5;
+            --text-muted: #b2c5bc;
+            --text-dim: #7e998e;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+            --font-display: 'Outfit', sans-serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        /* Ambient background glow */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 250px;
+            right: 0;
+            height: 400px;
+            background: radial-gradient(circle at 50% -20%, rgba(163, 144, 228, 0.15), transparent 70%),
+                        radial-gradient(circle at 85% 10%, rgba(244, 151, 142, 0.12), transparent 60%),
+                        radial-gradient(circle at 20% 20%, rgba(148, 210, 189, 0.08), transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── SIDEBAR ── */
+        aside.sidebar {
+            width: 250px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; bottom: 0; left: 0;
+            z-index: 100;
+            padding: 1.25rem 0.85rem;
+            user-select: none;
+        }
+
+        .brand-header {
+            display: flex; align-items: center; gap: 12px;
+            padding: 0.5rem 0.6rem 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 1.2rem;
+            text-decoration: none;
+        }
+
+        .brand-logo-icon {
+            width: 40px; height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(163, 144, 228, 0.18), rgba(244, 151, 142, 0.12));
+            border: 1px solid rgba(216, 226, 220, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(163, 144, 228, 0.25);
+            flex-shrink: 0;
+        }
+
+        .brand-text h2 {
+            font-family: var(--font-display);
+            font-size: 1.15rem; font-weight: 800; color: #fff;
+            letter-spacing: -0.3px;
+        }
+
+        .brand-text span {
+            font-size: 0.68rem; color: var(--primary);
+            letter-spacing: 0.8px; text-transform: uppercase; font-weight: 700;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.68rem; font-weight: 700; color: var(--text-dim);
+            letter-spacing: 1px; text-transform: uppercase;
+            padding: 0.5rem 0.75rem; margin-bottom: 0.25rem;
+        }
+
+        .sidebar-nav {
+            list-style: none; display: flex; flex-direction: column; gap: 4px;
+            flex: 1; overflow-y: auto;
+        }
+
+        .nav-item-btn {
+            display: flex; align-items: center; gap: 12px;
+            padding: 0.65rem 0.85rem; border-radius: var(--radius-md);
+            color: var(--text-muted); font-size: 0.86rem; font-weight: 500;
+            background: transparent; border: none; cursor: pointer;
+            width: 100%; text-align: left; transition: all 0.2s;
+            text-decoration: none;
+        }
+        .nav-item-btn i { font-size: 1.05rem; color: var(--text-dim); transition: color 0.2s; }
+        .nav-item-btn:hover { color: var(--text-main); background: rgba(216, 226, 220, 0.05); }
+        .nav-item-btn:hover i { color: var(--primary); }
+        .nav-item-btn.active {
+            color: #fff;
+            background: linear-gradient(90deg, rgba(163, 144, 228, 0.22), rgba(244, 151, 142, 0.06));
+            border-left: 3px solid var(--primary);
+            font-weight: 600;
+        }
+        .nav-item-btn.active i { color: var(--primary); }
+
+        .sidebar-footer {
+            padding-top: 1rem; border-top: 1px solid var(--border-subtle);
+        }
+
+        .user-mini-card {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px; border-radius: var(--radius-md);
+            background: rgba(0,0,0,0.15);
+        }
+        .user-mini-avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent-pink));
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.85rem; color: #fff;
+        }
+
+        /* ── MAIN CONTENT ── */
+        main.main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 2rem 2.5rem 4rem;
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+        }
+
+        .page-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        .page-title h1 {
+            font-family: var(--font-display);
+            font-size: 1.85rem; font-weight: 800; color: #fff;
+            letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px;
+        }
+        .page-title p {
+            color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;
+        }
+
+        /* ── FLASH NOTIFICATIONS ── */
+        .alert {
+            padding: 0.85rem 1.25rem; border-radius: var(--radius-md);
+            margin-bottom: 1.5rem; font-size: 0.9rem; display: flex; align-items: center; gap: 10px;
+        }
+        .alert-success { background: rgba(148, 210, 189, 0.15); border: 1px solid rgba(148, 210, 189, 0.3); color: #94d2bd; }
+
+        /* ── SUMMARY STAT CARDS ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.35rem 1.5rem;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-2px); border-color: rgba(163, 144, 228, 0.3); }
+
+        .stat-card-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        .stat-card-title {
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.8px; color: var(--text-dim);
+        }
+        .stat-card-icon {
+            width: 36px; height: 36px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+        }
+        .icon-purple { background: rgba(163, 144, 228, 0.15); color: var(--primary); }
+        .icon-green { background: rgba(148, 210, 189, 0.15); color: var(--success); }
+        .icon-coral { background: rgba(244, 151, 142, 0.15); color: var(--accent-pink); }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2.1rem; font-weight: 800; color: #fff;
+            letter-spacing: -0.5px;
+        }
+        .stat-subtitle {
+            font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        /* ── CHARTS SECTION (2 UPPER CHARTS) ── */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+        }
+        @media (max-width: 1024px) {
+            .charts-row { grid-template-columns: 1fr; }
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-card);
+        }
+        .card-header-clean {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1.2rem;
+        }
+        .card-header-clean h3 {
+            font-family: var(--font-display);
+            font-size: 1.1rem; font-weight: 700; color: #fff;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .card-badge {
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            padding: 3px 8px; border-radius: 20px;
+            background: rgba(163, 144, 228, 0.15); color: var(--primary);
+        }
+
+        .chart-container-donut {
+            height: 230px; position: relative;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .chart-container-bar {
+            height: 230px; position: relative;
+        }
+
+        /* ── TWO COLUMN INPUT SECTION ── */
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+        }
+        @media (max-width: 1024px) {
+            .input-grid { grid-template-columns: 1fr; }
+        }
+
+        .form-group {
+            margin-bottom: 1.1rem;
+        }
+        .form-label {
+            display: block; font-size: 0.8rem; font-weight: 600;
+            color: var(--text-muted); margin-bottom: 6px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: #fff;
+            font-size: 0.88rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(163, 144, 228, 0.2);
+        }
+
+        .form-row-2 {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        .form-row-3 {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+        }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 0.85rem 1.25rem;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, #a390e4, #8670d8);
+            color: #fff; font-size: 0.9rem; font-weight: 700;
+            border: none; cursor: pointer; transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(163, 144, 228, 0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(163, 144, 228, 0.5);
+        }
+
+        .btn-ai {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            box-shadow: 0 4px 15px rgba(96, 165, 250, 0.35);
+        }
+        .btn-ai:hover {
+            box-shadow: 0 6px 20px rgba(96, 165, 250, 0.5);
+        }
+
+        /* ── SIMULATION STUDIO STYLES ── */
+        .simulation-container {
+            background: linear-gradient(135deg, rgba(26, 62, 53, 0.92), rgba(36, 81, 71, 0.95));
+            border: 1px solid rgba(96, 165, 250, 0.35);
+            border-radius: var(--radius-xl);
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.45);
+            position: relative;
+            overflow: hidden;
+        }
+        .simulation-container::before {
+            content: '';
+            position: absolute; top: -50px; right: -50px; width: 220px; height: 220px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+        .sim-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px;
+            border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;
+        }
+        .sim-title h2 {
+            font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: #fff;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .sim-title p { color: var(--text-muted); font-size: 0.85rem; margin-top: 3px; }
+        .sim-grid {
+            display: grid; grid-template-columns: 1.15fr 1fr;
+            gap: 1.5rem; margin-bottom: 1.5rem;
+        }
+        @media (max-width: 1024px) { .sim-grid { grid-template-columns: 1fr; } }
+
+        .slider-box {
+            background: rgba(15, 41, 34, 0.55);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+        }
+        .sim-slider-row {
+            margin-bottom: 1.15rem;
+        }
+        .sim-slider-header {
+            display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600;
+            color: var(--text-muted); margin-bottom: 6px;
+        }
+        .sim-slider-val {
+            font-family: var(--font-mono); font-weight: 700; color: #60a5fa;
+        }
+        .sim-range {
+            width: 100%; height: 6px; border-radius: 4px;
+            background: rgba(216, 226, 220, 0.15);
+            outline: none; -webkit-appearance: none; cursor: pointer;
+        }
+        .sim-range::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+            background: #60a5fa; cursor: pointer;
+            box-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
+            border: 2px solid #fff;
+        }
+        .preset-btns {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem;
+        }
+        .btn-preset {
+            background: rgba(216, 226, 220, 0.08); border: 1px solid var(--border);
+            color: var(--text-main); font-size: 0.78rem; font-weight: 600;
+            padding: 6px 12px; border-radius: 20px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-preset:hover, .btn-preset.active {
+            background: rgba(96, 165, 250, 0.25); border-color: var(--accent-blue);
+            color: #fff; transform: translateY(-1px);
+        }
+
+        .sim-kpi-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.25rem;
+        }
+        .sim-kpi-card {
+            background: rgba(15, 41, 34, 0.65);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.15rem;
+        }
+        .sim-kpi-label {
+            font-size: 0.72rem; text-transform: uppercase; font-weight: 700;
+            letter-spacing: 0.8px; color: var(--text-dim); display: block;
+        }
+        .sim-kpi-value {
+            font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: #fff; margin-top: 3px;
+        }
+        .sim-kpi-sub {
+            font-size: 0.74rem; color: var(--success); margin-top: 3px;
+            display: flex; align-items: center; gap: 4px;
+        }
+
+        .sim-verdict-banner {
+            background: rgba(96, 165, 250, 0.12);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: var(--radius-md);
+            padding: 0.85rem 1.15rem;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            display: flex; align-items: flex-start; gap: 10px;
+        }
+        .chart-container-sim { height: 260px; position: relative; width: 100%; margin-top: 1rem; }
+
+        /* ── RECENT ACTIVITIES TABLE ── */
+        .table-responsive {
+            overflow-x: auto; width: 100%;
+        }
+        .custom-table {
+            width: 100%; border-collapse: collapse; text-align: left;
+            font-size: 0.88rem;
+        }
+        .custom-table th {
+            padding: 0.85rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-dim);
+            font-weight: 600; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .custom-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-main);
+        }
+        .custom-table tr:hover td {
+            background: rgba(216, 226, 220, 0.03);
+        }
+
+        .badge-status {
+            padding: 4px 10px; border-radius: 20px;
+            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+        .badge-completed { background: rgba(148, 210, 189, 0.18); color: #94d2bd; border: 1px solid rgba(148, 210, 189, 0.3); }
+        .badge-partial { background: rgba(246, 189, 96, 0.18); color: #f6bd60; border: 1px solid rgba(246, 189, 96, 0.3); }
+        .badge-missed { background: rgba(242, 132, 130, 0.18); color: #f28482; border: 1px solid rgba(242, 132, 130, 0.3); }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <!-- ── LEFT SIDEBAR ── -->
+    <aside class="sidebar">
+        <a href="/" class="brand-header">
+            <div class="brand-logo-icon">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+                    <circle cx="16" cy="16" r="13" stroke="url(#otGradH)" stroke-width="2.6" stroke-dasharray="58 18" stroke-linecap="round"/>
+                    <path d="M10 16L14.5 20.5L22 11.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="otGradH" x1="3" y1="3" x2="29" y2="29" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#a390e4"/>
+                            <stop offset="0.5" stop-color="#f4978e"/>
+                            <stop offset="1" stop-color="#94d2bd"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <h2>OptimaTrack</h2>
+                <span>Risk Intelligence</span>
+            </div>
+        </a>
+
+        <div class="sidebar-section-title">Workspace</div>
+
+        <ul class="sidebar-nav">
+            <li>
+                <a href="/" class="nav-item-btn">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/chat" class="nav-item-btn" style="color: var(--accent-cyan);">
+                    <i class="bi bi-chat-dots-fill"></i>
+                    <span>AI Knowledge &amp; Chat</span>
+                </a>
+            </li>
+            <li>
+                <a href="/milestone3" class="nav-item-btn" style="color: var(--primary);">
+                    <i class="bi bi-stars"></i>
+                    <span>AI Intelligence Studio</span>
+                </a>
+            </li>
+            <li>
+                <a href="/finance" class="nav-item-btn">
+                    <i class="bi bi-wallet2"></i>
+                    <span>Finance</span>
+                </a>
+            </li>
+            <li>
+                <a href="/study" class="nav-item-btn">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span>Study</span>
+                </a>
+            </li>
+            <li>
+                <a href="/habit" class="nav-item-btn active">
+                    <i class="bi bi-check2-circle"></i>
+                    <span>Habits</span>
+                </a>
+            </li>
+            <li>
+                <a href="/history" class="nav-item-btn">
+                    <i class="bi bi-clock-history"></i>
+                    <span>Activity History</span>
+                </a>
+            </li>
+            <li>
+                <a href="/profile" class="nav-item-btn">
+                    <i class="bi bi-person-bounding-box"></i>
+                    <span>My Profile</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="user-mini-card">
+                <div class="user-mini-avatar">{{ user.name[0] if user.name else 'U' }}</div>
+                <div style="overflow: hidden; flex: 1;">
+                    <div style="font-weight: 700; font-size: 0.85rem; color: #fff; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{ user.name }}</div>
+                    <div style="font-size: 0.72rem; color: var(--text-dim); white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{ user.occupation }}</div>
+                </div>
+                <a href="/logout" title="Logout" style="color: var(--text-muted); text-decoration: none; padding: 4px;">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="main-content">
+        
+        <div class="page-header">
+            <div class="page-title">
+                <h1><i class="bi bi-check2-circle" style="color: var(--primary);"></i> Habit Intelligence &amp; Productivity</h1>
+                <p>Behavioral habit telemetry, status distribution, and machine learning productivity forecasting.</p>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- 1. HABIT SUMMARY & INSIGHTS CARDS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">Total Habits Recorded</span>
+                    <div class="stat-card-icon icon-purple">
+                        <i class="bi bi-list-check"></i>
+                    </div>
+                </div>
+                <div class="stat-value">{{ total_habits }}</div>
+                <div class="stat-subtitle">
+                    <i class="bi bi-activity"></i> Active habit tracking ledger
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">Completed Habits</span>
+                    <div class="stat-card-icon icon-green">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                </div>
+                <div class="stat-value">{{ completed_habits }}</div>
+                <div class="stat-subtitle" style="color: var(--success);">
+                    <i class="bi bi-graph-up"></i> {{ ((completed_habits / total_habits) * 100)|round(1) if total_habits > 0 else 0 }}% completion consistency
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">Average Duration</span>
+                    <div class="stat-card-icon icon-coral">
+                        <i class="bi bi-stopwatch"></i>
+                    </div>
+                </div>
+                <div class="stat-value">{{ avg_duration }} <span style="font-size: 1.1rem; color: var(--text-dim); font-weight: 600;">mins</span></div>
+                <div class="stat-subtitle">
+                    <i class="bi bi-lightning-charge"></i> Daily behavioral engagement
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. TWO UPPER CHARTS (Chart.js) -->
+        <div class="charts-row">
+            <!-- Chart 1: Habit Status Distribution -->
+            <div class="glass-card">
+                <div class="card-header-clean">
+                    <h3><i class="bi bi-pie-chart" style="color: var(--primary);"></i> Habit Status Distribution</h3>
+                    <span class="card-badge">Analytics</span>
+                </div>
+                <div class="chart-container-donut">
+                    <canvas id="habitStatusChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 2: Recent Habit Duration Breakdown -->
+            <div class="glass-card">
+                <div class="card-header-clean">
+                    <h3><i class="bi bi-bar-chart-line" style="color: var(--accent-sage);"></i> Recent Habit Duration</h3>
+                    <span class="card-badge">Minutes</span>
+                </div>
+                <div class="chart-container-bar">
+                    <canvas id="habitDurationChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. AI BEHAVIORAL & HABIT WHAT-IF SIMULATION STUDIO -->
+        <div class="simulation-container">
+            <div class="sim-header">
+                <div class="sim-title">
+                    <h2><i class="bi bi-sliders" style="color: var(--accent-blue);"></i> AI Behavioral &amp; Habit What-If Simulation Studio</h2>
+                    <p>Simulate lifestyle micro-adjustments, 30-day habit streak retention, and cognitive energy equilibrium.</p>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <span class="card-badge" style="background: rgba(96, 165, 250, 0.2); color: #fff; padding: 6px 12px; font-size: 0.78rem;">
+                        <i class="bi bi-cpu"></i> ML Model: habit_model.pkl
+                    </span>
+                </div>
+            </div>
+
+            <div class="sim-grid">
+                <!-- Controls Column -->
+                <div class="slider-box">
+                    <div style="font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+                        <i class="bi bi-toggles" style="color: var(--accent-blue);"></i> Lifestyle Scenario Levers
+                    </div>
+
+                    <!-- Slider 1: Sleep Delta -->
+                    <div class="sim-slider-row">
+                        <div class="sim-slider-header">
+                            <span>Nightly Sleep Delta</span>
+                            <span class="sim-slider-val" id="lblSimSleepDelta">+0.5 hr/night</span>
+                        </div>
+                        <input type="range" class="sim-range" id="rngSimSleepDelta" min="-2.5" max="3" value="0.5" step="0.5" oninput="triggerHabitSimulation()">
+                    </div>
+
+                    <!-- Slider 2: Exercise Delta -->
+                    <div class="sim-slider-row">
+                        <div class="sim-slider-header">
+                            <span>Daily Workout / Exercise Delta</span>
+                            <span class="sim-slider-val" id="lblSimExerciseDelta">+15 mins</span>
+                        </div>
+                        <input type="range" class="sim-range" id="rngSimExerciseDelta" min="-30" max="60" value="15" step="5" oninput="triggerHabitSimulation()">
+                    </div>
+
+                    <!-- Slider 3: Screen Time Delta -->
+                    <div class="sim-slider-row">
+                        <div class="sim-slider-header">
+                            <span>Screen Time Reduction</span>
+                            <span class="sim-slider-val" id="lblSimScreenDelta" style="color: var(--accent-pink);">-1.5 hrs</span>
+                        </div>
+                        <input type="range" class="sim-range" id="rngSimScreenDelta" min="-4" max="2" value="-1.5" step="0.5" oninput="triggerHabitSimulation()">
+                    </div>
+
+                    <!-- Slider 4: Habit Focus Duration Delta -->
+                    <div class="sim-slider-row">
+                        <div class="sim-slider-header">
+                            <span>Daily Habit Focus Duration Delta</span>
+                            <span class="sim-slider-val" id="lblSimHabitMinsDelta">+15 mins</span>
+                        </div>
+                        <input type="range" class="sim-range" id="rngSimHabitMinsDelta" min="-20" max="60" value="15" step="5" oninput="triggerHabitSimulation()">
+                    </div>
+
+                    <!-- Slider 5: Daily Task Velocity Delta -->
+                    <div class="sim-slider-row" style="margin-bottom: 0.5rem;">
+                        <div class="sim-slider-header">
+                            <span>Daily Task Execution Delta</span>
+                            <span class="sim-slider-val" id="lblSimTasksDelta">+2 tasks</span>
+                        </div>
+                        <input type="range" class="sim-range" id="rngSimTasksDelta" min="-4" max="8" value="2" step="1" oninput="triggerHabitSimulation()">
+                    </div>
+
+                    <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-dim); margin-top: 1rem; text-transform: uppercase;">Quick Strategy Presets:</div>
+                    <div class="preset-btns">
+                        <button type="button" class="btn-preset active" onclick="applyHabitPreset('peak')"><i class="bi bi-lightning-fill"></i> Peak Flow (+1h Sleep, +30m Fit)</button>
+                        <button type="button" class="btn-preset" onclick="applyHabitPreset('detox')"><i class="bi bi-phone-vibrate"></i> Digital Detox (-3h Screen)</button>
+                        <button type="button" class="btn-preset" onclick="applyHabitPreset('recovery')"><i class="bi bi-moon-stars"></i> Sleep First (+2h Sleep)</button>
+                        <button type="button" class="btn-preset" onclick="applyHabitPreset('reset')"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+                    </div>
+                </div>
+
+                <!-- Simulation Output KPIs -->
+                <div>
+                    <div class="sim-kpi-grid">
+                        <div class="sim-kpi-card">
+                            <span class="sim-kpi-label">Simulated Productivity Score</span>
+                            <div class="sim-kpi-value" id="simHabitScoreVal" style="color: #60a5fa;">91.4 <span style="font-size: 0.9rem; color: var(--text-dim);">/ 100</span></div>
+                            <div class="sim-kpi-sub" id="simHabitScoreDelta">
+                                <i class="bi bi-arrow-up-right"></i> +6.9 pts vs baseline
+                            </div>
+                        </div>
+
+                        <div class="sim-kpi-card">
+                            <span class="sim-kpi-label">30-Day Streak Adherence Likelihood</span>
+                            <div class="sim-kpi-value" id="simAdherenceVal" style="color: var(--success);">89.2%</div>
+                            <div class="sim-kpi-sub" style="color: var(--success);">
+                                <i class="bi bi-check2-all"></i> High consistency probability
+                            </div>
+                        </div>
+
+                        <div class="sim-kpi-card">
+                            <span class="sim-kpi-label">Weekly Time Reclaimed</span>
+                            <div class="sim-kpi-value" id="simReclaimedVal" style="color: var(--primary);">14.5 <span style="font-size: 0.9rem; color: var(--text-dim);">hrs/wk</span></div>
+                            <div class="sim-kpi-sub" style="color: var(--primary);">
+                                <i class="bi bi-clock-history"></i> Diverted from screen time
+                            </div>
+                        </div>
+
+                        <div class="sim-kpi-card">
+                            <span class="sim-kpi-label">Burnout vs Recovery Equilibrium</span>
+                            <div class="sim-kpi-value" id="simBalanceVal" style="font-size: 1.15rem; color: var(--success);">Peak Recovery</div>
+                            <div class="sim-kpi-sub" id="simBalanceSub" style="color: var(--text-dim);">
+                                <i class="bi bi-shield-check"></i> Ratio: 1.25 (Optimal)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Intelligence Verdict -->
+                    <div class="sim-verdict-banner">
+                        <i class="bi bi-stars" style="font-size: 1.2rem; color: #60a5fa; flex-shrink: 0; margin-top: 2px;"></i>
+                        <div>
+                            <div style="font-weight: 700; color: #fff; font-size: 0.85rem; margin-bottom: 2px;">AI Behavioral Prescription</div>
+                            <span id="simHabitVerdictText" style="color: var(--text-muted); font-size: 0.83rem;">
+                                Simulating +0.5h sleep, 3.5h screen time, and 50 mins workout lifts productivity to 91.4/100 (+6.9 pts) with an 89.2% 30-day habit adherence rate.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dual Comparative Visual Suite: Trajectory + Radar Performance Matrix -->
+            <div style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 1.25rem;">
+                <!-- Chart 1: 30-Day Productivity & Momentum Curve -->
+                <div style="background: rgba(15, 41, 34, 0.45); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 8px;">
+                        <div>
+                            <h4 style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: #fff;">
+                                <i class="bi bi-graph-up-arrow" style="color: #60a5fa;"></i> Next 7 Days Productivity Trend &amp; 30-Day Habit Momentum: Baseline vs. Simulated Scenario
+                            </h4>
+                            <span style="font-size: 0.75rem; color: var(--text-dim);">Daily cognitive performance progression and streak stability forecast</span>
+                        </div>
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" class="btn-preset active" id="btnHabitViewScore" style="padding: 3px 8px; font-size: 0.72rem;" onclick="setHabitViewMode('score')">
+                                <i class="bi bi-speedometer2"></i> Score Trend
+                            </button>
+                            <button type="button" class="btn-preset" id="btnHabitViewMomentum" style="padding: 3px 8px; font-size: 0.72rem;" onclick="setHabitViewMode('momentum')">
+                                <i class="bi bi-lightning-charge"></i> Adherence %
+                            </button>
+                        </div>
+                    </div>
+                    <div style="height: 250px; position: relative;">
+                        <canvas id="simulationHabitChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Behavioral & Lifestyle Equilibrium Radar Matrix -->
+                <div style="background: rgba(15, 41, 34, 0.45); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                        <div>
+                            <h4 style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: #fff;">
+                                <i class="bi bi-diagram-3" style="color: #60a5fa;"></i> Lifestyle Equilibrium Radar
+                            </h4>
+                            <span style="font-size: 0.75rem; color: var(--text-dim);">Baseline Profile vs. Simulated Lifestyle Balance</span>
+                        </div>
+                        <span class="card-badge" style="background: rgba(96, 165, 250, 0.15); color: #93c5fd; font-size: 0.72rem;">6 Axes</span>
+                    </div>
+                    <div style="height: 250px; position: relative;">
+                        <canvas id="simulationHabitRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. LOG HABIT ACTIVITY FORM -->
+        <div class="glass-card" style="margin-bottom: 2rem;">
+            <div class="card-header-clean">
+                <h3><i class="bi bi-plus-circle" style="color: var(--accent-pink);"></i> Add Habit Activity</h3>
+                <span class="card-badge">Log Entry</span>
+            </div>
+            <form action="/habit" method="POST">
+                <div class="form-group">
+                    <label class="form-label">Habit Name</label>
+                    <input type="text" name="title" class="form-control" placeholder="e.g. Deep Work, Morning Workout, Reading" required>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label">Duration (Minutes)</label>
+                        <input type="number" name="duration_minutes" class="form-control" value="45" min="5" max="300" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select name="status" class="form-control">
+                            <option value="Completed" selected>Completed</option>
+                            <option value="Partial">Partial</option>
+                            <option value="Missed">Missed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <input type="date" name="date_str" id="habitDateInput" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select name="category" class="form-control">
+                            <option value="Productivity" selected>Productivity</option>
+                            <option value="Health">Health &amp; Fitness</option>
+                            <option value="Learning">Learning &amp; Study</option>
+                            <option value="Mindset">Mindset &amp; Recovery</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" style="margin-top: 5px;">
+                    <i class="bi bi-save2"></i> Log Habit Activity
+                </button>
+            </form>
+        </div>
+
+        <!-- 5. RECENT HABIT ACTIVITIES TABLE -->
+        <div class="glass-card">
+            <div class="card-header-clean">
+                <h3><i class="bi bi-journal-text" style="color: var(--accent-sage);"></i> Recent Habit Activities</h3>
+                <span class="card-badge">{{ habits|length }} entries</span>
+            </div>
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Habit</th>
+                            <th>Category</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                            <th>Impact</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for h in habits %}
+                        <tr>
+                            <td>
+                                <div style="font-weight: 600; color: #fff;">{{ h.title }}</div>
+                            </td>
+                            <td>
+                                <span style="font-size: 0.78rem; color: var(--text-muted);">{{ h.category or 'Productivity' }}</span>
+                            </td>
+                            <td>
+                                <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--primary);">{{ h.duration_minutes or 30 }} mins</span>
+                            </td>
+                            <td>
+                                {% if h.status == 'Completed' %}
+                                    <span class="badge-status badge-completed"><i class="bi bi-check2"></i> Completed</span>
+                                {% elif h.status == 'Partial' %}
+                                    <span class="badge-status badge-partial"><i class="bi bi-dash"></i> Partial</span>
+                                {% else %}
+                                    <span class="badge-status badge-missed"><i class="bi bi-x"></i> Missed</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span style="font-size: 0.8rem; color: var(--text-dim);">{{ h.impact_on_goals or 'High' }}</span>
+                            </td>
+                            <td>
+                                <span style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">
+                                    {{ h.date_str or (h.timestamp.strftime('%Y-%m-%d') if h.timestamp else '—') }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Set today date as default
+        document.getElementById('habitDateInput').value = new Date().toISOString().split('T')[0];
+
+        // ── 1. HABIT STATUS DONUT CHART ──
+        const ctxStatus = document.getElementById('habitStatusChart').getContext('2d');
+        const statusData = {{ status_distribution|tojson }};
+        const statusChart = new Chart(ctxStatus, {
+            type: 'doughnut',
+            data: {
+                labels: ['Completed', 'Partial', 'Missed'],
+                datasets: [{
+                    data: statusData.every(x => x === 0) ? [12, 3, 2] : statusData,
+                    backgroundColor: ['#94d2bd', '#f6bd60', '#f28482'],
+                    borderColor: '#1a3e35',
+                    borderWidth: 3,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#b2c5bc', font: { family: 'Inter', size: 12 }, padding: 15 }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+
+        // ── 2. RECENT HABIT DURATION BAR CHART ──
+        const ctxDuration = document.getElementById('habitDurationChart').getContext('2d');
+        const durationLabels = {{ duration_labels|tojson }};
+        const durationValues = {{ duration_values|tojson }};
+        const durationChart = new Chart(ctxDuration, {
+            type: 'bar',
+            data: {
+                labels: durationLabels,
+                datasets: [{
+                    label: 'Duration (Minutes)',
+                    data: durationValues,
+                    backgroundColor: 'rgba(163, 144, 228, 0.65)',
+                    borderColor: '#a390e4',
+                    borderWidth: 1.5,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#7e998e', font: { size: 11 } }
+                    },
+                    y: {
+                        grid: { color: 'rgba(216, 226, 220, 0.06)' },
+                        ticks: { color: '#7e998e', font: { size: 11 } }
+                    }
+                }
+            }
+        });
+
+        // ── 3. AI HABIT WHAT-IF SIMULATION SCRIPT ──
+        let habitSimChartInstance = null;
+        let habitRadarChartInstance = null;
+        let currentHabitSimData = null;
+        let currentHabitViewMode = 'score';
+        const initialHabitSimData = {{ initial_habit_sim|tojson }};
+
+        function setHabitViewMode(mode) {
+            currentHabitViewMode = mode;
+            document.getElementById('btnHabitViewScore').classList.toggle('active', mode === 'score');
+            document.getElementById('btnHabitViewMomentum').classList.toggle('active', mode === 'momentum');
+            if (currentHabitSimData) {
+                updateHabitTrajectoryChart(currentHabitSimData);
+            }
+        }
+
+        function updateHabitTrajectoryChart(simData) {
+            if (!habitSimChartInstance) return;
+            const labels = simData.progression_curve.map(p => p.day);
+            if (currentHabitViewMode === 'score') {
+                habitSimChartInstance.data.labels = labels;
+                habitSimChartInstance.data.datasets[0].label = 'Simulated Productivity Score (0-100)';
+                habitSimChartInstance.data.datasets[0].data = simData.progression_curve.map(p => p.scenario_productivity);
+                habitSimChartInstance.data.datasets[0].borderColor = '#60a5fa';
+                habitSimChartInstance.data.datasets[1].label = 'Baseline Trajectory';
+                habitSimChartInstance.data.datasets[1].data = simData.progression_curve.map(p => p.baseline_productivity);
+                habitSimChartInstance.options.scales.y.min = 30;
+                habitSimChartInstance.options.scales.y.max = 100;
+                habitSimChartInstance.options.scales.y.title = { display: true, text: 'Score (0-100)', color: '#7e998e' };
+            } else {
+                habitSimChartInstance.data.labels = labels;
+                habitSimChartInstance.data.datasets[0].label = 'Habit Adherence Momentum (%)';
+                habitSimChartInstance.data.datasets[0].data = simData.progression_curve.map(p => p.adherence_momentum);
+                habitSimChartInstance.data.datasets[0].borderColor = '#94d2bd';
+                habitSimChartInstance.data.datasets[1].label = 'Target Baseline (70%)';
+                habitSimChartInstance.data.datasets[1].data = labels.map(() => 70);
+                habitSimChartInstance.options.scales.y.min = 0;
+                habitSimChartInstance.options.scales.y.max = 100;
+                habitSimChartInstance.options.scales.y.title = { display: true, text: 'Adherence %', color: '#7e998e' };
+            }
+            habitSimChartInstance.update();
+        }
+
+        function initHabitSimulationCharts(simData) {
+            currentHabitSimData = simData;
+
+            // Chart 1: Trajectory Line Chart
+            const ctxSim = document.getElementById('simulationHabitChart').getContext('2d');
+            const labels = simData.progression_curve.map(p => p.day);
+            const baselineProd = simData.progression_curve.map(p => p.baseline_productivity);
+            const scenarioProd = simData.progression_curve.map(p => p.scenario_productivity);
+
+            const gradientBlue = ctxSim.createLinearGradient(0, 0, 0, 240);
+            gradientBlue.addColorStop(0, 'rgba(96, 165, 250, 0.45)');
+            gradientBlue.addColorStop(1, 'rgba(96, 165, 250, 0.0)');
+
+            if (habitSimChartInstance) habitSimChartInstance.destroy();
+
+            habitSimChartInstance = new Chart(ctxSim, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Simulated Productivity Score (0-100)',
+                            data: scenarioProd,
+                            borderColor: '#60a5fa',
+                            borderWidth: 3,
+                            backgroundColor: gradientBlue,
+                            fill: true,
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: '#3b82f6',
+                            pointRadius: 3,
+                            tension: 0.35
+                        },
+                        {
+                            label: 'Baseline Trajectory',
+                            data: baselineProd,
+                            borderColor: 'rgba(216, 226, 220, 0.4)',
+                            borderDash: [5, 5],
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            fill: false,
+                            tension: 0.35
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: '#b2c5bc', font: { family: 'Inter', size: 10 } }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 41, 34, 0.95)',
+                            titleColor: '#fff',
+                            bodyColor: '#93c5fd',
+                            borderColor: 'rgba(96, 165, 250, 0.3)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(216, 226, 220, 0.05)' },
+                            ticks: {
+                                color: '#93c5fd',
+                                font: { family: 'JetBrains Mono', size: 9 },
+                                maxTicksLimit: 12
+                            }
+                        },
+                        y: {
+                            min: 30,
+                            max: 100,
+                            grid: { color: 'rgba(216, 226, 220, 0.07)' },
+                            ticks: { color: '#7e998e', font: { family: 'JetBrains Mono', size: 9 } }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Lifestyle Equilibrium Radar Chart
+            const ctxRadar = document.getElementById('simulationHabitRadarChart').getContext('2d');
+            if (habitRadarChartInstance) habitRadarChartInstance.destroy();
+
+            const out = simData.behavioral_outcomes;
+            const baseValues = [
+                Math.min(100, (7.5 / 9.0) * 100), // Sleep
+                Math.min(100, (30 / 60) * 100),   // Exercise
+                Math.min(100, Math.max(10, 100 - (5.0 * 12))), // Screen Discipline
+                Math.min(100, (6 / 10) * 100),    // Task velocity
+                75,                               // Baseline Adherence
+                Math.min(100, 1.0 * 75)           // Equilibrium
+            ];
+            const scenValues = [
+                Math.min(100, (out.simulated_sleep / 9.0) * 100),
+                Math.min(100, (out.simulated_exercise / 60) * 100),
+                Math.min(100, Math.max(10, 100 - (out.simulated_screen * 12))),
+                Math.min(100, (out.simulated_tasks / 10) * 100),
+                Math.min(100, out.adherence_probability),
+                Math.min(100, (out.equilibrium_ratio || 1.25) * 65)
+            ];
+
+            habitRadarChartInstance = new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Sleep Restoration', 'Physical Fitness', 'Screen Discipline', 'Task Velocity', 'Streak Adherence', 'Recovery Equilibrium'],
+                    datasets: [
+                        {
+                            label: 'Simulated Lifestyle',
+                            data: scenValues,
+                            borderColor: '#60a5fa',
+                            backgroundColor: 'rgba(96, 165, 250, 0.25)',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#60a5fa',
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'Baseline Routine',
+                            data: baseValues,
+                            borderColor: 'rgba(216, 226, 220, 0.4)',
+                            backgroundColor: 'rgba(216, 226, 220, 0.08)',
+                            borderWidth: 1.5,
+                            borderDash: [4, 4],
+                            pointRadius: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#b2c5bc', font: { family: 'Inter', size: 10 } }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(216, 226, 220, 0.1)' },
+                            grid: { color: 'rgba(216, 226, 220, 0.08)' },
+                            pointLabels: { color: '#93c5fd', font: { size: 8.5, family: 'Inter' } },
+                            ticks: { display: false, min: 0, max: 100 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderHabitSimResults(sim) {
+            currentHabitSimData = sim;
+            const out = sim.behavioral_outcomes;
+            document.getElementById('simHabitScoreVal').innerHTML = `${out.scenario_productivity_score} <span style="font-size: 0.9rem; color: var(--text-dim);">/ 100</span>`;
+            document.getElementById('simHabitScoreDelta').innerHTML = `<i class="bi bi-arrow-up-right"></i> ${out.productivity_delta >= 0 ? '+' : ''}${out.productivity_delta} pts vs baseline`;
+            document.getElementById('simAdherenceVal').innerText = out.adherence_probability + '%';
+            document.getElementById('simReclaimedVal').innerHTML = `${out.weekly_reclaimed_hours} <span style="font-size: 0.9rem; color: var(--text-dim);">hrs/wk</span>`;
+            document.getElementById('simBalanceVal').innerText = out.balance_status;
+            document.getElementById('simBalanceVal').style.color = out.balance_color;
+            document.getElementById('simBalanceSub').innerHTML = `<i class="bi bi-shield-check"></i> Equilibrium Ratio: ${out.equilibrium_ratio}`;
+            document.getElementById('simHabitVerdictText').innerText = sim.verdict;
+
+            // Update Trajectory Chart
+            updateHabitTrajectoryChart(sim);
+
+            // Update Radar Chart
+            if (habitRadarChartInstance) {
+                const baseValues = [
+                    Math.min(100, (7.5 / 9.0) * 100),
+                    Math.min(100, (30 / 60) * 100),
+                    Math.min(100, Math.max(10, 100 - (5.0 * 12))),
+                    Math.min(100, (6 / 10) * 100),
+                    75,
+                    Math.min(100, 1.0 * 75)
+                ];
+                const scenValues = [
+                    Math.min(100, (out.simulated_sleep / 9.0) * 100),
+                    Math.min(100, (out.simulated_exercise / 60) * 100),
+                    Math.min(100, Math.max(10, 100 - (out.simulated_screen * 12))),
+                    Math.min(100, (out.simulated_tasks / 10) * 100),
+                    Math.min(100, out.adherence_probability),
+                    Math.min(100, (out.equilibrium_ratio || 1.25) * 65)
+                ];
+                habitRadarChartInstance.data.datasets[0].data = scenValues;
+                habitRadarChartInstance.data.datasets[1].data = baseValues;
+                habitRadarChartInstance.update();
+            }
+        }
+
+        async function triggerHabitSimulation() {
+            const sleepDelta = parseFloat(document.getElementById('rngSimSleepDelta').value);
+            const exerciseDelta = parseFloat(document.getElementById('rngSimExerciseDelta').value);
+            const screenDelta = parseFloat(document.getElementById('rngSimScreenDelta').value);
+            const habitMinsDelta = parseFloat(document.getElementById('rngSimHabitMinsDelta').value);
+            const tasksDelta = parseFloat(document.getElementById('rngSimTasksDelta').value);
+
+            // Update labels
+            document.getElementById('lblSimSleepDelta').innerText = (sleepDelta >= 0 ? '+' : '') + sleepDelta.toFixed(1) + ' hr/night';
+            document.getElementById('lblSimExerciseDelta').innerText = (exerciseDelta >= 0 ? '+' : '') + exerciseDelta + ' mins';
+            document.getElementById('lblSimScreenDelta').innerText = (screenDelta >= 0 ? '+' : '') + screenDelta.toFixed(1) + ' hrs';
+            document.getElementById('lblSimHabitMinsDelta').innerText = (habitMinsDelta >= 0 ? '+' : '') + habitMinsDelta + ' mins';
+            document.getElementById('lblSimTasksDelta').innerText = (tasksDelta >= 0 ? '+' : '') + tasksDelta + ' tasks';
+
+            try {
+                const res = await fetch('/api/v1/simulation/habit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        sleep_delta: sleepDelta,
+                        exercise_delta: exerciseDelta,
+                        screen_delta: screenDelta,
+                        habit_mins_delta: habitMinsDelta,
+                        tasks_delta: tasksDelta,
+                        target_streak: 30,
+                        horizon_days: 30
+                    })
+                });
+                const data = await res.json();
+                if (data.success && data.simulation) {
+                    renderHabitSimResults(data.simulation);
+                }
+            } catch (err) {
+                console.error("Habit simulation error:", err);
+            }
+        }
+
+        function applyHabitPreset(type) {
+            document.querySelectorAll('.preset-btns .btn-preset').forEach(b => b.classList.remove('active'));
+            if (event && event.target) event.target.closest('.btn-preset')?.classList.add('active');
+
+            if (type === 'peak') {
+                document.getElementById('rngSimSleepDelta').value = 1.0;
+                document.getElementById('rngSimExerciseDelta').value = 30;
+                document.getElementById('rngSimScreenDelta').value = -2.0;
+                document.getElementById('rngSimHabitMinsDelta').value = 25;
+                document.getElementById('rngSimTasksDelta').value = 3;
+            } else if (type === 'detox') {
+                document.getElementById('rngSimSleepDelta').value = 0.5;
+                document.getElementById('rngSimExerciseDelta').value = 20;
+                document.getElementById('rngSimScreenDelta').value = -3.0;
+                document.getElementById('rngSimHabitMinsDelta').value = 40;
+                document.getElementById('rngSimTasksDelta').value = 4;
+            } else if (type === 'recovery') {
+                document.getElementById('rngSimSleepDelta').value = 2.0;
+                document.getElementById('rngSimExerciseDelta').value = 15;
+                document.getElementById('rngSimScreenDelta').value = -1.5;
+                document.getElementById('rngSimHabitMinsDelta').value = 10;
+                document.getElementById('rngSimTasksDelta').value = 0;
+            } else {
+                document.getElementById('rngSimSleepDelta').value = 0.0;
+                document.getElementById('rngSimExerciseDelta').value = 0;
+                document.getElementById('rngSimScreenDelta').value = 0.0;
+                document.getElementById('rngSimHabitMinsDelta').value = 0;
+                document.getElementById('rngSimTasksDelta').value = 0;
+            }
+            triggerHabitSimulation();
+        }
+
+        // Initialize habit simulation on load
+        if (initialHabitSimData) {
+            initHabitSimulationCharts(initialHabitSimData);
+            renderHabitSimResults(initialHabitSimData);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings — OptimaTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0f2922;
+            --bg-card: #1a3e35;
+            --bg-card2: #245147;
+            --accent: #a390e4;
+            --accent2: #f4978e;
+            --success: #94d2bd;
+            --danger: #f28482;
+            --text-main: #f4f7f5;
+            --text-muted: #b2c5bc;
+            --text-dim: #7e998e;
+            --border: rgba(216, 226, 220, 0.12);
+            --radius: 16px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* ── NAV ── */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            height: 65px;
+            background: rgba(15, 41, 34, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            display: flex; align-items: center; gap: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700; font-size: 1.1rem; letter-spacing: -0.3px;
+            text-decoration: none; color: var(--text-main);
+        }
+
+        .nav-logo {
+            width: 38px; height: 38px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, rgba(163, 144, 228, 0.2), rgba(244, 151, 142, 0.15));
+            border: 1px solid rgba(216, 226, 220, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 18px rgba(163, 144, 228, 0.25);
+        }
+
+        .nav-right {
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .btn-nav {
+            display: flex; align-items: center; gap: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-muted);
+            font-size: 0.85rem; font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-nav:hover { color: var(--text-main); border-color: var(--accent); }
+
+        .btn-logout {
+            display: flex; align-items: center; gap: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem; font-weight: 600;
+            text-decoration: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-logout:hover { background: rgba(244,151,142,0.15); border-color: var(--danger); color: var(--danger); }
+
+        /* ── PAGE ── */
+        .page {
+            max-width: 880px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+
+        .page-header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ── FLASH ── */
+        .flash-msg {
+            padding: 11px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            border: 1px solid;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .flash-error   { background: rgba(244,151,142,0.15);  border-color: rgba(244,151,142,0.3);  color: #fca5a5; }
+        .flash-success { background: rgba(148,210,189,0.15);  border-color: rgba(148,210,189,0.3);  color: #94d2bd; }
+
+        /* ── GRID ── */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 290px 1fr;
+            gap: 1.5rem;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.4);
+        }
+
+        /* ── AVATAR CARD ── */
+        .avatar-card { text-align: center; }
+
+        .avatar-wrap {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 1.25rem;
+        }
+
+        .avatar-circle {
+            width: 110px; height: 110px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #112d26;
+        }
+
+        .avatar-circle img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-upload-btn {
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg-card);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #112d26;
+            transition: opacity 0.2s;
+        }
+        .avatar-upload-btn:hover { opacity: 0.9; }
+
+        #avatarInput { display: none; }
+
+        .avatar-card h4 { font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 700; color: #fff; }
+        .avatar-card .email-tag { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 1.25rem; }
+
+        .stat-row {
+            display: flex; justify-content: space-around;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.25rem;
+        }
+        .stat strong { display: block; font-size: 1.1rem; font-weight: 700; text-align: center; color: #fff; }
+        .stat small  { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; }
+
+        .member-since {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--bg-card2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+
+        /* ── FORM CARD ── */
+        .form-card h5 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex; align-items: center; gap: 8px;
+            color: #fff;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group { margin-bottom: 1.1rem; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            margin-bottom: 7px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-main);
+            padding: 10px 13px;
+            font-size: 0.875rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-input::placeholder { color: var(--text-dim); }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(163, 144, 228, 0.22);
+        }
+
+        .file-preview-label {
+            display: block;
+            padding: 18px;
+            background: var(--bg-card2);
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .file-preview-label:hover { border-color: var(--accent); }
+        .file-preview-label i { font-size: 1.6rem; color: var(--accent2); display: block; margin-bottom: 6px; }
+        .file-preview-label span { font-size: 0.82rem; color: var(--text-muted); }
+
+        .btn-save {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #112d26;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+        .btn-save:hover { opacity: 0.92; transform: translateY(-1px); }
+
+        .form-footer {
+            display: flex; justify-content: flex-end;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 720px) {
+            .profile-grid { grid-template-columns: 1fr; }
+            .form-row     { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-brand">
+            <div class="nav-logo">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="13" stroke="url(#otProfGrad1)" stroke-width="2.6" stroke-dasharray="58 18" stroke-linecap="round"/>
+                    <path d="M10 16L14.5 20.5L22 11.5" stroke="url(#otProfGrad2)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="22" cy="11.5" r="2.6" fill="#f4978e"/>
+                    <defs>
+                        <linearGradient id="otProfGrad1" x1="3" y1="3" x2="29" y2="29" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#a390e4"/>
+                            <stop offset="0.5" stop-color="#f4978e"/>
+                            <stop offset="1" stop-color="#94d2bd"/>
+                        </linearGradient>
+                        <linearGradient id="otProfGrad2" x1="10" y1="11.5" x2="22" y2="20.5" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#ffffff"/>
+                            <stop offset="1" stop-color="#f4978e"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            OptimaTrack
+        </a>
+        <div class="nav-right">
+            <a href="/" class="btn-nav"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            <a href="/chat" class="btn-nav" style="color: var(--accent);"><i class="bi bi-chat-dots-fill"></i> AI Chat</a>
+            <a href="/milestone3" class="btn-nav" style="color: var(--accent2);"><i class="bi bi-stars"></i> AI Studio</a>
+            <a href="/finance" class="btn-nav"><i class="bi bi-wallet2"></i> Finance</a>
+            <a href="/study" class="btn-nav"><i class="bi bi-journal-bookmark-fill"></i> Study</a>
+            <a href="/habit" class="btn-nav"><i class="bi bi-check2-circle"></i> Habits</a>
+            <a href="/history" class="btn-nav"><i class="bi bi-clock-history"></i> History</a>
+            <a href="/logout" class="btn-logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="page-header">
+            <div>
+                <h1>User Profile</h1>
+                <p>Manage your user identity, demographic parameters, and avatar</p>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-msg flash-{{ 'error' if category == 'error' else 'success' }}">
+                        <i class="bi bi-{{ 'exclamation-circle' if category == 'error' else 'check-circle' }}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/profile" method="POST" enctype="multipart/form-data" id="profileForm">
+            <div class="profile-grid">
+                <!-- LEFT: Avatar card -->
+                <div class="card avatar-card">
+                    <div class="avatar-wrap" id="avatarWrap">
+                        <div class="avatar-circle" id="avatarCircle">
+                            {% if user.profile_picture and user.profile_picture != 'default.png' %}
+                                <img id="avatarPreviewImg" src="/static/uploads/{{ user.profile_picture }}" alt="Profile Photo">
+                            {% else %}
+                                <span id="avatarLetter">{{ (user.name or user.email)[0:2]|upper }}</span>
+                            {% endif %}
+                        </div>
+                        <label class="avatar-upload-btn" for="avatarInput" title="Change photo">
+                            <i class="bi bi-pencil"></i>
+                        </label>
+                    </div>
+                    <input type="file" id="avatarInput" name="profile_picture" accept="image/*" onchange="previewAvatar(this)">
+
+                    <h4>{{ user.name or "Shreya" }}</h4>
+                    <p class="email-tag">{{ user.email }}</p>
+
+                    <div class="stat-row">
+                        <div class="stat"><strong>{{ user.goal_score }}%</strong><small>Goal Score</small></div>
+                        <div class="stat"><strong>{{ user.days_active }}d</strong><small>Days Active</small></div>
+                    </div>
+
+                    <div class="member-since">
+                        <i class="bi bi-calendar3"></i>
+                        Member since {{ user.created_at.strftime('%b %Y') if user.created_at else '2026' }}
+                    </div>
+                </div>
+
+                <!-- RIGHT: Edit form -->
+                <div class="card form-card">
+                    <h5><i class="bi bi-person-gear"></i> Telemetry Parameters</h5>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input class="form-input" type="text" name="name" placeholder="Your full name" value="{{ user.name or '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input class="form-input" type="number" name="age" placeholder="e.g. 26" value="{{ user.age or '' }}" min="1" max="120">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Occupation / Domain Role</label>
+                        <input class="form-input" type="text" name="occupation" placeholder="e.g. Risk & Compliance Lead" value="{{ user.occupation or '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Profile Avatar Image</label>
+                        <label class="file-preview-label" for="avatarInput">
+                            <i class="bi bi-cloud-arrow-up"></i>
+                            <span id="fileLabel">Click to select a photo (JPG, PNG, WEBP)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="submit" class="btn-save">
+                            <i class="bi bi-check-lg"></i> Update Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function previewAvatar(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const reader = new FileReader();
+                const circle = document.getElementById('avatarCircle');
+
+                document.getElementById('fileLabel').textContent = file.name;
+
+                reader.onload = function(e) {
+                    circle.innerHTML = '<img id="avatarPreviewImg" src="' + e.target.result + '" alt="Preview" style="width:100%;height:100%;object-fit:cover;">';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>

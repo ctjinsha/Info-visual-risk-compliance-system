@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milestone 3 — AI Forecasting & Intelligence Studio | OptimaTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg-body: #0f2922;
+            --bg-sidebar: #13342c;
+            --bg-card: #1a3e35;
+            --bg-card-hover: #224b41;
+            --bg-card-sub: #245147;
+            --bg-input: #153830;
+            --border: rgba(216, 226, 220, 0.12);
+            --border-subtle: rgba(216, 226, 220, 0.06);
+            --primary: #a390e4;
+            --primary-glow: rgba(163, 144, 228, 0.35);
+            --accent-cyan: #94d2bd;
+            --accent-pink: #f4978e;
+            --accent-sage: #94d2bd;
+            --accent-amber: #f6bd60;
+            --accent-blue: #60a5fa;
+            --accent-emerald: #10b981;
+            --success: #94d2bd;
+            --warning: #f6bd60;
+            --danger: #f28482;
+            --text-main: #f4f7f5;
+            --text-muted: #b2c5bc;
+            --text-dim: #7e998e;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 22px;
+            --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+            --font-display: 'Outfit', sans-serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        .ambient-glow {
+            position: fixed; top: 0; left: 250px; right: 0; height: 420px;
+            background: radial-gradient(circle at 50% -20%, rgba(163, 144, 228, 0.18), transparent 70%),
+                        radial-gradient(circle at 85% 10%, rgba(244, 151, 142, 0.12), transparent 60%),
+                        radial-gradient(circle at 20% 20%, rgba(148, 210, 189, 0.1), transparent 50%);
+            pointer-events: none; z-index: 0;
+        }
+
+        /* ── SIDEBAR ── */
+        aside.sidebar {
+            width: 250px; background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex; flex-direction: column;
+            position: fixed; top: 0; bottom: 0; left: 0;
+            z-index: 100; padding: 1.25rem 0.85rem;
+            user-select: none;
+        }
+
+        .brand-header {
+            display: flex; align-items: center; gap: 12px;
+            padding: 0.5rem 0.6rem 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            margin-bottom: 1.2rem; text-decoration: none;
+        }
+        .brand-logo-icon {
+            width: 40px; height: 40px; border-radius: 12px;
+            background: linear-gradient(135deg, rgba(163, 144, 228, 0.25), rgba(244, 151, 142, 0.15));
+            border: 1px solid rgba(216, 226, 220, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(163, 144, 228, 0.25);
+            flex-shrink: 0;
+        }
+        .brand-text h2 {
+            font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: #fff; letter-spacing: -0.3px;
+        }
+        .brand-text span {
+            font-size: 0.68rem; color: var(--primary); letter-spacing: 0.8px; text-transform: uppercase; font-weight: 700;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.68rem; font-weight: 700; color: var(--text-dim);
+            letter-spacing: 1px; text-transform: uppercase;
+            padding: 0.5rem 0.75rem; margin-bottom: 0.25rem;
+        }
+        .sidebar-nav {
+            list-style: none; display: flex; flex-direction: column; gap: 4px; flex: 1; overflow-y: auto;
+        }
+        .nav-item-btn {
+            display: flex; align-items: center; gap: 12px;
+            padding: 0.7rem 0.85rem; border-radius: var(--radius-md);
+            color: var(--text-muted); text-decoration: none; font-size: 0.88rem; font-weight: 500;
+            transition: all 0.2s; border: 1px solid transparent;
+        }
+        .nav-item-btn:hover {
+            color: #fff; background: rgba(216, 226, 220, 0.05); border-color: var(--border-subtle);
+        }
+        .nav-item-btn.active {
+            color: #fff; background: linear-gradient(135deg, rgba(163, 144, 228, 0.22), rgba(163, 144, 228, 0.08));
+            border-color: rgba(163, 144, 228, 0.4); font-weight: 600;
+            box-shadow: 0 4px 15px rgba(163, 144, 228, 0.15);
+        }
+        .nav-item-btn i { font-size: 1.05rem; }
+
+        .m3-badge {
+            margin-left: auto; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #a390e4, #f4978e);
+            color: #0f2922; padding: 2px 7px; border-radius: 20px; text-transform: uppercase;
+        }
+
+        .sidebar-footer {
+            padding-top: 1rem; border-top: 1px solid var(--border-subtle);
+        }
+        .db-status-badge {
+            display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.2); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+        }
+        .pulse-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-cyan); animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+
+        /* ── MAIN CONTENT ── */
+        .main-wrapper {
+            margin-left: 250px; flex: 1; display: flex; flex-direction: column;
+            min-height: 100vh; position: relative; z-index: 1;
+            min-width: 0; width: calc(100% - 250px); max-width: calc(100% - 250px);
+            box-sizing: border-box;
+        }
+
+        header.top-header {
+            height: 64px; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 1.5rem; background: rgba(15, 41, 34, 0.85); backdrop-filter: blur(16px);
+            position: sticky; top: 0; z-index: 90; width: 100%; box-sizing: border-box;
+        }
+        .breadcrumb-box {
+            display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--text-muted);
+        }
+        .breadcrumb-box span.active { color: #fff; font-weight: 600; font-family: var(--font-display); }
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+
+        .btn-header {
+            display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 600;
+            padding: 0.5rem 0.9rem; border-radius: var(--radius-md); border: 1px solid var(--border);
+            background: var(--bg-card); color: var(--text-main); cursor: pointer; transition: all 0.2s;
+            text-decoration: none; white-space: nowrap;
+        }
+        .btn-header:hover { background: var(--bg-card-hover); border-color: var(--primary); color: #fff; }
+        .btn-header.primary {
+            background: linear-gradient(135deg, var(--primary), #8b72d8);
+            border-color: var(--primary); color: #0f2922; font-weight: 700;
+        }
+        .btn-header.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 15px var(--primary-glow); }
+
+        .content-container {
+            padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;
+            max-width: 100%; width: 100%; box-sizing: border-box;
+        }
+
+        /* ── HERO BANNER ── */
+        .m3-hero-banner {
+            background: linear-gradient(135deg, rgba(26, 62, 53, 0.95), rgba(36, 81, 71, 0.85));
+            border: 1px solid rgba(163, 144, 228, 0.25);
+            border-radius: var(--radius-xl); padding: 1.5rem 1.8rem;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+            box-shadow: var(--shadow-card); position: relative; overflow: hidden;
+            width: 100%; box-sizing: border-box;
+        }
+        .m3-hero-banner::before {
+            content: ''; position: absolute; top: -50px; right: -50px; width: 220px; height: 220px;
+            background: radial-gradient(circle, rgba(163, 144, 228, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+        .hero-title-group h1 {
+            font-family: var(--font-display); font-size: 1.55rem; font-weight: 800; color: #fff;
+            letter-spacing: -0.5px; display: flex; align-items: center; gap: 12px;
+        }
+        .hero-title-group p {
+            color: var(--text-muted); font-size: 0.88rem; margin-top: 6px; max-width: 700px; line-height: 1.5;
+        }
+        .hero-pills {
+            display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
+        }
+        .hero-pill {
+            font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+            background: rgba(163, 144, 228, 0.12); color: var(--primary); border: 1px solid rgba(163, 144, 228, 0.3);
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+
+        /* ── MODULE NAV TABS ── */
+        .m3-tabs-nav {
+            display: flex; gap: 8px; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; overflow-x: auto;
+            width: 100%; box-sizing: border-box; scrollbar-width: thin;
+        }
+        .tab-btn {
+            background: transparent; border: 1px solid transparent; color: var(--text-muted);
+            padding: 0.6rem 1rem; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s; white-space: nowrap;
+        }
+        .tab-btn:hover { color: #fff; background: rgba(216, 226, 220, 0.05); }
+        .tab-btn.active {
+            background: var(--bg-card); color: var(--primary); border-color: rgba(163, 144, 228, 0.35);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ── SECTION CARDS & GRIDS ── */
+        .tab-content { display: none; width: 100%; box-sizing: border-box; }
+        .tab-content.active { display: flex; flex-direction: column; gap: 1.5rem; animation: fadeIn 0.25s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.2rem; width: 100%; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; width: 100%; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; width: 100%; }
+        .grid-custom { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.2rem; width: 100%; }
+
+        .glass-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 1.5rem; box-shadow: var(--shadow-card); position: relative;
+            width: 100%; box-sizing: border-box;
+        }
+        .card-header-row {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;
+        }
+        .card-header-row h3 {
+            font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: #fff;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .card-subtext { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Metric Mini-Cards */
+        .stat-card {
+            background: rgba(19, 52, 44, 0.7); border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md); padding: 1.1rem; display: flex; flex-direction: column; gap: 6px;
+        }
+        .stat-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+        .stat-val { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; color: #fff; }
+        .stat-trend { font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+        .stat-trend.positive { color: var(--accent-cyan); }
+        .stat-trend.warning { color: var(--accent-amber); }
+        .stat-trend.danger { color: var(--danger); }
+
+        /* Sliders for Simulation */
+        .slider-group {
+            display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.2rem;
+        }
+        .slider-label-row {
+            display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600;
+        }
+        .slider-input {
+            -webkit-appearance: none; width: 100%; height: 6px; border-radius: 4px;
+            background: var(--bg-input); outline: none; transition: background 0.2s;
+        }
+        .slider-input::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%;
+            background: var(--primary); cursor: pointer; box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* Anomaly alert chip */
+        .anomaly-chip {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.8rem 1rem; border-radius: var(--radius-md); background: rgba(242, 132, 130, 0.12);
+            border: 1px solid rgba(242, 132, 130, 0.3); margin-bottom: 0.75rem;
+        }
+        .anomaly-chip.warning {
+            background: rgba(246, 189, 96, 0.12); border-color: rgba(246, 189, 96, 0.3);
+        }
+
+        /* Recommendation card */
+        .rec-card {
+            background: rgba(19, 52, 44, 0.6); border: 1px solid var(--border);
+            border-radius: var(--radius-md); padding: 1.2rem; display: flex; flex-direction: column;
+            gap: 10px; transition: all 0.2s;
+        }
+        .rec-card:hover {
+            border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .rec-badge {
+            font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 12px;
+            text-transform: uppercase; width: fit-content;
+        }
+        .badge-fin { background: rgba(148, 210, 189, 0.18); color: var(--accent-cyan); border: 1px solid rgba(148, 210, 189, 0.4); }
+        .badge-habit { background: rgba(163, 144, 228, 0.18); color: var(--primary); border: 1px solid rgba(163, 144, 228, 0.4); }
+        .badge-risk { background: rgba(244, 151, 142, 0.18); color: var(--accent-pink); border: 1px solid rgba(244, 151, 142, 0.4); }
+
+        /* Chat with Data */
+        .chat-container {
+            display: flex; flex-direction: column; height: 520px; background: rgba(19, 52, 44, 0.5);
+            border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+        }
+        .chat-messages {
+            flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 14px;
+        }
+        .chat-bubble {
+            max-width: 80%; padding: 0.9rem 1.1rem; border-radius: var(--radius-md); font-size: 0.88rem; line-height: 1.5;
+        }
+        .chat-bubble.ai {
+            align-self: flex-start; background: var(--bg-card-sub); border: 1px solid var(--border);
+            border-bottom-left-radius: 2px;
+        }
+        .chat-bubble.user {
+            align-self: flex-end; background: linear-gradient(135deg, rgba(163, 144, 228, 0.35), rgba(163, 144, 228, 0.15));
+            border: 1px solid rgba(163, 144, 228, 0.4); border-bottom-right-radius: 2px; color: #fff;
+        }
+        .chat-prompt-chips {
+            display: flex; gap: 8px; padding: 0.75rem 1.5rem; background: rgba(15, 41, 34, 0.6);
+            border-top: 1px solid var(--border-subtle); overflow-x: auto;
+        }
+        .prompt-chip {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+            padding: 4px 12px; font-size: 0.75rem; color: var(--text-muted); cursor: pointer; white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .prompt-chip:hover { color: #fff; border-color: var(--primary); background: var(--bg-card-hover); }
+        .chat-input-bar {
+            padding: 1rem 1.5rem; background: var(--bg-sidebar); border-top: 1px solid var(--border);
+            display: flex; gap: 10px; align-items: center;
+        }
+        .chat-input-bar input {
+            flex: 1; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-md);
+            padding: 0.65rem 1rem; color: #fff; font-size: 0.88rem; outline: none;
+        }
+        .chat-input-bar input:focus { border-color: var(--primary); }
+        .chat-input-bar button {
+            background: var(--primary); color: #0f2922; border: none; border-radius: var(--radius-md);
+            padding: 0.65rem 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;
+        }
+
+        /* Correlation Heatmap Grid */
+        .heatmap-table {
+            width: 100%; border-collapse: collapse; text-align: center; font-size: 0.82rem; margin-top: 0.5rem;
+        }
+        .heatmap-table th, .heatmap-table td {
+            padding: 8px 6px; border: 1px solid var(--border-subtle);
+        }
+        .heatmap-table th { background: rgba(0, 0, 0, 0.25); color: var(--text-dim); font-weight: 600; }
+        .heat-cell { font-family: var(--font-mono); font-weight: 600; border-radius: 4px; }
+
+        /* Progress Meters */
+        .progress-bar-bg {
+            width: 100%; height: 8px; background: rgba(0, 0, 0, 0.3); border-radius: 4px; overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%; border-radius: 4px; transition: width 0.4s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .grid-2, .grid-3, .grid-4, .grid-custom { grid-template-columns: 1fr; }
+            .m3-hero-banner { flex-direction: column; align-items: flex-start; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+        <a href="/" class="brand-header">
+            <div class="brand-logo-icon">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="13" stroke="url(#otGradM3)" stroke-width="2.6" stroke-dasharray="58 18" stroke-linecap="round"/>
+                    <path d="M10 16L14.5 20.5L22 11.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="otGradM3" x1="3" y1="3" x2="29" y2="29" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#a390e4"/>
+                            <stop offset="0.5" stop-color="#f4978e"/>
+                            <stop offset="1" stop-color="#94d2bd"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <h2>OptimaTrack</h2>
+                <span>Risk Intelligence</span>
+            </div>
+        </a>
+
+        <div class="sidebar-section-title">Workspace</div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="/" class="nav-item-btn">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/chat" class="nav-item-btn" style="color: var(--accent-cyan);">
+                    <i class="bi bi-chat-dots-fill"></i>
+                    <span>AI Knowledge &amp; Chat</span>
+                </a>
+            </li>
+            <li>
+                <a href="/milestone3" class="nav-item-btn active">
+                    <i class="bi bi-stars"></i>
+                    <span>AI Intelligence Studio</span>
+                </a>
+            </li>
+            <li>
+                <a href="/finance" class="nav-item-btn">
+                    <i class="bi bi-wallet2"></i>
+                    <span>Finance</span>
+                </a>
+            </li>
+            <li>
+                <a href="/study" class="nav-item-btn">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span>Study</span>
+                </a>
+            </li>
+            <li>
+                <a href="/habit" class="nav-item-btn">
+                    <i class="bi bi-check2-circle"></i>
+                    <span>Habits</span>
+                </a>
+            </li>
+            <li>
+                <a href="/history" class="nav-item-btn">
+                    <i class="bi bi-clock-history"></i>
+                    <span>Activity History</span>
+                </a>
+            </li>
+            <li>
+                <a href="/profile" class="nav-item-btn">
+                    <i class="bi bi-person-bounding-box"></i>
+                    <span>My Profile</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="db-status-badge">
+                <span class="pulse-dot"></span>
+                <span>Database status: <strong>Connected</strong></span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ── MAIN WRAPPER ── -->
+    <div class="main-wrapper">
+        <header class="top-header">
+            <div class="breadcrumb-box">
+                <span>OptimaTrack</span>
+                <i class="bi bi-chevron-right" style="font-size: 0.75rem;"></i>
+                <span class="active">AI Intelligence Studio</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn-header" onclick="triggerModelRetrain(this)">
+                    <i class="bi bi-arrow-repeat"></i>
+                    <span>Retrain ML Engines</span>
+                </button>
+                <button class="btn-header primary" onclick="switchTab('simulation')">
+                    <i class="bi bi-sliders"></i>
+                    <span>Run What-If</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="content-container">
+
+            <!-- HERO BANNER -->
+            <div class="m3-hero-banner">
+                <div class="hero-title-group">
+                    <h1>
+                        <i class="bi bi-cpu" style="color: var(--primary);"></i>
+                        AI Forecasting, Simulation &amp; Intelligence Hub
+                    </h1>
+                    <p>
+                        Comprehensive multi-engine intelligence: financial forecasting, cross-domain habit correlations, real-time What-If scenario builder, and conversational natural language insights.
+                    </p>
+                    <div class="hero-pills">
+                        <span class="hero-pill"><i class="bi bi-graph-up-arrow"></i> Financial Forecasting</span>
+                        <span class="hero-pill"><i class="bi bi-activity"></i> Habit Correlations</span>
+                        <span class="hero-pill"><i class="bi bi-sliders"></i> What-If Simulation</span>
+                        <span class="hero-pill"><i class="bi bi-shield-check"></i> Predictive Risk</span>
+                        <span class="hero-pill"><i class="bi bi-chat-dots"></i> Conversational AI (LLM)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABBED NAVIGATION -->
+            <div class="m3-tabs-nav">
+                <button class="tab-btn active" onclick="switchTab('overview')">
+                    <i class="bi bi-grid-1x2"></i> Overview &amp; Health
+                </button>
+                <button class="tab-btn" onclick="switchTab('forecasting')">
+                    <i class="bi bi-graph-up"></i> Financial Forecasting
+                </button>
+                <button class="tab-btn" onclick="switchTab('analytics')">
+                    <i class="bi bi-diagram-3"></i> Habit &amp; Productivity
+                </button>
+                <button class="tab-btn" onclick="switchTab('simulation')">
+                    <i class="bi bi-sliders"></i> What-If Simulation Studio
+                </button>
+                <button class="tab-btn" onclick="switchTab('chat')">
+                    <i class="bi bi-chat-square-text"></i> Chat with Your Data
+                </button>
+                <button class="tab-btn" onclick="switchTab('models')">
+                    <i class="bi bi-motherboard"></i> ML Model Management
+                </button>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- TAB 1: OVERVIEW & HEALTH                                     -->
+            <!-- ============================================================ -->
+            <div id="tab-overview" class="tab-content active">
+                <div class="grid-4">
+                    <div class="stat-card">
+                        <span class="stat-label">Total Liquid Capital</span>
+                        <div class="stat-val" id="ov-total-savings">₹80,000</div>
+                        <span class="stat-trend positive"><i class="bi bi-arrow-up-right"></i> +₹15,000/mo velocity</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Productivity Score</span>
+                        <div class="stat-val" id="ov-prod-score">88.5 / 100</div>
+                        <span class="stat-trend positive"><i class="bi bi-check-circle"></i> Grade A (Optimal Flow)</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Financial Risk Index</span>
+                        <div class="stat-val" id="ov-risk-score">18.5 / 100</div>
+                        <span class="stat-trend positive"><i class="bi bi-shield-check"></i> Low Risk Baseline</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Emergency Goal ETA</span>
+                        <div class="stat-val" id="ov-goal-eta">68 Days</div>
+                        <span class="stat-trend positive"><i class="bi bi-calendar2-check"></i> 92% Probable</span>
+                    </div>
+                </div>
+
+                <div class="grid-custom">
+                    <!-- 30-Day Forecast Preview -->
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <div>
+                                <h3><i class="bi bi-graph-up-arrow" style="color: var(--accent-cyan);"></i> Cashflow Forecast &amp; Wealth Trajectory (30 Days)</h3>
+                                <div class="card-subtext">Projected daily cashflow with statistical upper &amp; lower confidence bands</div>
+                            </div>
+                            <button class="btn-header" onclick="switchTab('forecasting')">Deep Dive</button>
+                        </div>
+                        <div style="height: 280px;">
+                            <canvas id="overviewForecastChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Early Warnings & Signals -->
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <h3><i class="bi bi-bell" style="color: var(--accent-amber);"></i> Predictive Risk &amp; Warnings</h3>
+                            <span class="hero-pill" style="font-size:0.65rem;">Live Telemetry</span>
+                        </div>
+                        <div id="overviewAlertsContainer" style="display: flex; flex-direction: column; gap: 8px;">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actionable AI Recommendations Cards -->
+                <div class="glass-card">
+                    <div class="card-header-row">
+                        <div>
+                            <h3><i class="bi bi-robot" style="color: var(--primary);"></i> AI Intelligence Recommendations</h3>
+                            <div class="card-subtext">Context-grounded suggestions generated by the Milestone 3 Recommendation Engine</div>
+                        </div>
+                    </div>
+                    <div class="grid-3" id="overviewRecsGrid">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- TAB 2: FINANCIAL FORECASTING ENGINE                          -->
+            <!-- ============================================================ -->
+            <div id="tab-forecasting" class="tab-content">
+                <div class="grid-custom">
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <div>
+                                <h3><i class="bi bi-bar-chart-line" style="color: var(--accent-cyan);"></i> 90-Day Cashflow &amp; Expense Forecast</h3>
+                                <div class="card-subtext">Multi-horizon time-series projections incorporating weekend variance</div>
+                            </div>
+                        </div>
+                        <div style="height: 320px;">
+                            <canvas id="deepForecastChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <div>
+                                <h3><i class="bi bi-exclamation-triangle" style="color: var(--accent-pink);"></i> Spending Anomaly Detector</h3>
+                                <div class="card-subtext">Statistical Z-score spikes detected across transaction logs</div>
+                            </div>
+                        </div>
+                        <div id="anomaliesListContainer" style="display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow-y: auto;">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Investment & SIP Compound Growth -->
+                <div class="glass-card">
+                    <div class="card-header-row">
+                        <div>
+                            <h3><i class="bi bi-piggy-bank" style="color: var(--accent-emerald);"></i> Compound Wealth &amp; SIP Growth Projection vs Inflation</h3>
+                            <div class="card-subtext">3-Year compound trajectory at 13.8% CAGR compared against 5.4% inflation-adjusted real purchasing power</div>
+                        </div>
+                    </div>
+                    <div style="height: 280px;">
+                        <canvas id="sipGrowthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- TAB 3: HABIT & PRODUCTIVITY ANALYTICS                         -->
+            <!-- ============================================================ -->
+            <div id="tab-analytics" class="tab-content">
+                <div class="grid-custom">
+                    <!-- Correlation Matrix Heatmap -->
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <div>
+                                <h3><i class="bi bi-diagram-3" style="color: var(--primary);"></i> Cross-Domain Correlation Matrix</h3>
+                                <div class="card-subtext">Pearson correlation ($r$) computed across Sleep, Focus, Screen Time, and Study</div>
+                            </div>
+                        </div>
+                        <div id="correlationHeatmapTableContainer"></div>
+                        <div style="margin-top: 1.2rem; display: flex; flex-direction: column; gap: 8px;" id="correlationInsightsContainer">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Goal Completion Timeline Predictions -->
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <div>
+                                <h3><i class="bi bi-flag" style="color: var(--accent-amber);"></i> Goal Completion Timelines &amp; Probability</h3>
+                                <div class="card-subtext">Predictive velocity forecasting estimated target milestone achievement</div>
+                            </div>
+                        </div>
+                        <div id="goalPredictionsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- TAB 4: WHAT-IF SIMULATION ENGINE                             -->
+            <!-- ============================================================ -->
+            <div id="tab-simulation" class="tab-content">
+                <div class="grid-custom">
+                    <!-- Controls Panel -->
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <div>
+                                <h3><i class="bi bi-sliders" style="color: var(--primary);"></i> Multi-Variable Scenario Levers</h3>
+                                <div class="card-subtext">Adjust variables in real-time to simulate future financial and cognitive outcomes</div>
+                            </div>
+                            <button class="btn-header primary" onclick="runCustomSimulation()">Simulate</button>
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-label-row">
+                                <span>Monthly Savings Rate Delta (%)</span>
+                                <span id="lblSavingsDelta" style="color: var(--primary);">+20%</span>
+                            </div>
+                            <input type="range" class="slider-input" id="rngSavingsDelta" min="-50" max="100" value="20" step="5" oninput="updateSliderLabels()">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-label-row">
+                                <span>Discretionary Expense Delta (%)</span>
+                                <span id="lblExpenseDelta" style="color: var(--accent-pink);">-10%</span>
+                            </div>
+                            <input type="range" class="slider-input" id="rngExpenseDelta" min="-50" max="50" value="-10" step="5" oninput="updateSliderLabels()">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-label-row">
+                                <span>Daily Deep Work Delta (Hours)</span>
+                                <span id="lblStudyDelta" style="color: var(--accent-cyan);">+1.0 hr</span>
+                            </div>
+                            <input type="range" class="slider-input" id="rngStudyDelta" min="-3" max="5" value="1.0" step="0.5" oninput="updateSliderLabels()">
+                        </div>
+
+                        <div class="slider-group">
+                            <div class="slider-label-row">
+                                <span>Nightly Sleep Recovery Delta (Hours)</span>
+                                <span id="lblSleepDelta" style="color: var(--accent-emerald);">+0.5 hr</span>
+                            </div>
+                            <input type="range" class="slider-input" id="rngSleepDelta" min="-2" max="3" value="0.5" step="0.5" oninput="updateSliderLabels()">
+                        </div>
+
+                        <div style="margin-top: 1rem; display: flex; gap: 8px;">
+                            <button class="btn-header" onclick="applyPreset('aggressive')">Aggressive (+25% SIP)</button>
+                            <button class="btn-header" onclick="applyPreset('balanced')">Balanced (+15% SIP, +1h Sleep)</button>
+                            <button class="btn-header" onclick="applyPreset('reset')">Reset Baseline</button>
+                        </div>
+                    </div>
+
+                    <!-- Outcome Metrics -->
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <div>
+                                <h3><i class="bi bi-speedometer2" style="color: var(--accent-cyan);"></i> Forecasted Scenario Impact</h3>
+                                <div class="card-subtext">Compared against baseline trajectory</div>
+                            </div>
+                            <button class="btn-header" onclick="saveCurrentScenario()"><i class="bi bi-bookmark-plus"></i> Save Scenario</button>
+                        </div>
+
+                        <div class="grid-2" style="margin-bottom: 1rem;">
+                            <div class="stat-card">
+                                <span class="stat-label">1-Year Wealth Delta</span>
+                                <div class="stat-val" id="sim-wealth-delta" style="color: var(--accent-cyan);">+₹54,000</div>
+                                <span class="stat-trend positive" id="sim-monthly-sav-delta">+₹4,500/mo extra</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Productivity Score</span>
+                                <div class="stat-val" id="sim-prod-score" style="color: var(--primary);">92.5</div>
+                                <span class="stat-trend positive" id="sim-prod-delta">+4.5 pts boost</span>
+                            </div>
+                        </div>
+
+                        <div class="anomaly-chip" id="sim-verdict-box" style="background: rgba(163, 144, 228, 0.12); border-color: rgba(163, 144, 228, 0.3);">
+                            <span id="sim-verdict-text" style="font-size: 0.88rem; color: #fff;">
+                                Running simulation...
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side-by-Side Simulation Chart -->
+                <div class="glass-card">
+                    <div class="card-header-row">
+                        <div>
+                            <h3><i class="bi bi-graph-up" style="color: var(--accent-emerald);"></i> 12-Month Comparative Wealth Trajectory: Baseline vs. Simulated</h3>
+                            <div class="card-subtext">Overlay of cumulative wealth accumulation curves under the active What-If scenario</div>
+                        </div>
+                    </div>
+                    <div style="height: 300px;">
+                        <canvas id="simulationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- TAB 5: CONVERSATIONAL AI ("CHAT WITH YOUR DATA")             -->
+            <!-- ============================================================ -->
+            <div id="tab-chat" class="tab-content">
+                <div class="glass-card" style="padding: 0;">
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessagesBox">
+                            <div class="chat-bubble ai">
+                                <strong>OptimaTrack Intelligence Assistant</strong><br>
+                                Hello Shreya! I am your Milestone 3 AI Intelligence Assistant. You can ask me questions about your financial forecasting, What-If lifestyle simulations (e.g. <em>"What happens if I save 20% more?"</em>), sleep vs productivity correlations, or goal milestones. How can I assist you?
+                            </div>
+                        </div>
+
+                        <div class="chat-prompt-chips">
+                            <div class="prompt-chip" onclick="sendQuickPrompt('What happens if I save 20% more next month?')">
+                                💡 What happens if I save 20% more?
+                            </div>
+                            <div class="prompt-chip" onclick="sendQuickPrompt('Analyze my sleep vs productivity correlation')">
+                                🌙 Sleep vs Productivity Correlation
+                            </div>
+                            <div class="prompt-chip" onclick="sendQuickPrompt('When will I reach my emergency fund goal?')">
+                                🎯 Emergency Fund Goal ETA
+                            </div>
+                            <div class="prompt-chip" onclick="sendQuickPrompt('Give me a summary of my expense breakdown')">
+                                📊 Expense Breakdown Summary
+                            </div>
+                        </div>
+
+                        <div class="chat-input-bar">
+                            <input type="text" id="chatInput" placeholder="Ask a question grounded in your telemetry data..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+                            <button onclick="sendChatMessage()">
+                                <i class="bi bi-send-fill"></i> Send
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- TAB 6: ML MODEL MANAGEMENT                                   -->
+            <!-- ============================================================ -->
+            <div id="tab-models" class="tab-content">
+                <div class="grid-3">
+                    <div class="stat-card">
+                        <span class="stat-label">Finance Forecasting Model</span>
+                        <div class="stat-val" style="font-size:1.1rem; color:var(--accent-cyan);">Linear &amp; RF Ensemble</div>
+                        <span class="stat-trend positive" id="m-fin-metrics">MAE: ₹1,455 • R²: 0.26</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Habit Productivity Model</span>
+                        <div class="stat-val" style="font-size:1.1rem; color:var(--primary);">Multiple Regression</div>
+                        <span class="stat-trend positive" id="m-hab-metrics">MAE: 5.45 • R²: 0.786</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Study Readiness Model</span>
+                        <div class="stat-val" style="font-size:1.1rem; color:var(--accent-emerald);">RandomForest Regressor</div>
+                        <span class="stat-trend positive" id="m-stu-metrics">MAE: 2.69 • R²: 0.867</span>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <h3><i class="bi bi-database-check" style="color: var(--accent-cyan);"></i> External Reference Benchmarks</h3>
+                            <span class="hero-pill">Macro Indicators</span>
+                        </div>
+                        <div id="benchmarksTableContainer">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <div class="card-header-row">
+                            <h3><i class="bi bi-arrow-repeat" style="color: var(--primary);"></i> Continuous Training Pipeline</h3>
+                            <button class="btn-header primary" onclick="triggerModelRetrain(this)">
+                                <i class="bi bi-play-circle-fill"></i> Execute Retraining Pipeline
+                            </button>
+                        </div>
+                        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem;">
+                            Retraining evaluates fresh behavioral logs, shifts autoregression weights, and recalculates feature correlations. All pipelines serialize versioned <code>.pkl</code> bundles with full MAE, MSE, and $R^2$ audit metrics.
+                        </p>
+                        <div id="retrainStatusBox" class="anomaly-chip" style="background: rgba(148, 210, 189, 0.12); border-color: rgba(148, 210, 189, 0.3); display: none;">
+                            <span id="retrainStatusText" style="font-size: 0.85rem; color: var(--accent-cyan);">Ready.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ── SCRIPTS ── -->
+    <script>
+        let _M3_DATA = null;
+        let chartOverview = null;
+        let chartDeepForecast = null;
+        let chartSipGrowth = null;
+        let chartSimulation = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchMilestone3Data();
+        });
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
+            if (targetBtn) targetBtn.classList.add('active');
+
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            if (targetTab) targetTab.classList.add('active');
+
+            // Trigger chart resize
+            setTimeout(() => {
+                if (tabId === 'forecasting' && chartDeepForecast) chartDeepForecast.resize();
+                if (tabId === 'simulation' && chartSimulation) chartSimulation.resize();
+            }, 100);
+        }
+
+        async function fetchMilestone3Data() {
+            try {
+                const res = await fetch('/api/v1/milestone3/overview');
+                const data = await res.json();
+                _M3_DATA = data;
+                renderOverview(data);
+                renderForecasting(data);
+                renderAnalytics(data);
+                renderSimulation(data.simulation.default_simulation);
+                renderBenchmarks(data.benchmarks);
+            } catch (err) {
+                console.error("Error fetching Milestone 3 telemetry:", err);
+            }
+        }
+
+        function renderOverview(data) {
+            document.getElementById('ov-total-savings').innerText = `₹${(data.summary.total_savings || 80000).toLocaleString()}`;
+            document.getElementById('ov-prod-score').innerText = `${data.summary.productivity.productivity_score} / 100`;
+            document.getElementById('ov-risk-score').innerText = `${data.summary.financial_risk.score} / 100`;
+
+            // Early warnings
+            const alertsBox = document.getElementById('overviewAlertsContainer');
+            alertsBox.innerHTML = '';
+            (data.early_warnings || []).forEach(a => {
+                const chip = document.createElement('div');
+                chip.className = `anomaly-chip ${a.severity.toLowerCase()}`;
+                chip.innerHTML = `
+                    <div>
+                        <strong style="color:#fff; font-size:0.85rem;">${a.title}</strong>
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">${a.message}</div>
+                    </div>
+                    <span class="hero-pill" style="font-size:0.65rem;">${a.domain}</span>
+                `;
+                alertsBox.appendChild(chip);
+            });
+
+            // Recommendations
+            const recsGrid = document.getElementById('overviewRecsGrid');
+            recsGrid.innerHTML = '';
+            (data.recommendations || []).slice(0, 3).forEach(r => {
+                const card = document.createElement('div');
+                card.className = 'rec-card';
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="rec-badge badge-${r.category.toLowerCase()}">${r.category}</span>
+                        <span style="font-size:0.72rem; color:var(--text-dim); font-weight:700;">${r.impact_score} IMPACT</span>
+                    </div>
+                    <h4 style="font-size:0.92rem; color:#fff; font-weight:700;">${r.title}</h4>
+                    <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;">${r.recommendation_text}</p>
+                    <button class="btn-header" style="margin-top:auto; width:100%; justify-content:center;" onclick="switchTab('simulation')">
+                        <i class="bi bi-lightning-charge"></i> Apply to Scenario
+                    </button>
+                `;
+                recsGrid.appendChild(card);
+            });
+
+            // Render Overview Chart
+            renderOverviewChart(data.forecasting.forecast_30d.timeline);
+        }
+
+        function renderOverviewChart(timeline) {
+            const ctx = document.getElementById('overviewForecastChart').getContext('2d');
+            const labels = timeline.map(t => t.date.slice(5));
+            const expenses = timeline.map(t => t.forecast_expense);
+            const savings = timeline.map(t => t.cumulative_savings);
+
+            if (chartOverview) chartOverview.destroy();
+
+            chartOverview = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Cumulative Wealth (₹)',
+                            data: savings,
+                            borderColor: '#94d2bd',
+                            backgroundColor: 'rgba(148, 210, 189, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3,
+                            yAxisID: 'y1'
+                        },
+                        {
+                            label: 'Daily Projected Expense (₹)',
+                            data: expenses,
+                            borderColor: '#f4978e',
+                            backgroundColor: 'rgba(244, 151, 142, 0.05)',
+                            borderWidth: 2,
+                            borderDash: [4, 4],
+                            tension: 0.3,
+                            yAxisID: 'y'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { color: 'rgba(216, 226, 220, 0.05)' }, ticks: { color: '#7e998e', maxTicksLimit: 10 } },
+                        y: { position: 'left', grid: { color: 'rgba(216, 226, 220, 0.05)' }, ticks: { color: '#f4978e' } },
+                        y1: { position: 'right', grid: { drawOnChartArea: false }, ticks: { color: '#94d2bd' } }
+                    },
+                    plugins: { legend: { labels: { color: '#f4f7f5' } } }
+                }
+            });
+        }
+
+        function renderForecasting(data) {
+            // Deep Forecast Chart (90 days)
+            const ctx = document.getElementById('deepForecastChart').getContext('2d');
+            const timeline = data.forecasting.forecast_90d.timeline;
+            const labels = timeline.map(t => t.date.slice(5));
+            const upper = timeline.map(t => t.upper_bound_expense);
+            const lower = timeline.map(t => t.lower_bound_expense);
+            const expense = timeline.map(t => t.forecast_expense);
+
+            if (chartDeepForecast) chartDeepForecast.destroy();
+
+            chartDeepForecast = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Upper Confidence (95%)',
+                            data: upper,
+                            borderColor: 'transparent',
+                            backgroundColor: 'rgba(163, 144, 228, 0.12)',
+                            fill: '+1',
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Lower Confidence (95%)',
+                            data: lower,
+                            borderColor: 'transparent',
+                            backgroundColor: 'transparent',
+                            fill: false,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Projected Daily Expense (₹)',
+                            data: expense,
+                            borderColor: '#a390e4',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            pointRadius: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { color: 'rgba(216, 226, 220, 0.05)' }, ticks: { color: '#7e998e', maxTicksLimit: 12 } },
+                        y: { grid: { color: 'rgba(216, 226, 220, 0.05)' }, ticks: { color: '#a390e4' } }
+                    },
+                    plugins: { legend: { labels: { color: '#f4f7f5' } } }
+                }
+            });
+
+            // Anomalies
+            const anomBox = document.getElementById('anomaliesListContainer');
+            anomBox.innerHTML = '';
+            (data.forecasting.anomalies || []).forEach(an => {
+                const item = document.createElement('div');
+                item.className = 'anomaly-chip';
+                item.innerHTML = `
+                    <div>
+                        <strong style="color:#fff; font-size:0.85rem;">${an.category} Spiked to ₹${an.amount.toLocaleString()}</strong>
+                        <div style="font-size:0.75rem; color:var(--text-muted);">${an.note} (${an.date})</div>
+                    </div>
+                    <span class="hero-pill" style="color:var(--danger); border-color:var(--danger);">${an.severity}</span>
+                `;
+                anomBox.appendChild(item);
+            });
+
+            // SIP Growth Chart
+            const sipCtx = document.getElementById('sipGrowthChart').getContext('2d');
+            const sipTimeline = data.forecasting.investment_projection.growth_timeline;
+            const sipLabels = sipTimeline.map(s => `Month ${s.month}`);
+            const invested = sipTimeline.map(s => s.total_invested);
+            const nominal = sipTimeline.map(s => s.nominal_wealth);
+            const realWealth = sipTimeline.map(s => s.real_wealth_inflation_adjusted);
+
+            if (chartSipGrowth) chartSipGrowth.destroy();
+
+            chartSipGrowth = new Chart(sipCtx, {
+                type: 'line',
+                data: {
+                    labels: sipLabels,
+                    datasets: [
+                        { label: 'Nominal Wealth (13.8% CAGR)', data: nominal, borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.15)', borderWidth: 2, fill: true },
+                        { label: 'Real Purchasing Power (Inflation Adjusted)', data: realWealth, borderColor: '#f6bd60', borderWidth: 2, borderDash: [4, 4] },
+                        { label: 'Total Capital Invested', data: invested, borderColor: '#7e998e', borderWidth: 2 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { color: 'rgba(216, 226, 220, 0.05)' }, ticks: { color: '#7e998e' } },
+                        y: { grid: { color: 'rgba(216, 226, 220, 0.05)' }, ticks: { color: '#10b981' } }
+                    },
+                    plugins: { legend: { labels: { color: '#f4f7f5' } } }
+                }
+            });
+        }
+
+        function renderAnalytics(data) {
+            // Correlation Matrix Table
+            const corr = data.analytics.correlations.correlations;
+            const container = document.getElementById('correlationHeatmapTableContainer');
+            let html = '<table class="heatmap-table"><thead><tr><th>Metric</th>';
+            corr.variables.forEach(v => { html += `<th>${v}</th>`; });
+            html += '</tr></thead><tbody>';
+
+            corr.variables.forEach((rowVar, rIdx) => {
+                html += `<tr><td style="text-align:left; font-weight:600; color:#fff;">${rowVar}</td>`;
+                corr.matrix[rIdx].forEach(val => {
+                    let bg = 'rgba(255,255,255,0.05)';
+                    let color = '#fff';
+                    if (val > 0.4) { bg = 'rgba(148, 210, 189, 0.35)'; color = '#94d2bd'; }
+                    else if (val < -0.3) { bg = 'rgba(244, 151, 142, 0.35)'; color = '#f4978e'; }
+                    else if (val === 1.0) { bg = 'rgba(163, 144, 228, 0.25)'; color = '#a390e4'; }
+                    html += `<td class="heat-cell" style="background:${bg}; color:${color};">${val > 0 ? '+' : ''}${val.toFixed(2)}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            container.innerHTML = html;
+
+            // Insights list
+            const insightsBox = document.getElementById('correlationInsightsContainer');
+            insightsBox.innerHTML = '';
+            (data.analytics.correlations.key_insights || []).forEach(ins => {
+                const chip = document.createElement('div');
+                chip.className = 'anomaly-chip';
+                chip.style.background = 'rgba(19, 52, 44, 0.6)';
+                chip.innerHTML = `
+                    <div>
+                        <strong style="color:var(--primary); font-size:0.85rem;">${ins.pair} (${ins.strength})</strong>
+                        <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;">${ins.insight}</div>
+                    </div>
+                `;
+                insightsBox.appendChild(chip);
+            });
+
+            // Goal predictions
+            const goalBox = document.getElementById('goalPredictionsContainer');
+            goalBox.innerHTML = '';
+            (data.analytics.goal_timelines || []).forEach(g => {
+                const item = document.createElement('div');
+                item.className = 'stat-card';
+                item.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <strong style="font-size:0.88rem; color:#fff;">${g.title}</strong>
+                        <span class="hero-pill" style="font-size:0.68rem;">${g.achievement_probability_pct}% Probable</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-dim); margin-top:4px;">
+                        <span>Target: ${g.target_val.toLocaleString()} ${g.unit}</span>
+                        <span>Est: ${g.projected_completion_date} (${g.days_remaining_est}d)</span>
+                    </div>
+                    <div class="progress-bar-bg" style="margin-top:6px;">
+                        <div class="progress-bar-fill" style="width:${g.progress_pct}%; background:linear-gradient(90deg, var(--primary), var(--accent-cyan));"></div>
+                    </div>
+                `;
+                goalBox.appendChild(item);
+            });
+        }
+
+        function updateSliderLabels() {
+            const s = document.getElementById('rngSavingsDelta').value;
+            const e = document.getElementById('rngExpenseDelta').value;
+            const st = document.getElementById('rngStudyDelta').value;
+            const sl = document.getElementById('rngSleepDelta').value;
+
+            document.getElementById('lblSavingsDelta').innerText = (s > 0 ? `+${s}%` : `${s}%`);
+            document.getElementById('lblExpenseDelta').innerText = (e > 0 ? `+${e}%` : `${e}%`);
+            document.getElementById('lblStudyDelta').innerText = (st > 0 ? `+${st} hrs` : `${st} hrs`);
+            document.getElementById('lblSleepDelta').innerText = (sl > 0 ? `+${sl} hrs` : `${sl} hrs`);
+        }
+
+        async function runCustomSimulation() {
+            const payload = {
+                savings_delta_pct: parseFloat(document.getElementById('rngSavingsDelta').value),
+                expense_delta_pct: parseFloat(document.getElementById('rngExpenseDelta').value),
+                study_hours_delta: parseFloat(document.getElementById('rngStudyDelta').value),
+                sleep_hours_delta: parseFloat(document.getElementById('rngSleepDelta').value)
+            };
+
+            try {
+                const res = await fetch('/api/v1/simulation/run', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    renderSimulation(data.simulation);
+                }
+            } catch (err) {
+                console.error("Simulation run error:", err);
+            }
+        }
+
+        function renderSimulation(sim) {
+            const fin = sim.financial_outcomes;
+            const prod = sim.productivity_outcomes;
+
+            document.getElementById('sim-wealth-delta').innerText = `${fin.net_wealth_delta_1yr > 0 ? '+' : ''}₹${fin.net_wealth_delta_1yr.toLocaleString()}`;
+            document.getElementById('sim-monthly-sav-delta').innerText = `${fin.monthly_savings_delta > 0 ? '+' : ''}₹${fin.monthly_savings_delta.toLocaleString()}/mo extra`;
+            document.getElementById('sim-prod-score').innerText = prod.scenario_productivity_score;
+            document.getElementById('sim-prod-delta').innerText = `${prod.productivity_delta > 0 ? '+' : ''}${prod.productivity_delta} pts boost`;
+            document.getElementById('sim-verdict-text').innerText = sim.verdict;
+
+            // Render Simulation Chart
+            const ctx = document.getElementById('simulationChart').getContext('2d');
+            const curve = sim.progression_curve;
+            const labels = curve.map(c => c.month);
+            const baseSav = curve.map(c => c.baseline_savings);
+            const scenSav = curve.map(c => c.scenario_savings);
+
+            if (chartSimulation) chartSimulation.destroy();
+
+            chartSimulation = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Simulated Scenario Wealth (₹)',
+                            data: scenSav,
+                            borderColor: '#a390e4',
+                            backgroundColor: 'rgba(163, 144, 228, 0.15)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Baseline Trajectory (₹)',
+                            data: baseSav,
+                            borderColor: '#7e998e',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { color: 'rgba(216, 226, 220, 0.05)' }, ticks: { color: '#7e998e' } },
+                        y: { grid: { color: 'rgba(216, 226, 220, 0.05)' }, ticks: { color: '#a390e4' } }
+                    },
+                    plugins: { legend: { labels: { color: '#f4f7f5' } } }
+                }
+            });
+        }
+
+        function applyPreset(type) {
+            if (type === 'aggressive') {
+                document.getElementById('rngSavingsDelta').value = 25;
+                document.getElementById('rngExpenseDelta').value = -15;
+                document.getElementById('rngStudyDelta').value = 1.5;
+                document.getElementById('rngSleepDelta').value = 0.5;
+            } else if (type === 'balanced') {
+                document.getElementById('rngSavingsDelta').value = 15;
+                document.getElementById('rngExpenseDelta').value = -5;
+                document.getElementById('rngStudyDelta').value = 0.5;
+                document.getElementById('rngSleepDelta').value = 1.0;
+            } else {
+                document.getElementById('rngSavingsDelta').value = 0;
+                document.getElementById('rngExpenseDelta').value = 0;
+                document.getElementById('rngStudyDelta').value = 0;
+                document.getElementById('rngSleepDelta').value = 0;
+            }
+            updateSliderLabels();
+            runCustomSimulation();
+        }
+
+        async function saveCurrentScenario() {
+            const title = prompt("Enter scenario title:", "Custom Strategy Simulation");
+            if (!title) return;
+
+            const payload = {
+                title: title,
+                savings_delta_pct: parseFloat(document.getElementById('rngSavingsDelta').value),
+                expense_delta_pct: parseFloat(document.getElementById('rngExpenseDelta').value),
+                study_hours_delta: parseFloat(document.getElementById('rngStudyDelta').value),
+                sleep_hours_delta: parseFloat(document.getElementById('rngSleepDelta').value)
+            };
+
+            const res = await fetch('/api/v1/simulation/scenarios', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (data.success) {
+                alert("Scenario successfully saved to your profile!");
+            }
+        }
+
+        // Chat with Data
+        async function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            input.value = '';
+            appendBubble('user', msg);
+
+            const res = await fetch('/api/v1/ai/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: msg })
+            });
+            const data = await res.json();
+            appendBubble('ai', data.reply);
+        }
+
+        function sendQuickPrompt(promptText) {
+            document.getElementById('chatInput').value = promptText;
+            sendChatMessage();
+        }
+
+        function appendBubble(sender, text) {
+            const box = document.getElementById('chatMessagesBox');
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${sender}`;
+            // Simple markdown bold conversion
+            const formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>');
+            bubble.innerHTML = formatted;
+            box.appendChild(bubble);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function renderBenchmarks(benchmarks) {
+            const container = document.getElementById('benchmarksTableContainer');
+            let html = '<table class="heatmap-table"><thead><tr><th style="text-align:left;">Indicator</th><th>Benchmark Value</th><th style="text-align:left;">Standard Source</th></tr></thead><tbody>';
+            (benchmarks || []).forEach(b => {
+                html += `<tr><td style="text-align:left; color:#fff; font-weight:600;">${b.metric_name.replace(/_/g, ' ').toUpperCase()}</td><td style="color:var(--accent-cyan); font-weight:700;">${b.metric_value} ${b.metric_unit}</td><td style="text-align:left; color:var(--text-dim);">${b.source}</td></tr>`;
+            });
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        async function triggerModelRetrain(btn) {
+            if (btn) btn.disabled = true;
+            const statusBox = document.getElementById('retrainStatusBox');
+            const statusText = document.getElementById('retrainStatusText');
+            if (statusBox) statusBox.style.display = 'flex';
+            if (statusText) statusText.innerText = 'Executing scikit-learn continuous training pipeline...';
+
+            try {
+                const res = await fetch('/api/v1/models/retrain', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    if (statusText) statusText.innerText = 'All 3 ML models retrained & cached successfully!';
+                    setTimeout(() => { if (statusBox) statusBox.style.display = 'none'; }, 4000);
+                    fetchMilestone3Data();
+                }
+            } catch (err) {
+                console.error("Retrain error:", err);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

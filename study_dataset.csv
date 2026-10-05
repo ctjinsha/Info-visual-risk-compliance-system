@@ -1,0 +1,901 @@
+Date,Subject,Study_Method,Hours_Spent,Focus_Score,Past_7Day_Hours,Exam_Readiness_Score,Predicted_Weekly_Hours
+2024-01-01,Java,Problem Solving,3.9,97,15.3,74.8,23.4
+2024-01-01,Python Programming,Problem Solving,4.0,77,19.2,70.6,19.9
+2024-01-02,Java,Revision,0.7,76,11.4,46.4,5.0
+2024-01-03,Distributed Systems,Theory,1.0,82,9.4,45.3,5.4
+2024-01-04,Cloud Architecture,Practice,2.5,79,13.5,64.7,13.0
+2024-01-05,Python Programming,Problem Solving,2.0,90,10.4,58.0,6.5
+2024-01-05,Distributed Systems,Practice,4.0,83,15.9,70.6,17.8
+2024-01-06,Quantitative Risk,Practice,2.4,85,7.7,56.1,11.7
+2024-01-07,Python Programming,Problem Solving,2.5,88,21.7,73.4,11.3
+2024-01-08,Quantitative Risk,Revision,1.9,77,15.6,53.1,7.5
+2024-01-09,Machine Learning,Revision,2.0,92,18.3,63.7,11.1
+2024-01-09,Machine Learning,Revision,3.3,55,20.6,60.2,16.6
+2024-01-10,Java,Revision,1.9,85,23.9,66.3,8.3
+2024-01-11,Algorithms & Data Structures,Theory,1.7,91,18.1,61.0,9.9
+2024-01-12,Quantitative Risk,Revision,1.5,78,14.5,49.2,8.4
+2024-01-13,Python Programming,Revision,2.3,67,14.4,52.2,10.4
+2024-01-13,Algorithms & Data Structures,Practice,5.3,83,17.8,80.5,23.7
+2024-01-14,Java,Practice,3.2,82,28.8,78.9,17.2
+2024-01-15,Python Programming,Revision,3.0,89,20.5,69.1,18.4
+2024-01-16,Cloud Architecture,Revision,1.0,72,13.7,48.0,5.0
+2024-01-17,Cloud Architecture,Practice,1.5,82,11.2,53.8,6.0
+2024-01-17,Algorithms & Data Structures,Practice,4.9,74,14.9,74.4,23.0
+2024-01-18,Machine Learning,Revision,0.8,83,17.8,57.5,5.0
+2024-01-19,Machine Learning,Problem Solving,1.7,84,18.2,59.1,9.3
+2024-01-20,Python Programming,Problem Solving,3.5,74,25.8,76.1,15.8
+2024-01-21,Machine Learning,Practice,3.9,93,12.4,74.3,21.1
+2024-01-21,Cloud Architecture,Revision,1.9,74,12.1,49.2,9.7
+2024-01-22,Quantitative Risk,Revision,2.4,82,23.8,68.4,17.9
+2024-01-23,Python Programming,Theory,1.2,86,15.4,57.6,7.2
+2024-01-24,Database Engineering,Theory,2.0,73,8.9,46.3,12.1
+2024-01-25,Python Programming,Revision,2.2,85,12.1,58.1,11.6
+2024-01-25,Quantitative Risk,Theory,1.2,92,21.8,60.2,5.0
+2024-01-26,Machine Learning,Theory,2.5,100,19.4,74.7,14.9
+2024-01-27,Quantitative Risk,Practice,3.9,74,15.3,65.3,20.4
+2024-01-28,Distributed Systems,Revision,2.6,65,14.1,57.0,13.6
+2024-01-29,Machine Learning,Practice,2.0,74,17.6,58.5,9.1
+2024-01-29,Distributed Systems,Revision,0.5,83,13.2,51.6,5.0
+2024-01-30,Python Programming,Problem Solving,3.1,87,20.8,69.0,15.5
+2024-01-31,Python Programming,Practice,5.1,86,10.2,75.9,30.8
+2024-02-01,Distributed Systems,Practice,4.3,94,13.0,76.0,23.9
+2024-02-02,Distributed Systems,Practice,0.5,71,15.2,42.7,5.9
+2024-02-02,Cloud Architecture,Practice,1.6,96,9.3,60.1,8.3
+2024-02-03,Cloud Architecture,Practice,3.4,75,16.8,64.7,17.9
+2024-02-04,Java,Revision,2.6,100,6.7,59.9,14.7
+2024-02-05,Database Engineering,Problem Solving,3.5,75,15.5,63.3,17.0
+2024-02-06,Python Programming,Revision,2.8,90,18.0,71.1,15.8
+2024-02-06,Java,Practice,4.0,88,16.4,74.4,23.4
+2024-02-07,Java,Problem Solving,2.5,79,22.0,69.8,14.6
+2024-02-08,Python Programming,Problem Solving,4.6,82,19.9,77.1,24.6
+2024-02-09,Database Engineering,Revision,2.0,73,27.0,63.7,8.0
+2024-02-10,Cloud Architecture,Theory,2.6,88,16.4,61.3,13.7
+2024-02-10,Distributed Systems,Problem Solving,2.5,73,14.9,59.1,11.9
+2024-02-11,Cloud Architecture,Practice,3.5,76,14.1,64.8,15.3
+2024-02-12,Machine Learning,Problem Solving,1.7,74,15.4,55.3,11.8
+2024-02-13,Distributed Systems,Problem Solving,3.2,71,16.4,61.5,17.3
+2024-02-14,Machine Learning,Revision,1.4,80,18.5,59.9,6.5
+2024-02-14,Java,Problem Solving,3.4,82,17.0,66.2,17.7
+2024-02-15,Cloud Architecture,Revision,2.5,100,12.7,68.4,13.4
+2024-02-16,Python Programming,Practice,5.6,73,12.3,71.1,24.9
+2024-02-17,Cloud Architecture,Practice,2.6,85,25.9,77.3,12.4
+2024-02-18,Cloud Architecture,Practice,1.7,100,22.4,70.5,5.4
+2024-02-18,Database Engineering,Theory,3.2,80,22.7,65.1,15.4
+2024-02-19,Python Programming,Theory,2.1,82,14.2,58.8,8.8
+2024-02-20,Database Engineering,Revision,2.0,89,10.9,52.4,13.0
+2024-02-21,Python Programming,Revision,3.3,83,22.4,73.1,21.3
+2024-02-22,Quantitative Risk,Practice,5.1,88,23.3,84.2,27.9
+2024-02-22,Python Programming,Practice,4.4,64,10.6,54.7,22.3
+2024-02-23,Distributed Systems,Theory,2.7,98,9.6,56.5,13.9
+2024-02-24,Distributed Systems,Problem Solving,0.9,81,10.0,49.4,5.4
+2024-02-25,Python Programming,Practice,2.2,81,21.3,63.1,12.4
+2024-02-26,Python Programming,Practice,2.6,74,16.0,57.1,12.4
+2024-02-26,Distributed Systems,Revision,1.1,75,17.6,53.0,5.3
+2024-02-27,Machine Learning,Theory,1.7,76,15.1,46.7,5.8
+2024-02-28,Distributed Systems,Theory,3.2,87,18.1,77.3,18.9
+2024-02-29,Python Programming,Revision,0.8,84,12.7,46.2,5.0
+2024-03-01,Python Programming,Problem Solving,2.0,98,20.9,71.1,13.4
+2024-03-01,Python Programming,Revision,3.3,87,11.3,62.9,15.4
+2024-03-02,Cloud Architecture,Revision,1.0,68,19.3,49.8,5.0
+2024-03-03,Python Programming,Practice,3.3,73,17.9,65.4,16.7
+2024-03-04,Database Engineering,Theory,1.4,76,20.3,58.9,5.3
+2024-03-05,Algorithms & Data Structures,Revision,0.8,87,13.2,53.9,5.0
+2024-03-05,Distributed Systems,Practice,1.2,84,12.0,54.2,5.0
+2024-03-06,Python Programming,Revision,1.6,82,12.2,52.2,10.3
+2024-03-07,Java,Revision,1.6,87,23.7,59.5,6.7
+2024-03-08,Java,Problem Solving,3.6,75,16.9,66.2,21.1
+2024-03-09,Python Programming,Theory,2.3,77,14.3,57.2,11.1
+2024-03-09,Cloud Architecture,Revision,2.8,78,22.5,67.2,10.5
+2024-03-10,Distributed Systems,Practice,2.1,82,24.9,70.4,10.5
+2024-03-11,Java,Revision,2.3,89,9.1,60.2,12.6
+2024-03-12,Cloud Architecture,Revision,1.8,83,17.7,59.0,7.7
+2024-03-13,Java,Theory,2.2,77,18.9,61.2,13.5
+2024-03-13,Python Programming,Theory,1.7,79,11.6,49.9,9.6
+2024-03-14,Java,Theory,2.8,95,18.6,75.5,13.0
+2024-03-15,Python Programming,Problem Solving,1.8,64,24.0,61.5,9.2
+2024-03-16,Python Programming,Revision,4.1,83,17.0,73.9,22.3
+2024-03-17,Machine Learning,Practice,3.4,100,23.2,87.0,16.7
+2024-03-17,Algorithms & Data Structures,Problem Solving,2.1,80,16.8,63.6,7.5
+2024-03-18,Python Programming,Practice,4.9,71,8.2,66.5,25.6
+2024-03-19,Java,Practice,2.8,98,15.2,65.6,14.1
+2024-03-20,Distributed Systems,Practice,2.9,79,20.0,73.4,17.3
+2024-03-21,Python Programming,Revision,1.9,70,29.4,67.6,9.9
+2024-03-21,Python Programming,Problem Solving,3.2,76,13.8,61.7,15.6
+2024-03-22,Cloud Architecture,Practice,2.9,97,3.2,61.5,17.6
+2024-03-23,Python Programming,Practice,0.9,67,12.6,41.1,8.2
+2024-03-24,Python Programming,Practice,4.2,94,20.1,77.8,20.8
+2024-03-25,Cloud Architecture,Practice,3.7,79,14.6,69.1,20.1
+2024-03-25,Quantitative Risk,Practice,2.0,88,19.5,65.0,11.1
+2024-03-26,Distributed Systems,Problem Solving,1.8,76,21.7,59.9,6.5
+2024-03-27,Cloud Architecture,Practice,1.8,99,6.1,60.9,9.8
+2024-03-28,Machine Learning,Practice,3.1,81,22.0,72.1,16.4
+2024-03-29,Distributed Systems,Practice,3.5,64,9.8,57.2,18.5
+2024-03-29,Database Engineering,Revision,2.0,76,12.6,54.1,8.4
+2024-03-30,Java,Revision,2.9,86,17.8,70.4,18.4
+2024-03-31,Python Programming,Problem Solving,4.3,63,10.1,57.1,22.4
+2024-04-01,Python Programming,Theory,2.2,74,13.4,49.2,9.6
+2024-04-02,Machine Learning,Practice,1.7,72,29.7,69.5,9.2
+2024-04-02,Machine Learning,Practice,2.6,83,29.3,76.8,15.8
+2024-04-03,Python Programming,Practice,2.4,81,25.4,69.4,16.1
+2024-04-04,Java,Theory,2.6,91,19.6,63.6,12.1
+2024-04-05,Algorithms & Data Structures,Practice,2.9,81,19.6,68.8,12.4
+2024-04-06,Quantitative Risk,Theory,2.5,92,20.7,70.8,12.9
+2024-04-06,Java,Problem Solving,1.4,86,17.5,60.4,5.0
+2024-04-07,Algorithms & Data Structures,Practice,2.0,92,16.3,66.3,10.5
+2024-04-08,Java,Theory,2.1,82,14.2,55.7,10.3
+2024-04-09,Python Programming,Revision,3.1,73,15.6,59.8,19.0
+2024-04-10,Java,Revision,2.3,84,20.9,66.8,14.1
+2024-04-10,Algorithms & Data Structures,Theory,1.7,96,28.0,73.4,7.9
+2024-04-11,Distributed Systems,Theory,3.3,77,15.1,57.5,15.3
+2024-04-12,Java,Practice,3.2,84,24.3,72.8,18.6
+2024-04-13,Algorithms & Data Structures,Revision,1.9,70,18.4,56.9,10.9
+2024-04-14,Cloud Architecture,Revision,1.6,76,13.4,50.5,7.0
+2024-04-14,Python Programming,Problem Solving,4.5,96,13.6,74.3,24.3
+2024-04-15,Machine Learning,Practice,3.4,66,24.2,75.0,16.5
+2024-04-16,Quantitative Risk,Problem Solving,2.8,84,18.2,69.2,18.6
+2024-04-17,Python Programming,Practice,1.7,74,16.3,60.8,7.8
+2024-04-18,Quantitative Risk,Revision,2.3,100,13.8,64.4,14.0
+2024-04-18,Cloud Architecture,Revision,2.6,78,19.5,67.7,15.2
+2024-04-19,Cloud Architecture,Revision,2.5,95,19.7,70.3,13.3
+2024-04-20,Java,Theory,2.4,78,16.6,63.0,12.9
+2024-04-21,Cloud Architecture,Practice,3.3,88,27.3,80.1,17.6
+2024-04-22,Machine Learning,Revision,2.0,84,19.5,64.2,9.5
+2024-04-22,Java,Revision,2.3,83,13.0,61.9,8.9
+2024-04-23,Python Programming,Problem Solving,2.6,85,24.3,72.4,12.4
+2024-04-24,Java,Problem Solving,5.3,67,5.5,62.8,26.6
+2024-04-25,Cloud Architecture,Practice,3.5,76,10.1,62.7,19.5
+2024-04-26,Distributed Systems,Revision,2.0,66,13.0,49.8,10.9
+2024-04-26,Quantitative Risk,Practice,1.8,96,16.1,67.9,10.0
+2024-04-27,Machine Learning,Theory,2.5,88,23.1,70.8,14.4
+2024-04-28,Machine Learning,Revision,1.6,100,16.3,60.4,8.6
+2024-04-29,Java,Theory,1.6,77,7.1,44.1,5.0
+2024-04-30,Cloud Architecture,Practice,4.1,86,11.7,68.9,21.3
+2024-04-30,Cloud Architecture,Revision,1.2,79,16.6,55.1,5.0
+2024-05-01,Python Programming,Practice,2.1,79,25.5,70.8,9.8
+2024-05-02,Python Programming,Practice,3.8,95,21.1,80.6,18.5
+2024-05-03,Machine Learning,Problem Solving,4.2,88,21.7,78.4,24.5
+2024-05-04,Distributed Systems,Revision,2.3,99,17.5,67.2,11.0
+2024-05-04,Quantitative Risk,Practice,3.8,76,16.4,74.5,23.2
+2024-05-05,Java,Problem Solving,3.7,82,17.1,72.1,17.2
+2024-05-06,Python Programming,Practice,2.9,65,18.5,62.7,14.1
+2024-05-07,Java,Practice,4.9,84,21.7,87.8,24.6
+2024-05-08,Distributed Systems,Problem Solving,3.0,90,19.8,67.6,18.6
+2024-05-08,Machine Learning,Practice,4.7,86,17.8,76.9,23.1
+2024-05-09,Database Engineering,Practice,3.2,93,19.2,73.2,18.2
+2024-05-10,Java,Revision,0.5,78,10.9,40.8,5.0
+2024-05-11,Machine Learning,Practice,3.1,86,16.9,64.8,18.1
+2024-05-12,Distributed Systems,Practice,2.7,97,20.8,73.7,13.3
+2024-05-12,Python Programming,Theory,1.8,100,18.4,68.2,11.4
+2024-05-13,Python Programming,Practice,3.5,81,16.3,70.5,18.3
+2024-05-14,Python Programming,Practice,4.0,81,16.9,65.7,22.6
+2024-05-15,Distributed Systems,Revision,2.4,100,15.8,71.7,10.4
+2024-05-16,Python Programming,Revision,1.6,100,15.5,64.6,10.1
+2024-05-16,Algorithms & Data Structures,Revision,2.5,100,16.2,69.9,15.1
+2024-05-17,Python Programming,Problem Solving,4.4,93,19.7,77.7,26.1
+2024-05-18,Python Programming,Revision,1.2,81,18.1,57.8,7.1
+2024-05-19,Cloud Architecture,Theory,1.9,91,22.4,64.1,11.1
+2024-05-20,Machine Learning,Revision,2.7,80,17.1,62.8,14.1
+2024-05-20,Java,Practice,5.0,73,11.5,62.2,24.7
+2024-05-21,Java,Practice,1.7,98,21.5,68.2,13.3
+2024-05-22,Java,Theory,0.5,100,9.6,47.0,5.0
+2024-05-23,Cloud Architecture,Theory,4.1,87,20.8,77.4,21.9
+2024-05-24,Java,Problem Solving,2.4,79,8.0,52.5,10.5
+2024-05-24,Machine Learning,Revision,1.2,91,8.6,48.3,8.1
+2024-05-25,Distributed Systems,Practice,3.8,72,17.0,63.1,18.6
+2024-05-26,Cloud Architecture,Practice,3.6,81,19.3,72.5,21.4
+2024-05-27,Python Programming,Revision,2.2,87,16.7,63.2,10.0
+2024-05-28,Cloud Architecture,Practice,2.5,69,13.0,52.4,14.8
+2024-05-28,Quantitative Risk,Revision,1.6,84,12.3,60.7,5.9
+2024-05-29,Machine Learning,Theory,2.3,80,15.9,59.0,11.7
+2024-05-30,Cloud Architecture,Revision,1.7,68,16.1,60.0,7.2
+2024-05-31,Distributed Systems,Revision,3.4,87,24.6,76.1,17.3
+2024-06-01,Python Programming,Problem Solving,2.6,71,13.3,52.3,13.6
+2024-06-01,Python Programming,Theory,1.5,84,8.7,50.4,9.5
+2024-06-02,Distributed Systems,Practice,4.6,69,24.9,79.5,22.5
+2024-06-03,Cloud Architecture,Problem Solving,3.1,87,11.9,64.3,13.3
+2024-06-04,Python Programming,Revision,1.5,94,22.0,69.3,5.6
+2024-06-05,Database Engineering,Problem Solving,2.9,94,17.2,77.7,15.9
+2024-06-05,Python Programming,Theory,2.2,80,20.0,65.3,9.9
+2024-06-06,Python Programming,Problem Solving,1.7,63,19.0,50.2,5.0
+2024-06-07,Cloud Architecture,Revision,2.1,90,16.9,63.6,12.8
+2024-06-08,Quantitative Risk,Theory,1.9,75,21.5,60.0,8.4
+2024-06-09,Python Programming,Revision,2.1,81,21.9,66.7,10.9
+2024-06-09,Cloud Architecture,Theory,2.8,82,9.9,52.8,13.9
+2024-06-10,Java,Practice,3.3,87,16.1,70.8,17.3
+2024-06-11,Distributed Systems,Practice,1.0,69,19.5,57.3,7.6
+2024-06-12,Python Programming,Practice,3.0,96,17.2,71.4,14.4
+2024-06-13,Cloud Architecture,Practice,2.9,83,16.5,67.3,17.5
+2024-06-13,Java,Revision,0.5,91,9.7,48.1,5.0
+2024-06-14,Quantitative Risk,Theory,0.7,76,3.5,35.6,5.0
+2024-06-15,Distributed Systems,Practice,3.2,87,17.1,66.9,19.0
+2024-06-16,Python Programming,Revision,2.0,77,12.1,52.9,13.8
+2024-06-17,Java,Practice,4.8,79,13.2,74.8,23.7
+2024-06-17,Java,Theory,3.6,100,13.5,72.8,19.3
+2024-06-18,Cloud Architecture,Revision,2.1,74,18.8,57.4,14.9
+2024-06-19,Python Programming,Practice,3.4,78,17.4,63.6,15.7
+2024-06-20,Java,Theory,1.3,87,22.4,65.5,8.8
+2024-06-21,Cloud Architecture,Practice,2.4,78,15.2,63.8,13.6
+2024-06-21,Cloud Architecture,Revision,1.6,91,16.8,62.4,11.4
+2024-06-22,Machine Learning,Revision,2.5,78,12.3,53.5,9.1
+2024-06-23,Distributed Systems,Revision,1.9,79,18.0,62.0,11.6
+2024-06-24,Quantitative Risk,Theory,1.6,80,17.9,56.8,11.5
+2024-06-25,Quantitative Risk,Theory,2.6,93,17.4,63.1,14.3
+2024-06-25,Machine Learning,Practice,2.5,94,16.6,69.1,16.4
+2024-06-26,Cloud Architecture,Revision,2.6,64,20.3,60.7,16.1
+2024-06-27,Python Programming,Revision,2.6,79,12.2,55.7,14.7
+2024-06-28,Cloud Architecture,Theory,1.1,86,22.5,60.3,5.5
+2024-06-29,Machine Learning,Practice,3.2,74,19.7,66.9,17.5
+2024-06-29,Java,Practice,4.0,78,25.1,77.5,21.2
+2024-06-30,Java,Practice,4.2,66,22.8,71.1,27.0
+2024-07-01,Cloud Architecture,Practice,4.9,100,26.8,97.9,27.5
+2024-07-02,Java,Theory,2.6,73,16.5,57.5,12.6
+2024-07-03,Machine Learning,Revision,2.2,96,10.8,60.2,10.0
+2024-07-03,Python Programming,Practice,1.1,97,19.7,61.6,9.4
+2024-07-04,Cloud Architecture,Theory,1.9,72,14.6,55.7,13.6
+2024-07-05,Python Programming,Practice,4.9,83,7.7,69.3,25.2
+2024-07-06,Java,Revision,2.5,76,10.7,45.6,12.9
+2024-07-07,Distributed Systems,Theory,3.5,75,18.8,62.4,18.8
+2024-07-07,Machine Learning,Revision,2.0,79,12.1,51.7,9.9
+2024-07-08,Java,Theory,2.4,96,15.1,64.8,11.0
+2024-07-09,Python Programming,Practice,0.5,90,20.2,58.2,5.0
+2024-07-10,Algorithms & Data Structures,Practice,3.8,66,13.9,64.0,17.3
+2024-07-11,Python Programming,Revision,2.5,81,8.4,57.4,11.5
+2024-07-11,Quantitative Risk,Revision,1.5,71,16.8,54.4,9.2
+2024-07-12,Python Programming,Revision,1.4,82,11.1,42.5,8.2
+2024-07-13,Distributed Systems,Practice,4.2,88,26.8,85.6,20.4
+2024-07-14,Machine Learning,Revision,1.6,74,14.1,49.2,8.6
+2024-07-15,Python Programming,Problem Solving,5.0,79,8.7,70.4,25.8
+2024-07-15,Distributed Systems,Revision,2.3,74,14.4,59.5,12.2
+2024-07-16,Java,Theory,0.9,100,21.9,64.8,7.2
+2024-07-17,Algorithms & Data Structures,Revision,2.5,73,13.3,58.7,12.3
+2024-07-18,Python Programming,Problem Solving,2.8,72,18.6,69.0,12.4
+2024-07-19,Python Programming,Problem Solving,3.2,96,16.1,73.5,14.5
+2024-07-19,Quantitative Risk,Revision,2.4,93,29.4,80.9,13.1
+2024-07-20,Python Programming,Theory,2.4,79,17.3,64.3,10.5
+2024-07-21,Distributed Systems,Theory,3.0,60,13.5,55.6,15.6
+2024-07-22,Java,Practice,4.1,87,15.3,72.0,20.5
+2024-07-23,Distributed Systems,Theory,1.4,94,24.1,71.3,6.4
+2024-07-23,Distributed Systems,Problem Solving,2.2,85,10.6,60.3,10.5
+2024-07-24,Python Programming,Theory,2.3,87,14.1,62.4,9.3
+2024-07-25,Cloud Architecture,Revision,1.3,75,19.1,56.5,7.5
+2024-07-26,Machine Learning,Revision,2.5,86,15.3,64.8,16.8
+2024-07-27,Python Programming,Revision,3.0,80,5.6,55.9,14.5
+2024-07-27,Machine Learning,Problem Solving,3.1,89,14.3,68.5,15.6
+2024-07-28,Machine Learning,Theory,1.4,92,13.8,59.7,8.0
+2024-07-29,Python Programming,Practice,5.2,81,15.0,78.9,23.8
+2024-07-30,Java,Practice,4.2,99,16.0,78.6,22.0
+2024-07-31,Python Programming,Theory,3.0,72,17.7,63.7,16.6
+2024-07-31,Quantitative Risk,Revision,0.5,88,13.2,45.5,5.0
+2024-08-01,Quantitative Risk,Revision,3.2,98,23.1,84.0,18.1
+2024-08-02,Java,Revision,1.9,73,27.4,66.0,10.1
+2024-08-03,Machine Learning,Revision,2.5,75,17.5,58.4,10.4
+2024-08-04,Distributed Systems,Practice,2.7,75,9.5,54.4,11.0
+2024-08-04,Python Programming,Revision,2.7,78,12.7,59.0,16.7
+2024-08-05,Distributed Systems,Practice,3.0,88,17.6,67.3,15.0
+2024-08-06,Distributed Systems,Problem Solving,2.3,100,16.2,66.7,8.9
+2024-08-07,Distributed Systems,Practice,3.5,87,8.6,65.7,17.2
+2024-08-08,Java,Practice,3.4,98,21.0,78.4,15.9
+2024-08-08,Distributed Systems,Practice,3.0,72,15.8,61.6,15.2
+2024-08-09,Algorithms & Data Structures,Revision,1.6,71,23.6,60.1,8.4
+2024-08-10,Cloud Architecture,Problem Solving,4.2,84,13.4,71.2,19.6
+2024-08-11,Python Programming,Revision,2.2,80,7.1,49.0,11.6
+2024-08-12,Python Programming,Revision,3.1,73,21.3,68.1,14.8
+2024-08-12,Cloud Architecture,Practice,5.2,92,13.1,83.2,26.5
+2024-08-13,Quantitative Risk,Theory,2.0,90,20.5,60.8,13.0
+2024-08-14,Machine Learning,Revision,0.8,71,14.4,43.7,5.0
+2024-08-15,Quantitative Risk,Practice,4.6,95,13.7,76.8,20.6
+2024-08-16,Cloud Architecture,Revision,1.5,69,13.5,48.9,8.4
+2024-08-16,Cloud Architecture,Practice,2.7,81,19.2,66.7,13.2
+2024-08-17,Python Programming,Practice,3.1,79,24.5,75.1,15.5
+2024-08-18,Python Programming,Problem Solving,4.0,78,22.4,76.7,20.6
+2024-08-19,Java,Practice,3.7,70,17.2,71.1,23.7
+2024-08-20,Machine Learning,Theory,0.7,76,12.6,44.5,5.0
+2024-08-20,Java,Problem Solving,2.7,62,20.2,56.6,14.5
+2024-08-21,Distributed Systems,Revision,0.5,79,22.0,62.1,5.0
+2024-08-22,Java,Practice,3.7,100,9.0,70.5,20.2
+2024-08-23,Distributed Systems,Theory,2.3,78,17.8,58.9,13.2
+2024-08-24,Algorithms & Data Structures,Practice,2.8,85,16.4,69.5,14.5
+2024-08-24,Cloud Architecture,Practice,2.2,75,13.5,59.9,7.2
+2024-08-25,Cloud Architecture,Theory,4.6,81,17.9,73.7,25.2
+2024-08-26,Cloud Architecture,Problem Solving,3.0,80,15.5,67.4,16.8
+2024-08-27,Cloud Architecture,Problem Solving,0.5,81,14.6,53.1,5.0
+2024-08-28,Cloud Architecture,Practice,2.1,68,13.4,54.9,12.8
+2024-08-28,Java,Practice,3.8,89,19.1,74.1,20.6
+2024-08-29,Machine Learning,Theory,3.1,89,18.3,71.8,16.1
+2024-08-30,Python Programming,Practice,2.2,75,15.8,55.7,10.8
+2024-08-31,Machine Learning,Problem Solving,1.1,84,16.5,53.7,7.0
+2024-09-01,Python Programming,Practice,4.2,65,12.7,59.9,20.0
+2024-09-01,Machine Learning,Problem Solving,4.1,80,15.2,63.7,22.6
+2024-09-02,Database Engineering,Revision,1.1,95,10.0,44.7,6.1
+2024-09-03,Cloud Architecture,Revision,2.3,77,20.5,60.5,12.9
+2024-09-04,Cloud Architecture,Revision,2.5,85,14.0,61.0,9.5
+2024-09-05,Java,Practice,2.6,83,12.4,63.5,13.5
+2024-09-05,Python Programming,Practice,3.2,78,17.3,68.9,14.9
+2024-09-06,Java,Practice,1.7,73,14.1,55.4,9.4
+2024-09-07,Distributed Systems,Problem Solving,3.4,85,16.0,69.5,16.5
+2024-09-08,Distributed Systems,Practice,4.8,91,21.3,88.3,25.1
+2024-09-09,Java,Practice,3.4,88,22.5,76.3,16.8
+2024-09-09,Database Engineering,Revision,0.9,59,13.7,38.4,5.0
+2024-09-10,Machine Learning,Practice,3.0,85,18.0,70.7,13.3
+2024-09-11,Distributed Systems,Problem Solving,3.9,71,8.7,61.0,21.0
+2024-09-12,Machine Learning,Practice,2.2,70,24.7,62.3,12.7
+2024-09-13,Quantitative Risk,Practice,2.6,80,16.7,60.3,15.0
+2024-09-13,Python Programming,Practice,2.6,79,11.5,50.0,13.1
+2024-09-14,Distributed Systems,Revision,2.1,79,16.6,60.9,8.6
+2024-09-15,Machine Learning,Theory,3.0,86,16.6,67.3,16.8
+2024-09-16,Python Programming,Practice,3.3,97,10.3,63.2,17.5
+2024-09-17,Quantitative Risk,Practice,3.3,83,17.7,68.7,20.1
+2024-09-17,Java,Practice,3.1,65,15.6,63.9,16.2
+2024-09-18,Database Engineering,Practice,3.5,69,13.4,59.5,17.6
+2024-09-19,Cloud Architecture,Theory,1.2,84,19.0,61.7,9.4
+2024-09-20,Java,Practice,2.1,79,18.8,65.1,10.8
+2024-09-21,Machine Learning,Practice,2.3,100,8.5,61.9,16.0
+2024-09-21,Python Programming,Practice,3.2,80,23.4,66.7,19.7
+2024-09-22,Python Programming,Practice,1.6,79,14.4,56.7,5.1
+2024-09-23,Distributed Systems,Revision,2.5,83,13.2,60.8,13.0
+2024-09-24,Machine Learning,Practice,5.2,80,20.1,77.3,25.1
+2024-09-25,Cloud Architecture,Theory,2.5,78,16.5,55.8,14.2
+2024-09-25,Java,Theory,1.7,84,14.3,55.8,13.0
+2024-09-26,Python Programming,Practice,2.9,89,15.6,65.5,17.7
+2024-09-27,Java,Theory,0.6,92,13.1,55.1,5.0
+2024-09-28,Cloud Architecture,Practice,4.2,82,11.7,66.8,23.2
+2024-09-29,Database Engineering,Revision,3.7,66,24.6,70.7,17.4
+2024-09-29,Quantitative Risk,Problem Solving,1.7,80,21.1,62.1,11.9
+2024-09-30,Distributed Systems,Practice,1.8,85,20.9,63.7,5.0
+2024-10-01,Machine Learning,Theory,2.3,94,11.1,61.7,14.3
+2024-10-02,Python Programming,Problem Solving,1.2,85,14.0,54.4,6.9
+2024-10-03,Python Programming,Practice,2.7,75,16.7,58.6,11.9
+2024-10-03,Java,Practice,3.9,70,19.8,71.0,16.8
+2024-10-04,Java,Revision,1.6,77,18.8,60.4,7.8
+2024-10-05,Machine Learning,Problem Solving,2.5,96,25.2,80.3,13.2
+2024-10-06,Machine Learning,Practice,2.3,86,23.5,72.7,9.0
+2024-10-07,Java,Revision,1.8,84,26.5,78.9,10.6
+2024-10-07,Quantitative Risk,Revision,2.0,78,25.5,67.9,11.4
+2024-10-08,Machine Learning,Theory,2.8,75,13.7,53.7,15.4
+2024-10-09,Machine Learning,Revision,2.7,81,19.8,63.1,13.3
+2024-10-10,Machine Learning,Theory,1.9,81,8.9,49.3,11.7
+2024-10-11,Distributed Systems,Problem Solving,3.8,82,13.2,69.0,20.6
+2024-10-11,Python Programming,Theory,0.5,92,14.1,50.7,5.0
+2024-10-12,Cloud Architecture,Theory,1.8,88,9.7,57.1,9.9
+2024-10-13,Algorithms & Data Structures,Practice,2.8,83,7.6,57.7,12.5
+2024-10-14,Cloud Architecture,Practice,1.7,75,24.2,62.1,5.4
+2024-10-15,Cloud Architecture,Practice,3.0,76,17.3,66.0,17.8
+2024-10-15,Python Programming,Practice,4.8,77,17.8,72.6,23.0
+2024-10-16,Distributed Systems,Problem Solving,3.2,74,15.3,59.7,18.4
+2024-10-17,Distributed Systems,Practice,4.3,67,13.2,63.8,19.5
+2024-10-18,Java,Practice,3.4,82,12.9,65.3,16.6
+2024-10-19,Cloud Architecture,Revision,1.9,69,20.6,60.6,7.6
+2024-10-19,Machine Learning,Revision,1.2,72,21.6,57.5,7.3
+2024-10-20,Python Programming,Revision,2.4,92,22.3,71.0,12.4
+2024-10-21,Cloud Architecture,Practice,3.8,81,22.1,74.8,20.9
+2024-10-22,Database Engineering,Practice,2.1,81,15.6,60.4,10.2
+2024-10-23,Algorithms & Data Structures,Revision,1.8,65,25.2,64.8,6.8
+2024-10-23,Machine Learning,Practice,4.0,84,15.3,68.9,19.4
+2024-10-24,Java,Practice,3.1,74,19.9,71.3,15.0
+2024-10-25,Database Engineering,Theory,2.3,86,18.9,64.5,13.4
+2024-10-26,Python Programming,Revision,2.8,90,12.7,63.5,15.9
+2024-10-27,Cloud Architecture,Revision,1.9,74,9.6,50.1,11.3
+2024-10-27,Machine Learning,Revision,1.0,88,13.5,59.1,9.2
+2024-10-28,Algorithms & Data Structures,Practice,2.4,76,20.8,63.5,12.4
+2024-10-29,Java,Revision,2.1,75,14.0,59.4,8.4
+2024-10-30,Python Programming,Practice,4.1,89,18.2,78.5,23.3
+2024-10-31,Python Programming,Practice,2.0,73,31.2,74.1,7.7
+2024-10-31,Quantitative Risk,Theory,1.0,87,15.2,54.4,5.9
+2024-11-01,Java,Revision,1.9,73,17.4,65.5,10.6
+2024-11-02,Cloud Architecture,Theory,1.8,86,19.5,68.6,7.1
+2024-11-03,Python Programming,Revision,2.5,72,14.4,55.4,15.0
+2024-11-04,Distributed Systems,Practice,4.2,74,10.2,62.7,21.2
+2024-11-04,Distributed Systems,Revision,1.0,76,21.6,63.5,5.0
+2024-11-05,Distributed Systems,Revision,0.6,73,19.2,43.6,5.0
+2024-11-06,Quantitative Risk,Revision,1.3,82,11.9,52.3,5.0
+2024-11-07,Cloud Architecture,Practice,2.8,90,15.3,67.1,11.7
+2024-11-08,Distributed Systems,Practice,6.1,70,23.8,88.4,32.3
+2024-11-08,Quantitative Risk,Theory,3.5,81,22.6,74.9,16.9
+2024-11-09,Distributed Systems,Practice,2.3,81,22.7,66.6,11.9
+2024-11-10,Python Programming,Problem Solving,3.3,90,5.3,57.6,17.6
+2024-11-11,Java,Theory,0.6,88,13.3,47.8,5.0
+2024-11-12,Java,Revision,2.0,90,22.9,71.4,8.1
+2024-11-12,Distributed Systems,Practice,3.9,88,12.8,70.1,21.2
+2024-11-13,Machine Learning,Theory,3.3,82,23.6,73.3,15.4
+2024-11-14,Cloud Architecture,Theory,1.7,77,18.0,58.3,9.2
+2024-11-15,Cloud Architecture,Revision,2.3,83,21.2,63.4,12.8
+2024-11-16,Distributed Systems,Revision,1.4,75,11.1,46.1,6.5
+2024-11-16,Algorithms & Data Structures,Revision,1.0,72,24.1,59.7,7.3
+2024-11-17,Machine Learning,Practice,2.0,90,17.4,66.3,8.0
+2024-11-18,Python Programming,Revision,1.4,86,9.7,54.0,5.0
+2024-11-19,Machine Learning,Theory,1.5,87,17.8,58.1,5.8
+2024-11-20,Python Programming,Practice,1.0,85,8.7,48.6,5.0
+2024-11-20,Java,Problem Solving,2.8,89,18.2,70.1,15.5
+2024-11-21,Python Programming,Practice,1.5,89,19.6,60.5,7.3
+2024-11-22,Python Programming,Practice,3.6,96,21.9,76.5,20.0
+2024-11-23,Machine Learning,Practice,4.7,85,22.0,88.4,26.5
+2024-11-24,Quantitative Risk,Revision,2.2,82,14.7,63.7,9.8
+2024-11-24,Java,Revision,3.3,85,6.0,59.2,18.9
+2024-11-25,Cloud Architecture,Practice,5.3,76,11.2,75.7,31.5
+2024-11-26,Cloud Architecture,Revision,2.1,74,14.1,58.4,14.3
+2024-11-27,Python Programming,Revision,3.7,76,14.8,65.7,22.3
+2024-11-28,Quantitative Risk,Theory,2.8,82,19.3,57.8,14.0
+2024-11-28,Python Programming,Revision,2.4,79,25.3,74.2,11.5
+2024-11-29,Python Programming,Revision,2.0,83,12.7,53.0,11.6
+2024-11-30,Quantitative Risk,Problem Solving,3.9,73,21.0,69.8,20.8
+2024-12-01,Database Engineering,Revision,2.8,76,15.5,60.0,13.1
+2024-12-02,Python Programming,Practice,3.0,66,14.0,56.3,15.1
+2024-12-02,Database Engineering,Theory,1.9,81,18.9,62.9,8.6
+2024-12-03,Java,Practice,2.7,78,12.7,55.1,13.1
+2024-12-04,Python Programming,Theory,2.2,77,11.9,53.1,9.7
+2024-12-05,Java,Revision,1.8,85,17.4,68.9,10.1
+2024-12-06,Java,Revision,1.3,81,12.3,54.3,5.7
+2024-12-06,Python Programming,Practice,5.1,78,25.7,87.9,27.5
+2024-12-07,Java,Revision,2.4,79,20.7,64.8,9.7
+2024-12-08,Machine Learning,Revision,3.1,81,21.3,68.9,12.7
+2024-12-09,Distributed Systems,Theory,1.4,79,15.0,59.0,10.5
+2024-12-10,Distributed Systems,Revision,2.3,66,23.9,58.9,12.4
+2024-12-10,Python Programming,Practice,2.0,75,13.8,53.4,12.1
+2024-12-11,Algorithms & Data Structures,Problem Solving,2.0,84,22.6,65.7,9.0
+2024-12-12,Cloud Architecture,Theory,1.9,76,18.9,55.0,11.2
+2024-12-13,Python Programming,Problem Solving,2.3,73,19.2,64.7,10.7
+2024-12-14,Distributed Systems,Practice,3.7,81,12.0,62.3,17.9
+2024-12-14,Java,Problem Solving,0.7,60,13.5,42.7,5.0
+2024-12-15,Cloud Architecture,Problem Solving,2.7,76,23.4,67.5,14.8
+2024-12-16,Python Programming,Practice,3.4,60,20.3,64.0,18.7
+2024-12-17,Python Programming,Practice,7.5,61,25.1,82.2,39.6
+2024-12-18,Python Programming,Revision,1.6,85,8.9,53.6,7.5
+2024-12-18,Machine Learning,Practice,2.0,76,18.3,57.7,11.9
+2024-12-19,Cloud Architecture,Revision,2.0,88,17.0,66.6,9.0
+2024-12-20,Java,Practice,4.0,82,17.8,72.7,21.2
+2024-12-21,Cloud Architecture,Revision,2.8,77,12.1,60.5,16.3
+2024-12-22,Database Engineering,Practice,4.8,75,15.4,67.4,24.2
+2024-12-22,Java,Theory,2.6,80,18.1,59.0,13.7
+2024-12-23,Java,Revision,0.5,94,20.4,62.0,5.6
+2024-12-24,Algorithms & Data Structures,Theory,1.3,99,21.2,66.3,9.0
+2024-12-25,Java,Practice,2.0,76,11.2,56.5,9.9
+2024-12-26,Python Programming,Theory,0.6,84,6.9,43.1,5.0
+2024-12-26,Python Programming,Practice,5.4,91,17.0,87.4,26.4
+2024-12-27,Cloud Architecture,Problem Solving,3.5,94,20.2,77.9,14.9
+2024-12-28,Python Programming,Theory,1.3,80,17.0,51.8,11.6
+2024-12-29,Python Programming,Problem Solving,4.9,88,16.9,78.4,23.6
+2024-12-30,Python Programming,Revision,2.2,85,15.7,55.5,9.7
+2024-12-30,Python Programming,Practice,2.7,100,19.3,70.4,15.0
+2024-12-31,Java,Theory,0.9,81,23.1,55.9,5.0
+2025-01-01,Machine Learning,Practice,1.5,53,14.2,45.5,10.2
+2025-01-02,Quantitative Risk,Practice,2.7,63,14.6,55.5,14.9
+2025-01-03,Distributed Systems,Practice,0.5,75,18.8,48.7,5.0
+2025-01-03,Machine Learning,Practice,3.7,72,15.5,66.9,19.6
+2025-01-04,Cloud Architecture,Practice,4.0,61,22.3,68.1,21.7
+2025-01-05,Java,Practice,4.5,79,12.6,74.6,21.7
+2025-01-06,Cloud Architecture,Practice,1.9,78,18.1,58.9,9.7
+2025-01-07,Python Programming,Problem Solving,2.6,66,18.1,64.1,13.6
+2025-01-07,Database Engineering,Practice,3.4,88,10.2,69.5,18.1
+2025-01-08,Cloud Architecture,Revision,3.4,89,19.3,73.5,17.2
+2025-01-09,Distributed Systems,Theory,0.5,70,15.6,46.9,5.0
+2025-01-10,Distributed Systems,Practice,4.5,63,20.3,70.4,24.2
+2025-01-11,Machine Learning,Practice,4.3,87,15.9,76.5,20.9
+2025-01-11,Database Engineering,Practice,4.1,98,21.9,81.9,22.0
+2025-01-12,Algorithms & Data Structures,Practice,1.8,87,18.8,58.1,7.0
+2025-01-13,Python Programming,Practice,2.9,85,17.8,67.5,13.6
+2025-01-14,Python Programming,Practice,4.4,98,14.1,76.1,23.9
+2025-01-15,Algorithms & Data Structures,Practice,2.8,62,23.1,63.8,13.7
+2025-01-15,Python Programming,Theory,2.0,81,7.8,54.2,10.5
+2025-01-16,Java,Revision,2.5,86,15.2,65.3,8.7
+2025-01-17,Python Programming,Revision,2.4,86,13.0,57.9,12.3
+2025-01-18,Java,Problem Solving,2.2,52,14.6,44.4,8.2
+2025-01-19,Distributed Systems,Practice,4.7,85,13.5,75.2,23.5
+2025-01-19,Java,Practice,2.4,78,17.3,61.7,11.6
+2025-01-20,Cloud Architecture,Practice,1.8,89,11.5,54.9,6.4
+2025-01-21,Cloud Architecture,Theory,1.7,91,19.1,60.3,8.2
+2025-01-22,Machine Learning,Practice,1.9,90,21.0,73.1,9.1
+2025-01-23,Distributed Systems,Revision,2.7,66,7.1,49.8,10.3
+2025-01-23,Quantitative Risk,Practice,3.4,86,17.6,74.9,15.8
+2025-01-24,Machine Learning,Practice,2.5,91,18.8,72.8,10.6
+2025-01-25,Cloud Architecture,Revision,2.7,99,8.2,60.4,12.6
+2025-01-26,Cloud Architecture,Practice,4.0,95,20.0,81.3,18.8
+2025-01-27,Quantitative Risk,Practice,2.3,94,20.4,70.8,11.1
+2025-01-27,Python Programming,Practice,1.0,71,26.1,56.3,5.6
+2025-01-28,Java,Revision,2.2,91,16.6,73.2,8.1
+2025-01-29,Algorithms & Data Structures,Practice,4.4,86,12.8,72.5,19.2
+2025-01-30,Cloud Architecture,Problem Solving,3.9,92,18.3,77.0,18.5
+2025-01-31,Cloud Architecture,Revision,1.5,79,16.7,53.5,10.1
+2025-01-31,Cloud Architecture,Revision,1.4,78,17.7,58.2,6.8
+2025-02-01,Machine Learning,Theory,1.4,72,23.3,62.3,7.5
+2025-02-02,Database Engineering,Revision,1.4,82,5.7,48.5,5.0
+2025-02-03,Java,Practice,4.9,75,15.1,76.8,20.5
+2025-02-04,Quantitative Risk,Problem Solving,4.6,85,10.5,66.6,27.3
+2025-02-04,Cloud Architecture,Practice,2.2,85,11.8,58.8,9.4
+2025-02-05,Cloud Architecture,Revision,2.5,85,25.3,72.4,10.6
+2025-02-06,Python Programming,Practice,3.7,100,11.4,71.0,20.1
+2025-02-07,Python Programming,Problem Solving,3.1,72,22.1,74.9,16.5
+2025-02-08,Distributed Systems,Practice,2.2,93,18.9,68.4,10.3
+2025-02-08,Cloud Architecture,Practice,4.2,66,24.4,76.0,24.6
+2025-02-09,Distributed Systems,Practice,1.7,87,25.5,71.9,8.4
+2025-02-10,Python Programming,Practice,2.1,94,11.7,65.9,10.4
+2025-02-11,Distributed Systems,Problem Solving,4.9,76,14.8,73.4,25.6
+2025-02-12,Java,Practice,3.3,60,18.8,58.3,14.9
+2025-02-12,Python Programming,Problem Solving,1.3,64,9.7,40.3,10.7
+2025-02-13,Cloud Architecture,Practice,3.6,83,16.1,65.9,21.6
+2025-02-14,Distributed Systems,Practice,5.2,79,11.7,73.9,25.6
+2025-02-15,Python Programming,Practice,5.6,93,17.6,89.2,31.3
+2025-02-16,Distributed Systems,Practice,2.6,90,17.2,63.0,11.9
+2025-02-16,Python Programming,Practice,5.4,68,19.0,80.9,32.6
+2025-02-17,Quantitative Risk,Theory,1.8,83,16.0,59.1,5.0
+2025-02-18,Cloud Architecture,Problem Solving,3.0,100,13.1,68.4,19.6
+2025-02-19,Java,Practice,2.3,90,17.5,62.5,10.9
+2025-02-20,Distributed Systems,Practice,3.7,86,7.6,65.9,19.7
+2025-02-20,Quantitative Risk,Revision,3.2,86,23.2,76.0,16.4
+2025-02-21,Distributed Systems,Revision,2.6,69,10.1,52.2,13.8
+2025-02-22,Machine Learning,Revision,1.6,88,10.8,54.1,6.7
+2025-02-23,Python Programming,Practice,2.7,69,15.9,56.9,8.2
+2025-02-24,Java,Theory,3.7,82,10.6,66.1,23.0
+2025-02-24,Quantitative Risk,Revision,2.2,68,14.4,53.5,10.5
+2025-02-25,Python Programming,Practice,3.0,82,11.2,58.6,13.0
+2025-02-26,Database Engineering,Revision,2.9,60,22.3,65.7,14.5
+2025-02-27,Distributed Systems,Practice,0.5,71,13.9,49.7,5.0
+2025-02-28,Java,Practice,2.8,79,19.0,64.7,15.6
+2025-02-28,Distributed Systems,Problem Solving,5.3,80,14.7,79.4,26.3
+2025-03-01,Database Engineering,Practice,3.2,82,14.0,60.6,17.3
+2025-03-02,Python Programming,Theory,2.1,94,12.1,64.8,7.4
+2025-03-03,Quantitative Risk,Theory,1.5,86,22.9,57.8,8.8
+2025-03-04,Database Engineering,Practice,0.5,72,24.6,54.5,5.0
+2025-03-04,Cloud Architecture,Revision,0.6,71,24.0,61.1,5.0
+2025-03-05,Cloud Architecture,Revision,1.1,88,12.4,53.2,5.4
+2025-03-06,Machine Learning,Revision,2.8,71,23.4,67.4,15.9
+2025-03-07,Distributed Systems,Practice,4.8,76,8.7,67.0,30.0
+2025-03-08,Java,Practice,1.2,81,19.7,59.2,6.0
+2025-03-08,Python Programming,Revision,1.1,60,22.5,55.2,5.8
+2025-03-09,Python Programming,Practice,3.5,92,17.6,76.7,17.6
+2025-03-10,Machine Learning,Problem Solving,4.6,69,17.9,68.3,22.6
+2025-03-11,Java,Practice,5.5,95,26.1,91.2,28.7
+2025-03-12,Python Programming,Practice,1.8,94,14.5,65.4,10.6
+2025-03-12,Algorithms & Data Structures,Practice,5.7,67,22.8,85.0,27.7
+2025-03-13,Quantitative Risk,Practice,4.3,85,15.4,71.0,20.9
+2025-03-14,Python Programming,Theory,3.7,82,20.4,68.4,17.7
+2025-03-15,Distributed Systems,Practice,4.4,82,17.1,74.0,23.7
+2025-03-16,Machine Learning,Theory,1.3,79,22.5,63.0,5.0
+2025-03-16,Distributed Systems,Practice,3.6,100,11.8,69.5,20.2
+2025-03-17,Distributed Systems,Practice,3.9,75,15.3,69.4,21.1
+2025-03-18,Quantitative Risk,Practice,3.5,80,18.8,68.9,17.8
+2025-03-19,Distributed Systems,Practice,2.3,70,17.8,59.3,13.5
+2025-03-20,Quantitative Risk,Theory,1.8,86,12.4,55.8,10.1
+2025-03-20,Java,Revision,2.2,100,14.7,64.1,12.2
+2025-03-21,Python Programming,Problem Solving,3.5,93,10.2,68.8,19.4
+2025-03-22,Algorithms & Data Structures,Practice,4.3,90,10.8,73.3,22.2
+2025-03-23,Python Programming,Revision,2.2,93,16.1,61.5,10.7
+2025-03-24,Quantitative Risk,Revision,2.6,73,28.9,72.5,16.1
+2025-03-24,Quantitative Risk,Revision,2.0,94,21.8,72.5,9.8
+2025-03-25,Machine Learning,Practice,4.2,79,21.8,81.3,20.0
+2025-03-26,Algorithms & Data Structures,Practice,2.3,76,23.3,67.9,12.0
+2025-03-27,Java,Practice,3.5,60,21.6,64.7,24.7
+2025-03-28,Python Programming,Problem Solving,5.7,80,16.0,82.3,33.0
+2025-03-28,Distributed Systems,Revision,1.6,87,19.0,65.4,5.9
+2025-03-29,Java,Theory,0.5,61,17.2,46.4,5.0
+2025-03-30,Java,Practice,2.8,68,12.9,57.3,15.2
+2025-03-31,Distributed Systems,Practice,3.4,60,17.4,64.7,14.7
+2025-04-01,Machine Learning,Practice,4.6,77,13.0,63.7,24.1
+2025-04-01,Quantitative Risk,Theory,3.7,84,16.4,68.5,19.2
+2025-04-02,Machine Learning,Practice,3.4,82,11.6,67.4,19.0
+2025-04-03,Java,Theory,1.7,74,12.7,45.1,9.8
+2025-04-04,Distributed Systems,Practice,0.9,81,15.7,52.2,5.0
+2025-04-05,Python Programming,Theory,1.2,85,12.1,52.3,8.8
+2025-04-05,Python Programming,Problem Solving,3.8,77,17.8,68.8,19.8
+2025-04-06,Machine Learning,Problem Solving,2.8,80,17.6,62.0,12.5
+2025-04-07,Java,Practice,1.9,83,12.0,57.4,9.9
+2025-04-08,Machine Learning,Theory,0.5,72,18.6,47.2,5.0
+2025-04-09,Java,Practice,2.8,80,14.5,58.6,13.8
+2025-04-09,Database Engineering,Practice,3.5,75,22.4,68.5,19.2
+2025-04-10,Python Programming,Problem Solving,4.5,86,15.5,73.1,25.5
+2025-04-11,Java,Practice,1.6,94,18.4,62.1,7.7
+2025-04-12,Python Programming,Practice,4.3,68,24.5,78.3,24.5
+2025-04-13,Python Programming,Revision,1.7,76,19.0,62.2,6.6
+2025-04-13,Python Programming,Revision,1.8,80,9.5,52.7,7.9
+2025-04-14,Python Programming,Practice,3.0,81,15.4,63.5,14.1
+2025-04-15,Algorithms & Data Structures,Practice,3.6,98,17.2,79.5,15.9
+2025-04-16,Python Programming,Problem Solving,3.4,71,9.1,54.0,20.1
+2025-04-17,Database Engineering,Theory,2.9,84,8.8,55.6,15.7
+2025-04-17,Distributed Systems,Practice,3.4,81,19.2,64.1,17.4
+2025-04-18,Algorithms & Data Structures,Revision,2.7,87,12.5,55.8,13.3
+2025-04-19,Machine Learning,Problem Solving,4.3,95,20.1,83.0,23.1
+2025-04-20,Java,Practice,5.0,72,24.6,80.4,28.7
+2025-04-21,Python Programming,Theory,1.0,67,17.6,52.2,5.0
+2025-04-21,Distributed Systems,Practice,3.1,87,21.2,73.2,19.8
+2025-04-22,Java,Revision,2.3,79,14.8,61.4,12.9
+2025-04-23,Cloud Architecture,Practice,3.9,97,20.9,83.8,20.4
+2025-04-24,Java,Revision,2.4,78,12.6,57.5,14.9
+2025-04-25,Java,Revision,1.8,91,19.2,66.3,8.8
+2025-04-25,Python Programming,Revision,1.1,100,19.4,63.4,5.0
+2025-04-26,Python Programming,Practice,4.4,83,12.8,76.3,23.0
+2025-04-27,Java,Practice,4.0,75,18.3,71.6,17.0
+2025-04-28,Cloud Architecture,Revision,1.8,70,18.2,55.9,10.1
+2025-04-29,Machine Learning,Revision,2.3,87,11.3,62.3,15.2
+2025-04-29,Distributed Systems,Revision,2.3,61,19.3,54.1,15.8
+2025-04-30,Distributed Systems,Practice,2.3,62,20.3,51.8,12.0
+2025-05-01,Machine Learning,Practice,0.9,78,24.7,62.0,5.0
+2025-05-02,Database Engineering,Revision,2.1,68,19.5,49.6,9.7
+2025-05-03,Python Programming,Practice,2.7,88,16.6,62.7,12.1
+2025-05-03,Python Programming,Practice,3.4,81,13.6,63.6,19.1
+2025-05-04,Distributed Systems,Practice,5.6,67,7.2,67.7,27.8
+2025-05-05,Java,Practice,2.8,97,20.5,77.6,11.7
+2025-05-06,Distributed Systems,Revision,1.5,91,19.1,62.7,7.8
+2025-05-07,Algorithms & Data Structures,Revision,1.5,65,18.0,54.7,7.0
+2025-05-07,Cloud Architecture,Revision,2.0,85,12.8,57.8,11.3
+2025-05-08,Cloud Architecture,Practice,3.4,96,18.7,79.0,17.2
+2025-05-09,Cloud Architecture,Problem Solving,2.2,85,11.5,55.7,11.8
+2025-05-10,Cloud Architecture,Practice,3.5,87,13.0,62.8,17.9
+2025-05-11,Cloud Architecture,Practice,2.8,61,14.6,53.8,15.8
+2025-05-11,Distributed Systems,Revision,1.5,95,15.4,63.9,8.0
+2025-05-12,Java,Theory,1.2,96,15.9,60.7,8.7
+2025-05-13,Machine Learning,Problem Solving,2.1,87,13.6,59.6,11.1
+2025-05-14,Java,Practice,4.7,90,16.2,79.2,23.9
+2025-05-15,Quantitative Risk,Practice,4.7,93,12.6,80.8,21.4
+2025-05-15,Distributed Systems,Theory,1.9,63,14.2,45.3,8.7
+2025-05-16,Cloud Architecture,Problem Solving,3.0,85,11.0,58.9,19.2
+2025-05-17,Machine Learning,Practice,2.9,82,21.9,74.8,14.9
+2025-05-18,Database Engineering,Revision,1.8,90,16.5,63.8,12.6
+2025-05-19,Machine Learning,Theory,0.9,55,18.4,44.4,5.0
+2025-05-19,Quantitative Risk,Revision,2.3,82,12.8,60.6,11.5
+2025-05-20,Python Programming,Theory,1.6,82,16.6,58.4,7.8
+2025-05-21,Quantitative Risk,Practice,1.2,79,15.3,56.6,5.0
+2025-05-22,Distributed Systems,Practice,2.7,72,15.6,61.0,14.0
+2025-05-23,Python Programming,Problem Solving,3.5,100,14.8,74.9,17.2
+2025-05-23,Java,Practice,2.7,85,28.2,75.2,13.2
+2025-05-24,Machine Learning,Practice,3.1,85,17.8,73.0,11.3
+2025-05-25,Distributed Systems,Practice,4.4,66,3.0,55.8,23.4
+2025-05-26,Java,Practice,2.0,83,13.4,59.3,5.0
+2025-05-27,Java,Practice,2.9,76,20.5,61.6,15.2
+2025-05-27,Python Programming,Practice,3.8,100,14.1,76.4,16.2
+2025-05-28,Distributed Systems,Practice,3.2,93,9.6,66.3,20.4
+2025-05-29,Distributed Systems,Problem Solving,3.7,66,23.3,68.2,20.2
+2025-05-30,Java,Practice,4.8,78,23.8,81.6,21.3
+2025-05-31,Machine Learning,Practice,4.2,82,8.8,65.6,26.2
+2025-05-31,Distributed Systems,Problem Solving,4.4,84,17.5,72.0,23.3
+2025-06-01,Machine Learning,Practice,4.3,81,12.1,71.6,21.8
+2025-06-02,Java,Problem Solving,4.0,79,16.2,71.3,21.4
+2025-06-03,Cloud Architecture,Practice,1.0,80,13.9,47.4,5.0
+2025-06-04,Distributed Systems,Practice,2.5,72,16.2,60.1,17.2
+2025-06-04,Database Engineering,Practice,1.5,93,21.4,64.7,8.2
+2025-06-05,Cloud Architecture,Practice,4.9,88,19.0,80.3,22.5
+2025-06-06,Python Programming,Problem Solving,3.0,94,8.9,59.8,15.9
+2025-06-07,Java,Practice,2.7,68,11.6,56.0,11.4
+2025-06-08,Database Engineering,Problem Solving,1.4,75,20.2,57.3,6.4
+2025-06-08,Java,Revision,2.5,85,14.5,64.6,10.7
+2025-06-09,Python Programming,Revision,3.0,81,16.0,67.8,13.4
+2025-06-10,Machine Learning,Practice,2.5,91,25.0,74.2,14.4
+2025-06-11,Cloud Architecture,Problem Solving,1.9,86,13.3,53.2,10.9
+2025-06-12,Distributed Systems,Practice,4.2,83,26.2,86.0,20.5
+2025-06-12,Java,Revision,2.1,72,13.7,47.4,11.0
+2025-06-13,Java,Revision,2.4,89,17.6,64.8,13.7
+2025-06-14,Python Programming,Revision,2.6,84,22.5,68.0,17.7
+2025-06-15,Distributed Systems,Practice,2.5,84,7.8,53.8,10.8
+2025-06-16,Cloud Architecture,Theory,2.2,58,26.7,61.2,9.9
+2025-06-16,Quantitative Risk,Theory,1.6,83,13.5,53.1,6.9
+2025-06-17,Algorithms & Data Structures,Revision,1.0,87,20.6,61.6,5.0
+2025-06-18,Java,Revision,1.4,72,21.9,60.9,8.3
+2025-06-19,Cloud Architecture,Practice,4.4,80,20.7,77.0,22.1
+2025-06-20,Quantitative Risk,Revision,1.6,81,11.2,44.5,8.7
+2025-06-20,Java,Revision,2.6,78,5.4,54.4,11.3
+2025-06-21,Cloud Architecture,Revision,1.4,70,18.3,51.1,7.5
+2025-06-22,Quantitative Risk,Problem Solving,2.7,64,5.3,46.4,12.9
+2025-06-23,Quantitative Risk,Practice,4.5,79,14.8,73.1,20.7
+2025-06-24,Python Programming,Problem Solving,3.4,87,19.9,67.6,16.2
+2025-06-24,Distributed Systems,Practice,3.7,96,14.0,71.6,21.5
+2025-06-25,Python Programming,Practice,3.5,94,17.9,71.6,15.5
+2025-06-26,Cloud Architecture,Practice,4.5,100,20.7,89.4,22.2
+2025-06-27,Python Programming,Practice,1.9,90,18.6,65.6,10.7
+2025-06-28,Python Programming,Practice,3.6,94,23.0,82.4,20.4
+2025-06-28,Python Programming,Theory,2.5,77,20.3,58.8,15.1
+2025-06-29,Database Engineering,Practice,1.9,84,12.3,58.2,9.8
+2025-06-30,Algorithms & Data Structures,Practice,1.4,86,13.6,58.5,7.3
+2025-07-01,Python Programming,Revision,1.6,77,20.8,65.0,6.7
+2025-07-02,Distributed Systems,Practice,4.4,72,9.7,58.4,23.7
+2025-07-02,Algorithms & Data Structures,Practice,4.0,84,19.8,75.6,18.4
+2025-07-03,Python Programming,Practice,4.4,80,11.9,67.3,23.6
+2025-07-04,Python Programming,Revision,1.7,92,19.0,71.0,11.2
+2025-07-05,Cloud Architecture,Practice,4.5,81,13.7,71.8,25.3
+2025-07-06,Quantitative Risk,Problem Solving,3.8,73,20.2,68.4,20.2
+2025-07-06,Algorithms & Data Structures,Practice,2.9,71,26.2,65.4,13.9
+2025-07-07,Machine Learning,Problem Solving,3.6,87,16.0,70.4,19.5
+2025-07-08,Cloud Architecture,Theory,1.9,90,11.7,56.5,9.3
+2025-07-09,Cloud Architecture,Practice,2.6,88,11.1,66.0,11.7
+2025-07-10,Python Programming,Problem Solving,3.4,89,13.6,70.5,15.2
+2025-07-10,Database Engineering,Problem Solving,4.8,82,13.5,71.8,26.6
+2025-07-11,Java,Practice,2.6,70,25.6,66.5,15.2
+2025-07-12,Python Programming,Practice,3.4,72,16.5,66.7,17.3
+2025-07-13,Machine Learning,Theory,3.1,77,11.1,54.8,16.5
+2025-07-14,Java,Revision,2.1,83,15.1,63.2,11.8
+2025-07-14,Quantitative Risk,Practice,4.6,98,23.1,84.8,23.4
+2025-07-15,Python Programming,Practice,2.8,86,19.9,67.5,14.7
+2025-07-16,Python Programming,Problem Solving,1.0,96,13.9,58.0,5.0
+2025-07-17,Distributed Systems,Revision,2.1,80,14.2,62.4,9.1
+2025-07-18,Machine Learning,Revision,2.7,75,12.8,60.3,14.9
+2025-07-18,Distributed Systems,Practice,3.6,90,13.1,60.5,19.8
+2025-07-19,Java,Problem Solving,1.9,61,3.0,40.3,10.1
+2025-07-20,Machine Learning,Revision,2.6,98,9.5,62.2,10.3
+2025-07-21,Algorithms & Data Structures,Practice,2.9,82,19.6,70.8,19.4
+2025-07-22,Python Programming,Practice,3.5,73,23.9,71.9,17.1
+2025-07-22,Distributed Systems,Problem Solving,2.7,75,24.8,67.1,14.1
+2025-07-23,Database Engineering,Revision,2.6,65,18.9,55.4,15.2
+2025-07-24,Machine Learning,Revision,1.3,90,17.8,59.9,5.6
+2025-07-25,Java,Problem Solving,4.8,75,11.3,69.7,23.4
+2025-07-26,Distributed Systems,Practice,2.2,81,17.7,65.3,12.5
+2025-07-26,Python Programming,Practice,3.8,94,17.1,74.6,17.8
+2025-07-27,Machine Learning,Theory,0.9,87,15.9,59.2,5.0
+2025-07-28,Distributed Systems,Problem Solving,2.5,87,18.5,68.1,13.2
+2025-07-29,Python Programming,Practice,3.2,100,22.4,82.5,16.9
+2025-07-30,Cloud Architecture,Theory,2.1,78,16.1,47.8,11.3
+2025-07-30,Distributed Systems,Theory,1.7,70,16.3,49.2,9.8
+2025-07-31,Quantitative Risk,Revision,1.5,82,9.7,52.5,8.8
+2025-08-01,Database Engineering,Revision,2.5,98,15.1,67.8,10.8
+2025-08-02,Distributed Systems,Practice,4.4,79,15.3,70.3,21.8
+2025-08-03,Cloud Architecture,Practice,3.5,75,20.1,65.9,19.5
+2025-08-03,Machine Learning,Problem Solving,2.1,84,10.6,55.0,13.0
+2025-08-04,Python Programming,Revision,2.7,88,16.6,59.0,15.6
+2025-08-05,Quantitative Risk,Revision,1.2,50,17.9,45.1,5.0
+2025-08-06,Distributed Systems,Revision,1.3,89,13.2,49.4,6.4
+2025-08-07,Python Programming,Practice,3.1,84,15.7,62.9,17.1
+2025-08-07,Cloud Architecture,Practice,1.1,87,16.2,53.0,5.0
+2025-08-08,Java,Revision,1.5,88,23.6,65.4,9.3
+2025-08-09,Python Programming,Theory,0.6,85,15.3,56.1,5.0
+2025-08-10,Java,Problem Solving,3.0,80,12.3,60.8,15.5
+2025-08-11,Algorithms & Data Structures,Revision,2.3,91,11.2,62.3,9.6
+2025-08-11,Python Programming,Practice,3.8,88,6.9,63.7,18.8
+2025-08-12,Java,Theory,1.5,73,16.9,55.3,7.5
+2025-08-13,Cloud Architecture,Theory,0.5,76,13.7,47.9,5.0
+2025-08-14,Cloud Architecture,Problem Solving,6.0,93,28.2,99.0,33.1
+2025-08-15,Python Programming,Theory,1.7,73,13.1,46.3,8.7
+2025-08-15,Distributed Systems,Problem Solving,1.3,83,13.9,63.5,9.5
+2025-08-16,Cloud Architecture,Practice,2.5,71,9.8,53.5,11.6
+2025-08-17,Python Programming,Practice,4.3,91,23.4,81.3,23.3
+2025-08-18,Java,Theory,1.5,98,17.6,65.8,6.2
+2025-08-19,Distributed Systems,Practice,1.9,71,16.5,50.5,7.6
+2025-08-19,Machine Learning,Theory,1.8,71,11.4,47.2,10.6
+2025-08-20,Python Programming,Practice,4.2,84,12.4,68.0,24.5
+2025-08-21,Cloud Architecture,Problem Solving,1.8,84,21.8,64.2,12.1
+2025-08-22,Quantitative Risk,Problem Solving,4.6,98,18.0,84.3,26.7
+2025-08-23,Python Programming,Theory,1.7,84,10.0,51.2,11.0
+2025-08-23,Cloud Architecture,Revision,0.5,77,19.2,52.6,5.1
+2025-08-24,Database Engineering,Practice,4.3,67,19.4,69.7,22.5
+2025-08-25,Cloud Architecture,Revision,1.5,74,9.8,46.1,8.7
+2025-08-26,Quantitative Risk,Revision,2.7,91,18.1,64.5,13.6
+2025-08-27,Database Engineering,Revision,2.9,78,11.4,57.5,15.7
+2025-08-27,Quantitative Risk,Problem Solving,2.5,79,11.8,60.5,12.4
+2025-08-28,Distributed Systems,Theory,3.3,71,6.1,45.8,14.4
+2025-08-29,Distributed Systems,Theory,2.4,59,10.5,48.2,13.1
+2025-08-30,Machine Learning,Revision,2.0,79,16.8,59.5,15.2
+2025-08-31,Distributed Systems,Practice,3.1,87,13.2,65.2,17.5
+2025-08-31,Java,Theory,4.6,77,14.2,61.5,23.3
+2025-09-01,Java,Revision,2.9,86,12.8,62.0,18.3
+2025-09-02,Python Programming,Revision,2.7,82,13.9,54.6,18.1
+2025-09-03,Algorithms & Data Structures,Revision,2.1,74,15.6,51.4,15.5
+2025-09-04,Java,Practice,1.8,94,16.6,60.6,11.9
+2025-09-04,Algorithms & Data Structures,Problem Solving,4.0,87,20.1,84.1,25.2
+2025-09-05,Cloud Architecture,Theory,1.6,86,8.0,49.5,6.7
+2025-09-06,Machine Learning,Revision,0.5,81,22.1,56.6,5.0
+2025-09-07,Python Programming,Problem Solving,3.6,69,10.9,60.4,18.8
+2025-09-08,Python Programming,Practice,2.9,92,14.8,63.8,16.6
+2025-09-08,Machine Learning,Revision,1.9,81,17.9,56.7,9.4
+2025-09-09,Algorithms & Data Structures,Theory,2.6,66,17.5,56.6,13.6
+2025-09-10,Machine Learning,Revision,2.9,72,17.2,61.5,12.9
+2025-09-11,Java,Practice,4.3,100,16.4,82.0,22.5
+2025-09-12,Quantitative Risk,Problem Solving,2.4,63,13.0,47.2,15.9
+2025-09-12,Python Programming,Practice,4.2,70,12.7,64.4,23.9
+2025-09-13,Cloud Architecture,Problem Solving,3.8,86,17.5,69.7,19.9
+2025-09-14,Distributed Systems,Practice,2.7,100,16.3,67.2,13.8
+2025-09-15,Distributed Systems,Revision,2.5,66,20.6,56.0,12.1
+2025-09-16,Database Engineering,Practice,2.9,81,19.9,66.5,14.5
+2025-09-16,Python Programming,Theory,2.1,83,17.0,61.5,12.6
+2025-09-17,Python Programming,Theory,2.4,86,8.6,54.6,13.4
+2025-09-18,Database Engineering,Practice,4.0,75,13.2,63.9,21.9
+2025-09-19,Python Programming,Problem Solving,4.3,77,21.0,75.8,22.1
+2025-09-20,Cloud Architecture,Problem Solving,3.0,100,12.2,70.3,14.5
+2025-09-20,Database Engineering,Practice,2.2,81,17.2,70.7,11.1
+2025-09-21,Java,Revision,1.2,81,16.6,57.7,8.2
+2025-09-22,Java,Practice,2.4,70,18.0,55.6,11.7
+2025-09-23,Cloud Architecture,Revision,1.3,68,7.2,40.9,6.8
+2025-09-24,Python Programming,Problem Solving,3.4,77,15.5,66.1,19.8
+2025-09-24,Quantitative Risk,Problem Solving,1.0,78,17.6,51.5,8.7
+2025-09-25,Distributed Systems,Practice,3.8,76,7.3,57.7,21.8
+2025-09-26,Machine Learning,Practice,2.8,78,13.9,61.2,16.1
+2025-09-27,Distributed Systems,Revision,3.0,76,11.4,57.7,15.8
+2025-09-28,Algorithms & Data Structures,Practice,2.0,85,19.0,65.1,9.4
+2025-09-28,Python Programming,Practice,5.2,82,15.4,74.5,32.9
+2025-09-29,Machine Learning,Practice,2.0,88,21.3,73.1,11.4
+2025-09-30,Distributed Systems,Practice,3.5,100,9.5,72.7,18.6
+2025-10-01,Python Programming,Revision,2.8,89,19.8,73.0,14.5
+2025-10-02,Java,Practice,4.1,86,11.7,67.4,20.4
+2025-10-02,Java,Practice,1.6,77,12.8,47.7,12.4
+2025-10-03,Java,Theory,2.3,86,22.5,65.4,14.1
+2025-10-04,Java,Practice,2.6,68,20.1,65.7,18.7
+2025-10-05,Cloud Architecture,Practice,2.7,89,9.1,56.0,12.5
+2025-10-06,Machine Learning,Practice,3.3,92,19.5,79.6,18.0
+2025-10-06,Cloud Architecture,Practice,2.5,91,24.4,76.2,10.0
+2025-10-07,Distributed Systems,Theory,1.4,82,20.3,61.8,7.8
+2025-10-08,Python Programming,Practice,4.1,87,15.2,76.2,21.1
+2025-10-09,Java,Practice,2.3,79,22.7,64.8,12.3
+2025-10-10,Java,Practice,1.5,79,15.5,57.1,8.2
+2025-10-10,Algorithms & Data Structures,Practice,1.9,92,17.6,65.6,9.9
+2025-10-11,Cloud Architecture,Practice,3.7,64,13.8,59.4,19.8
+2025-10-12,Database Engineering,Practice,4.5,74,14.0,67.3,21.8
+2025-10-13,Machine Learning,Problem Solving,2.8,89,11.2,63.5,11.2
+2025-10-14,Machine Learning,Revision,1.7,79,5.5,40.0,8.9
+2025-10-14,Machine Learning,Problem Solving,3.4,93,13.8,72.4,14.4
+2025-10-15,Distributed Systems,Practice,2.2,81,17.1,62.0,9.6
+2025-10-16,Python Programming,Practice,3.0,67,23.3,66.0,14.6
+2025-10-17,Java,Practice,4.9,71,16.2,73.3,27.0
+2025-10-18,Distributed Systems,Revision,2.6,76,13.6,55.8,11.7
+2025-10-18,Algorithms & Data Structures,Practice,5.1,90,16.6,85.2,23.5
+2025-10-19,Python Programming,Problem Solving,1.7,60,13.0,46.8,9.0
+2025-10-20,Python Programming,Practice,3.4,67,20.5,67.1,19.1
+2025-10-21,Python Programming,Problem Solving,1.1,85,10.6,49.5,6.8
+2025-10-22,Distributed Systems,Practice,3.3,66,22.3,66.6,19.4
+2025-10-22,Python Programming,Practice,2.4,90,13.0,64.4,11.7
+2025-10-23,Algorithms & Data Structures,Problem Solving,1.0,76,10.6,46.6,5.0
+2025-10-24,Distributed Systems,Problem Solving,3.0,88,21.3,72.9,14.1
+2025-10-25,Java,Practice,1.2,83,14.8,56.8,5.0
+2025-10-26,Quantitative Risk,Revision,2.4,81,13.5,56.6,10.8
+2025-10-26,Java,Problem Solving,2.6,68,25.3,67.8,10.7
+2025-10-27,Cloud Architecture,Practice,5.1,70,21.4,82.2,25.3
+2025-10-28,Distributed Systems,Practice,2.9,81,19.8,71.7,13.6
+2025-10-29,Distributed Systems,Practice,3.5,84,14.9,68.5,21.2
+2025-10-30,Python Programming,Practice,3.6,80,24.7,76.3,18.7
+2025-10-30,Machine Learning,Practice,5.4,86,16.9,81.7,23.3
+2025-10-31,Database Engineering,Revision,2.7,74,14.6,57.1,16.1
+2025-11-01,Cloud Architecture,Revision,2.4,69,15.9,54.1,8.1
+2025-11-02,Machine Learning,Theory,3.4,83,9.6,57.5,19.4
+2025-11-03,Distributed Systems,Revision,1.9,80,17.2,61.4,11.2
+2025-11-03,Java,Revision,2.3,87,19.6,62.8,9.0
+2025-11-04,Distributed Systems,Practice,2.4,75,20.3,61.9,10.8
+2025-11-05,Distributed Systems,Theory,1.6,80,15.9,59.4,6.8
+2025-11-06,Cloud Architecture,Theory,2.0,100,11.2,59.6,7.9
+2025-11-07,Cloud Architecture,Revision,2.9,94,15.5,67.2,11.7
+2025-11-07,Distributed Systems,Revision,1.7,95,11.6,59.7,8.5
+2025-11-08,Machine Learning,Practice,3.9,81,9.2,63.7,22.4
+2025-11-09,Algorithms & Data Structures,Revision,1.3,81,13.4,54.9,6.8
+2025-11-10,Cloud Architecture,Theory,2.7,84,11.5,57.9,13.0
+2025-11-11,Python Programming,Practice,2.1,62,13.2,50.3,8.2
+2025-11-11,Cloud Architecture,Revision,2.1,98,18.5,72.2,9.5
+2025-11-12,Distributed Systems,Revision,3.0,97,13.7,67.5,14.1
+2025-11-13,Java,Revision,2.4,86,15.1,62.4,13.4
+2025-11-14,Java,Practice,3.0,91,18.6,72.5,13.1
+2025-11-15,Distributed Systems,Problem Solving,2.8,88,25.3,79.0,14.7
+2025-11-15,Distributed Systems,Revision,2.0,78,18.5,59.7,9.8
+2025-11-16,Cloud Architecture,Practice,1.2,99,16.0,63.3,8.1
+2025-11-17,Cloud Architecture,Practice,2.4,90,17.3,67.6,10.9
+2025-11-18,Distributed Systems,Revision,2.7,78,17.7,65.4,12.9
+2025-11-19,Distributed Systems,Revision,2.7,64,13.5,58.0,16.9
+2025-11-19,Machine Learning,Practice,4.2,80,22.1,75.0,20.2
+2025-11-20,Distributed Systems,Problem Solving,4.7,75,16.2,69.3,24.5
+2025-11-21,Java,Practice,1.6,88,20.1,59.1,11.0
+2025-11-22,Distributed Systems,Revision,1.6,100,9.9,58.4,8.7
+2025-11-23,Python Programming,Theory,3.2,72,14.8,55.8,16.7
+2025-11-23,Algorithms & Data Structures,Practice,2.6,67,22.8,62.7,11.0
+2025-11-24,Java,Revision,2.0,85,11.3,60.9,11.4
+2025-11-25,Algorithms & Data Structures,Problem Solving,2.8,74,16.0,62.8,14.5
+2025-11-26,Python Programming,Revision,1.9,78,6.1,50.2,10.5
+2025-11-27,Cloud Architecture,Revision,2.2,71,20.8,61.9,12.2
+2025-11-27,Quantitative Risk,Problem Solving,2.7,86,15.2,66.1,10.2
+2025-11-28,Python Programming,Practice,2.7,99,12.7,65.6,13.1
+2025-11-29,Distributed Systems,Practice,1.9,83,16.2,59.6,10.0
+2025-11-30,Distributed Systems,Problem Solving,2.6,79,19.4,69.5,12.3
+2025-12-01,Python Programming,Revision,2.2,82,9.2,48.2,12.2
+2025-12-01,Algorithms & Data Structures,Theory,1.8,84,16.4,55.6,9.3
+2025-12-02,Java,Revision,1.1,80,11.3,50.8,5.1
+2025-12-03,Python Programming,Problem Solving,2.6,90,16.6,68.4,11.6
+2025-12-04,Python Programming,Problem Solving,1.7,83,14.9,59.3,8.7
+2025-12-05,Java,Revision,3.6,80,20.0,68.4,19.3
+2025-12-05,Python Programming,Theory,1.1,82,20.0,54.3,5.0
+2025-12-06,Python Programming,Practice,3.7,100,15.8,78.3,19.0
+2025-12-07,Distributed Systems,Practice,5.3,65,4.0,60.6,27.8
+2025-12-08,Java,Practice,6.6,79,19.1,82.4,34.9
+2025-12-09,Machine Learning,Revision,1.9,93,17.2,57.5,9.2
+2025-12-09,Distributed Systems,Revision,3.0,96,17.6,69.2,10.7
+2025-12-10,Cloud Architecture,Practice,4.0,69,15.2,65.3,21.3
+2025-12-11,Cloud Architecture,Practice,2.5,65,16.0,56.1,13.3
+2025-12-12,Java,Practice,4.7,70,20.6,75.5,23.6
+2025-12-13,Cloud Architecture,Practice,1.8,76,18.3,55.2,6.4
+2025-12-13,Java,Theory,0.5,100,11.5,51.1,5.0
+2025-12-14,Python Programming,Revision,2.6,72,9.6,46.7,9.1
+2025-12-15,Python Programming,Practice,2.6,94,22.6,73.8,9.9
+2025-12-16,Python Programming,Practice,2.5,75,13.2,56.0,11.7
+2025-12-17,Python Programming,Revision,2.3,94,11.6,56.4,12.7
+2025-12-17,Cloud Architecture,Practice,0.6,95,19.9,56.8,5.0
+2025-12-18,Java,Practice,5.0,59,14.7,65.6,27.4
+2025-12-19,Java,Practice,3.7,92,8.6,69.4,19.3
+2025-12-20,Java,Revision,3.0,80,21.8,66.9,14.8
